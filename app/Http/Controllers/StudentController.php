@@ -40,7 +40,7 @@ class StudentController extends Controller
             'year'=>$request->year,
             'gender'=>$request->gender,
             'birthday'=>$request->birthday,
-//            'contact'=>$request->contact,
+            'contact'=>$request->contact,
         ]);
 
         if(is_null($student))
