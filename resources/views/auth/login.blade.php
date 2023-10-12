@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-    <title>Portal - Bootstrap 5 Admin Dashboard Template For Developers</title>
+    <title>Isu-eHealthmate</title>
 
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="Portal - Bootstrap 5 Admin Dashboard Template For Developers">
+    <meta name="description" content="Isu-eHealthmate">
     <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
     <link rel="shortcut icon" href="favicon.ico">
 
@@ -26,8 +26,8 @@
         <div class="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
             <div class="d-flex flex-column align-content-end">
                 <div class="app-auth-body mx-auto">
-                    <div class="app-auth-branding mb-4"><a class="app-logo" href="index.html"><img class="logo-icon me-2" src="assets/images/app-logo.svg" alt="logo"></a></div>
-                    <h2 class="auth-heading text-center mb-5">Log in to Portal</h2>
+                    <div class="app-auth-branding mb-4"><a class="app-logo" href="login.html"><img class="logo-icon me-2" src="assets\images\isu-logo.png" alt="logo"></a></div>
+                    <h2 class="auth-heading text-center mb-5">Log in to eHealthmate</h2>
                     <div class="auth-form-container text-start">
                         <form class="auth-form login-form" method="POST" action="{{route('login')}}">
                             @csrf
@@ -54,7 +54,7 @@
                                     </div><!--//col-6-->
                                     <div class="col-6">
                                         <div class="forgot-password text-end">
-                                            <a href="reset-password.html">Forgot password?</a>
+                                            <!-- <a href="reset-password.html">Forgot password?</a> -->
                                         </div>
                                     </div><!--//col-6-->
                                 </div><!--//extra-->
@@ -64,7 +64,7 @@
                             </div>
                         </form>
 
-                        <div class="auth-option text-center pt-5">No Account? Sign up <a class="text-link" href="signup.html">here</a>.</div>
+                        <!-- <div class="auth-option text-center pt-5">No Account? Sign up <a class="text-link" href="signup.html">here</a>.</div> -->
                     </div><!--//auth-form-container-->
 
                 </div><!--//auth-body-->
