@@ -43,6 +43,14 @@ Route::middleware(['auth'])->group(function (){
     Route::post('/consultation', [\App\Http\Controllers\ConsultationController::class, 'store'])->name('storeConsult');
     Route::delete('/consultation/delete', [\App\Http\Controllers\ConsultationController::class, 'delete'])->name('deleteConsultation');
     Route::post('/consultation/edit',[\App\Http\Controllers\ConsultationController::class, 'editConsultation'])->name('editConsultation');
+
+    Route::get('/user/api/datatableUser',[\App\Http\Controllers\UserController::class, 'datatable'])->name('datatableUser');
+    Route::post('/user',[\App\Http\Controllers\UserController::class, 'store'])->name('storeUser');
+    Route::delete('/user/delete',[\App\Http\Controllers\UserController::class, 'deleteUser'])->name('deleteUser');
+    Route::post('/user/edit', [\App\Http\Controllers\UserController::class, 'editUser'])->name('editUser');
+
+    Route::get('/consultation/statusApprove', [\App\Http\Controllers\ConsultationController::class, 'statusApprove'])->name('statusApprove');
+    Route::get('/consultation/statusDisapprove', [\App\Http\Controllers\ConsultationController::class, 'statusDisapprove'])->name('statusDisapprove');
 });
 
 

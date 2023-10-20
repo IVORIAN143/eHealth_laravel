@@ -89,6 +89,7 @@
                                 <th class="cell">ID</th>
                                 <th class="cell">Eqiupment</th>
                                 <th class="cell">Description</th>
+                                <th class="cell">Quantity</th>
                                 <th class="cell">Actions</th>
                             </tr>
                             </thead>
@@ -102,7 +103,7 @@
 
 
     <div class="modal fade" id="addmedicneModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="importModalLabel">Medicine</h5>
@@ -115,30 +116,30 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="name">Medicine Name</label>
-                            <input value="{{old('med_name')}}" type="text" name="med_name">
+                            <input value="{{old('med_name')}}" type="text" name="med_name" class="form-control">
                             @error('med_name')
-                            {{$message}}
+                            <span class="error-message">{{$message}}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="name">Description</label>
-                            <input value="{{old('description')}}" type="text" name="description">
+                            <input value="{{old('description')}}"  type="text" name="description" class="form-control">
                             @error('description')
-                            {{$message}}
+                            <span class="error-message">{{$message}}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="name">Quantity</label>
-                            <input value="{{old('quantity')}}" type="text" name="quantity">
+                            <input value="{{old('quantity')}}" type="text" name="quantity" class="form-control">
                             @error('quantity')
-                            {{$message}}
+                            <span class="error-message">{{$message}}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Expirtation</label>
-                            <input value="{{old('expiration')}}" type="date" name="expiration">
+                            <label for="name">Expiration</label>
+                            <input value="{{old('expiration')}}" type="date" name="expiration" class="form-control">
                             @error('expiration')
-                            {{$message}}
+                            <span class="error-message">{{$message}}</span>
                             @enderror
                         </div>
                     </div>
@@ -150,8 +151,9 @@
             </div>
         </div>
     </div>
+
     <div class="modal fade" id="editmedicneModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="importModalLabel">Medicine</h5>
@@ -159,38 +161,38 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{route('editmedicine')}}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('editmedicine') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
-                        <div hidden class="form-group">
-                            <input id="Edit_id" value="{{old('med_name')}}" type="text" name="id">
+                        <div class="form-group">
+                            <input hidden id="Edit_id" value="{{ old('med_name') }}" type="text" name="id">
                         </div>
                         <div class="form-group">
-                            <label for="name">Medicine Name</label>
-                            <input id="Edit_med_name" value="{{old('med_name')}}" type="text" name="med_name">
+                            <label for="Edit_med_name">Medicine Name</label>
+                            <input id="Edit_med_name" value="{{ old('med_name') }}" type="text" name="med_name" class="form-control">
                             @error('med_name')
-                            {{$message}}
+                            <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Description</label>
-                            <input id="Edit_description" value="{{old('description')}}" type="text" name="description">
+                            <label for="Edit_description">Description</label>
+                            <input id="Edit_description" value="{{ old('description') }}" type="text" name="description" class="form-control">
                             @error('description')
-                            {{$message}}
+                            <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Quantity</label>
-                            <input id="Edit_quantity" value="{{old('quantity')}}" type="text" name="quantity">
+                            <label for="Edit_quantity">Quantity</label>
+                            <input id="Edit_quantity" value="{{ old('quantity') }}" type="text" name="quantity" class="form-control">
                             @error('quantity')
-                            {{$message}}
+                            <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Expirtation</label>
-                            <input id="Edit_expiration" value="{{old('expiration')}}" type="date" name="expiration">
+                            <label for="Edit_expiration">Expiration</label>
+                            <input id="Edit_expiration" value="{{ old('expiration') }}" type="date" name="expiration" class="form-control">
                             @error('expiration')
-                            {{$message}}
+                            <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
@@ -204,9 +206,10 @@
     </div>
 
 
-{{--    MODAL EQUIPMENTS--}}
+
+    {{--    MODAL EQUIPMENTS--}}
     <div class="modal fade" id="addequipModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="importModalLabel">Equipments</h5>
@@ -214,21 +217,28 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{route('storeequipment')}}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('storeequipment') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="name">Equipment Name</label>
-                            <input value="{{old('equipname')}}" type="text" name="equipname">
+                            <label for="equipname">Equipment Name</label>
+                            <input value="{{ old('equipname') }}" type="text" name="equipname" class="form-control">
                             @error('equipname')
-                            {{$message}}
+                            <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Description</label>
-                            <input value="{{old('description')}}" type="text" name="description">
+                            <label for="equip_quantity">Quantity</label>
+                            <input value="{{old('equip_quantity')}}" type="text" name="equip_quantity" class="form-control">
+                            @error('equip_quantity')
+                            <span class="error-message">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input value="{{ old('description') }}" type="text" name="description" class="form-control">
                             @error('description')
-                            {{$message}}
+                            <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
@@ -241,7 +251,7 @@
         </div>
     </div>
     <div class="modal fade" id="editequipmentsModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="importModalLabel">Equipments</h5>
@@ -249,24 +259,31 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{route('editequipments')}}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('editequipments') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
-                        <div  class="form-group">
-                            <input id="Edit_id_equip" type="text" name="id">
+                        <div class="form-group">
+                            <input hidden id="Edit_id_equip" type="text" name="id">
                         </div>
                         <div class="form-group">
-                            <label for="name">Equipment Name</label>
-                            <input id="Edit_equipname" value="{{old('equipname')}}" type="text" name="equipname">
+                            <label for="Edit_equipname">Equipment Name</label>
+                            <input id="Edit_equipname" value="{{ old('equipname') }}" type="text" name="equipname" class="form-control">
                             @error('equipname')
-                            {{$message}}
+                            <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Description</label>
-                            <input id="Edit_equipdescription" value="{{old('descriptio')}}" type="text" name="descriptio">
-                            @error('description')
-                            {{$message}}
+                            <label for="Edit_equip_quantity">Quantity</label>
+                            <input value="{{old('Edit_equip_quantity')}}" type="text" name="Edit_equip_quantity" class="form-control">
+                            @error('Edit_equip_quantity')
+                            <span class="error-message">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="Edit_equipdescription">Description</label>
+                            <input id="Edit_equipdescription" value="{{ old('descriptio') }}" type="text" name="descriptio" class="form-control">
+                            @error('descriptio')
+                            <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
@@ -297,7 +314,18 @@
                     { data: 'description', name: 'description' },
                     { data: 'expiration', name: 'expiration' },
                     { data: 'quantity', name: 'quantity'},
-
+                    { data: 'Actions', name: 'Actions' },
+                ]
+            });
+            $('#equipmentTable').DataTable({
+                processing: true,
+                serverSide: false,
+                ajax: '{{ route('datatableequip') }}',
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'equipname', name: 'equipname' },
+                    { data: 'descriptio', name: 'description' },
+                    { data: 'equip_quantity', name: 'equip_quantity'},
                     { data: 'Actions', name: 'Actions' },
                 ]
             });
@@ -309,31 +337,16 @@
             $('#Edit_med_name').val(name);
             $('#Edit_description').val(description);
             $('#Edit_expiration').val(expiration);
-            $('#Edit_quantity').val(quantity);
+            $('#Edit_equip_quantity').val(quantity);
             $('#editmedicneModal').modal('show');
         }
 
-
-        // FOR EQUIPMENT
-        $(function() {
-            $('#equipmentTable').DataTable({
-                processing: true,
-                serverSide: false,
-                ajax: '{{ route('datatableequip') }}',
-                columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'equipname', name: 'equipname' },
-                    { data: 'descriptio', name: 'description' },
-                    { data: 'Actions', name: 'Actions' },
-                ]
-            });
-        });
-
-        function ShowModalequip(id, name, description)
+        function ShowModalequip(id, name, description, quantity)
         {
             $('#Edit_id_equip').val(id);
             $('#Edit_equipname').val(name);
             $('#Edit_equipdescription').val(description);
+            $('#Edit_equip_quantity').val(quantity);
             $('#editequipmentsModal').modal('show');
         }
 

@@ -13,5 +13,6 @@ class equipment extends Model
     protected $fillable = [
         'equipname',
         'descriptio',
+        'equip_quantity',
     ];
 }

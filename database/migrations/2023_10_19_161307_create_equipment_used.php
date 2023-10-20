@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('medicine_used', function (Blueprint $table) {
+        Schema::create('equipment_used', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('fk_med_id')->references('id')->on('medicine')->onDelete('cascade');
-            $table->foreignId('fk_consultation_id')->references('id')->on('consultation')->onDelete('cascade')->onUpdate('cascade');
-           $table->integer('quantity')->nullable();
+            $table->foreignId('fk_equip_id')->references('id')->on('equipment')->onDelete('cascade');
+            $table->foreignId('fk_consultation_id')->references('id')->on('consultation')->onDelete('cascade');
+            $table->integer('equip_quantity')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('medicine_used');
+        Schema::dropIfExists('equipment_used');
     }
 };

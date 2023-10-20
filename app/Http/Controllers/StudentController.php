@@ -18,29 +18,69 @@ class StudentController extends Controller
     }
 
     public function store(Request $request){
+//        dd($request);
+$validated = $request->validate([
+    'fad_allergy' => 'required',
+    'student_id' => 'required|max:8',
+    'contact' => 'required',
+    'lastname' => 'required',
+    'firstname' => 'required',
+    'middlename' => 'required',
+    'sex' => 'required',
+    'dateOfBirth' => 'required',
+    'course' => 'required',
+    'year' => 'required',
+    'homeAddress' => 'required',
+    'parentAddress' => 'required',
+    'parentName' => 'required',
+    'relationship' => 'required',
+    'parentNumber' => 'required',
+    'height' => 'required',
+    'weight' => 'required',
+    'recieveVaccine' => 'required',
+    'infectedCovid' => 'required',
+    'semester' => 'required',
+    'schoolYear'=> 'required',
 
-        $validated = $request->validate([
-            'student_id'=> 'required|max:8',
-            'firstname' => 'required',
-            'middlename' => 'required',
-            'lastname' => 'required',
-            'course' => 'required',
-            'year' => 'required',
-            'gender' => "required",
-            'birthday' => 'required',
-            'contact' => 'required|integer',
-        ]);
+]);
 
         $student = student::create([
+            'fad_Allergy'=>$request->fed_Allergy,
+            'fad_indicate'=>$request->fed_indicate,
             'student_id'=> $request->student_id,
+            'contact'=>$request->contact,
+            'lastname'=>$request->lastname,
             'firstname' => $request->firstname,
             'middlename' => $request->middlename,
-            'lastname'=>$request->lastname,
+            'sex'=>$request->sex,
+            'dateOfBirth'=>$request->dateOfBirth,
             'course'=>$request->course,
             'year'=>$request->year,
-            'gender'=>$request->gender,
-            'birthday'=>$request->birthday,
-            'contact'=>$request->contact,
+            'homeAddress'=>$request->homeAddress,
+            'parentName'=>$request->parentName,
+            'parentAddress'=>$request->parentAddress,
+            'relationship'=>$request->relationship,
+            'parentNumber'=>$request->parentNumber,
+
+            'infectedCovid'=>$request->infectedCovid,
+            'inferctedWhere'=>$request->infectedWhere,
+            'recieveVaccine'=>$request->recieveVaccine,
+
+            'dateDose1'=>$request->dataDose1,
+            'dateDose2'=>$request->dataDose2,
+            'dateBoostDose1'=>$request->dataBoostDose1,
+            'dateBoostDose2'=>$request->dataBoostDose2,
+
+            'vaccineBrand'=>$request->vaccineBrand,
+            'dose1'=>$request->dose1,
+            'dose2'=>$request->dose2,
+            'boostLocation1'=>$request->boosterLocation1,
+            'boostLocation2'=>$request->boosterLocation2,
+
+            'semester' => $request->semester,
+            'schoolYear'=> $request->schoolYear,
+
+
         ]);
 
         if(is_null($student))
@@ -54,7 +94,7 @@ class StudentController extends Controller
         $student = student::where('id', $request->id)->first();
         if(is_null($student))
         {
-            Alert::error('Delete Error', "Can't Delete studend with id".$request->id);
+            Alert::error('Delete Error', "Can't Delete student with id".$request->id);
         }
         $student->delete();
         Alert::success('Success', 'Successfuly Delete!.');
@@ -62,8 +102,8 @@ class StudentController extends Controller
 
     }
 
-    public function datatable()
+    public function datatable(Request $request)
     {
-        return DataTables::of(student::all())->addColumn('Actions', 'component.studenttableaction')->rawColumns(['Actions'])->make(true);
+        return DataTables::of(student::where('schoolYear', $request->schoolYear)->where('semester', $request->semester)->get())->addColumn('Actions', 'component.studenttableaction')->rawColumns(['Actions'])->make(true);
     }
 }

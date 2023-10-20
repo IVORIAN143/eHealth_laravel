@@ -13,9 +13,13 @@ class consultation extends Model
     protected $fillable = [
         'student_id',
         'fk_med_used_id',
+        'fk_equip_used_id',
         'diagnosis',
         'instruction',
+        'quantity',
         'status',
+        'schoolYear',
+        'semester',
     ];
 
     public function student()
@@ -25,4 +29,9 @@ class consultation extends Model
     public  function med_used(){
         return $this->hasMany( MedUsed::class,'fk_consultation_id', 'id');
     }
+    public function equip_used(){
+        return $this->hasMany( EquipUsed::class, 'fk_consultation_id', 'id');
+    }
+
+
 }

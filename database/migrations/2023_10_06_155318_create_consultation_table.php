@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('diagnosis', 255);
             $table->string('instruction', 255);
             $table->integer('status');
+            $table->integer('semester');
+            $table->integer('schoolYear');
             $table->timestamps();
         });
     }

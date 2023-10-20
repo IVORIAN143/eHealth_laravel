@@ -57,6 +57,7 @@
                                 <th class="cell">Student Name</th>
                                 <th class="cell">Diagnosis</th>
                                 <th class="cell">Prescribe Medicine</th>
+                                <th class="cell">Used Equipment</th>
                                 <th class="cell"> Instruction</th>
                                 <th class="cell"> Status</th>
                                 <th class="cell">Actions</th>
@@ -70,52 +71,71 @@
     </div>
 
     <div class="modal fade" id="addConsultModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="importModalLabel">Equipments</h5>
+                    <h5 class="modal-title" id="importModalLabel">Add Consultation</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{route('storeConsult')}}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('storeConsult') }}" method="post" enctype="multipart/form-data">
                     @csrf
+                    <input id="Semester" type="text" name="semester" hidden></input>
+                    <input id="Schoolyear" type="text" name="schoolYear" hidden></input>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="name">Student</label>
-                            <select id="student"  name="student_id">
+                            <label for="student">Student</label>
+                            <select id="student" name="student_id" class="form-control">
                                 @foreach($students as $student)
-                                    <option value="{{$student->id}}">{{$student->lastname}}</option>
+                                    <option value="{{ $student->id }}">{{ $student->lastname }} {{ $student->fistname }} {{$student->middlename}}, {{$student->student_id}}, {{$student->course}}-{{$student->year}}</option>
                                 @endforeach
                             </select>
                             @error('student_id')
-                            {{$message}}
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Diagnosis</label>
-                            <textarea name="diagnosis" id="" cols="30" rows="10"></textarea>
+                            <label for="diagnosis">Diagnosis</label>
+                            <textarea name="diagnosis" id="diagnosis" class="form-control" rows="5"></textarea>
                             @error('diagnosis')
-                            {{$message}}
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-
                         <div class="form-group">
-                            <label for="name">Medicine</label>
-                            <select id="medicine"  name='medicine[]' multiple="multiple">
+                            <label for="medicine">Select Medicine</label>
+                            <select id="medicine" name="medicine[]" multiple class="form-control" style="width: 50%%;">
                                 @foreach($medicines as $medicine)
-                                    <option value="{{$medicine->id}}">{{$medicine->med_name}}</option>
+                                    <option value="{{ $medicine->id }}">{{ $medicine->med_name }}</option>
                                 @endforeach
                             </select>
                             @error('medicine')
-                            {{$message}}
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="form-group" id="medicine_used_quantity_folder">
+                        </div>
+
                         <div class="form-group">
-                            <label for="name">Instruction</label>
-                            <textarea name="instruction" id="" cols="30" rows="10"></textarea>
+                            <label for="equipment">Select Equipment</label>
+                            <select id="equipment" name="equipment[]" multiple class="form-control" style="width: 50%%;">
+                                @foreach($equipments as $equipment)
+                                    <option value="{{ $equipment->id }}">{{ $equipment->equipname }}</option>
+                                @endforeach
+                            </select>
+                            @error('equipment')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group" id="equipment_used_quantity_folder">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="instruction">Instruction</label>
+                            <textarea name="instruction" id="instruction" class="form-control" rows="5"></textarea>
                             @error('instruction')
-                            {{$message}}
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
@@ -127,57 +147,56 @@
             </div>
         </div>
     </div>
+
     <div class="modal fade" id="editConsultModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="importModalLabel">Equipments</h5>
+                    <h5 class="modal-title" id="importModalLabel">Edit Consultation</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{route('editConsultation')}}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('editConsultation') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
-                        <div hidden class="form-group">
-                            <input  id="consultID" name="id"/>
+                        <div class="form-group">
+                            <input type="hidden" id="consultID" name="id"/>
                         </div>
                         <div class="form-group">
-                            <label for="name">Student</label>
-                            <select id="editStudent"  name="student_id">
+                            <label for="editStudent">Student</label>
+                            <select id="editStudent" name="student_id" class="form-control">
                                 @foreach($students as $student)
-                                    <option value="{{$student->id}}">{{$student->lastname}}</option>
+                                    <option value="{{ $student->id }}">{{ $student->lastname }}, {{ $student->fistname }} ,{{$student->student_id}}, {{$student->middlename}}</option>
                                 @endforeach
                             </select>
                             @error('student_id')
-                            {{$message}}
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Diagnosis</label>
-                            <textarea name="diagnosis" id="editDiagnosis" cols="30" rows="10">
-                            </textarea>
+                            <label for="editDiagnosis">Diagnosis</label>
+                            <textarea name="diagnosis" id="editDiagnosis" class="form-control" cols="30" rows="5" @if(Auth::user()->role == 'doctor') readonly @endif></textarea>
                             @error('diagnosis')
-                            {{$message}}
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-
                         <div class="form-group">
-                            <label for="name">Medicine</label>
-                            <select id="editMedicine"   name='medicine[]' multiple="multiple">
+                            <label for="editMedicine">Select Medicine</label>
+                            <select id="editMedicine" name="medicine[]" multiple="multiple" class="form-control w-100">
                                 @foreach($medicines as $medicine)
-                                    <option value="{{$medicine->id}}">{{$medicine->med_name}}</option>
+                                    <option value="{{ $medicine->id }}">{{ $medicine->med_name }}</option>
                                 @endforeach
                             </select>
                             @error('medicine')
-                            {{$message}}
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Instruction</label>
-                            <textarea name="instruction" id="editInstruction"  cols="30" rows="10"></textarea>
+                            <label for="editInstruction">Instruction</label>
+                            <textarea name="instruction" id="editInstruction" class="form-control" cols="30" rows="5"></textarea>
                             @error('instruction')
-                            {{$message}}
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
@@ -189,28 +208,51 @@
             </div>
         </div>
     </div>
+
 @stop
 @push('js')
     <script>
         $(function() {
-            $('#consulttable').DataTable({
+            var consulttable =$('#consulttable').DataTable({
                 processing: true,
                 serverSide: false,
-                ajax: '{{ route('datatableconsultation') }}',
+                ajax: {
+                    "url": '{{ route('datatableconsultation') }}',
+                    "data" : function (d){
+                        d.schoolYear = $('#schoolYear').val();
+                        d.semester = $('#semester').val();
+                }
+            },
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'student_name', name: 'student_name' },
                     { data: 'diagnosis', name: 'diagnosis' },
                     { data: 'prescrib_med', name: 'prescrib_med' },
+                    { data: 'prescrib_equip', name: 'prescrib_equip'},
                     { data: 'instruction', name: 'instruction'},
-                    { data: 'status', name: 'status'},
+                    { data: 'status_string', name: 'status_string'},
                     { data: 'Actions', name: 'Actions' },
                 ]
             });
+            $('#Semester').val($('#semester').val())
+            $('#Schoolyear').val($('#schoolYear').val())
+
+
+            $("#semester").on("change",function(){
+                $('#Semester').val($('#semester').val())
+                consulttable.ajax.reload();
+
+            });
+            $("#schoolYear").on("change",function(){
+                $('#Schoolyear').val($('#schoolYear').val())
+                consulttable.ajax.reload();
+            });
+
 
             $('#student').select2({
                 dropdownParent: $('#addConsultModal')
-            });  $('#medicine').select2({
+            });
+            $('#medicine').select2({
                 dropdownParent: $('#addConsultModal')
             });
             $('#editStudent').select2({
@@ -219,9 +261,41 @@
             $('#editMedicine').select2({
                 dropdownParent: $('#editConsultModal')
             });
+            $('#equipment').select2({
+                dropdownParent: $('#addConsultModal')
+            })
+
+
+
+            $("#medicine").change(function () {
+                var medicine_used = $("#medicine").val();
+                var $folder = $('#medicine_used_quantity_folder');
+
+                // I-clear ang mga umiiral na elemento sa #medicine_used_quantity_folder
+                $folder.empty();
+
+                medicine_used.forEach(function (medicine) {
+                    $folder.append(
+                        '<div><label>Quantity</label><input type="text" name="quantity['+medicine+']" class="form-control" required></div>'
+                    );
+                });
+            });
+
+            $('#equipment').change(function(){
+                var equipment_used =$('#equipment').val();
+                var $folder = $('#equipment_used_quantity_folder');
+
+                $folder.empty();
+
+                equipment_used.forEach(function(equipment){
+                    $folder.append(
+                        '<div><label>Quantity</label><input type="text" name="equip_quantity['+equipment+']" class="form-control" required ></input></div>'
+                    );
+                });
+            });
         });
 
-        function ShowModal(id, student_id, diagnosis, medicine, instruction)
+        function ShowModal(id, student_id, diagnosis, medicine,equipment, instruction)
         {
             const arr = medicine.split(",");
             $('#consultID').val(id);
@@ -230,6 +304,7 @@
             $('#editDiagnosis').val(diagnosis); // Set the 'diagnosis' in a textarea
             $('#editMedicine').val(arr);
             $('#editMedicine').trigger('change');
+            $('#editEquipment').trigger('change');
             $('#editInstruction').val(instruction); // Set the 'instruction' in a textarea
             $('#editConsultModal').modal('show');
         }

@@ -86,11 +86,13 @@ class InventoryController extends Controller
 
             'equipname' => 'required|unique:equipment',
             'description' => 'required',
+            'equip_quantity' => 'required',
         ]);
 
         $equip = equipment::create([
             'equipname' => $request->equipname,
             'descriptio' => $request->description,
+            'equip_quantity' => $request->equip_quantity,
 
         ]);
 
@@ -110,6 +112,7 @@ class InventoryController extends Controller
             $target->update([
                 'equipname'=> $request->equipname,
                 'descriptio' => $request->descriptio,
+                'equip_quantity'=>$request->equip_quantity,
             ]);
             Alert::success('Success', 'Successfuly edited!.');
             return redirect(route('inventory'));
@@ -122,7 +125,7 @@ class InventoryController extends Controller
         $equip = equipment::where('id', $request->id)->first();
         if(is_null($equip))
         {
-            Alert::error('Delete Error', "Can't Delete studend with id".$request->id);;
+            Alert::error('Delete Error', "Can't Delete equipment with id".$request->id);;
         }
         $equip->delete();
         Alert::success('Success', 'Successfuly Deleted!.');

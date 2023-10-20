@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('equipname');
             $table->string('descriptio');
+            $table->string('equip_quantity');
             $table->timestamps();
         });
     }
