@@ -11,20 +11,22 @@ class EquipUsed extends Model
 
     protected  $table = "equipment_used";
 
-    protected $fillable =[
+    protected $fillable = [
         'fk_equip_id',
         'fk_consultation_id',
         'equip_quantity',
-        ];
+    ];
 
-    public function equipment(){
+    public function equipment()
+    {
         return $this->hasOne(equipment::class, 'id', 'fk_equip_id');
     }
 
-    public function deductQuantity(){
+    public function deductQuantity()
+    {
         $equipuse = $this->equipment;
         $equipuse->update([
-            'equip_quantity' => $equipuse->equip_quantity = $this->equip_quantity,
+            'equip_quantity' => $equipuse->equip_quantity - $this->equip_quantity,
         ]);
     }
 }
