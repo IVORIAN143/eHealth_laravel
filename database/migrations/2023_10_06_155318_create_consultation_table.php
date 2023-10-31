@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('student_id')->references('id')->on('students')->onDelete('cascade')->onUpdate('cascade');
             $table->string('diagnosis', 255);
             $table->string('instruction', 255);
+            $table->json('signature')->nullable();
             $table->integer('status');
             $table->integer('semester');
             $table->integer('schoolYear');

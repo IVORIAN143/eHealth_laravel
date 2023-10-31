@@ -18,7 +18,6 @@ return new class extends Migration
             $table->date('expiration');
             $table->integer('quantity');
             $table->timestamps();
-
         });
     }
 

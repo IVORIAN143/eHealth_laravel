@@ -18,13 +18,22 @@ class student extends Model
         'course',
         'year',
         'gender',
+        'contact',
+        'civilStat',
         'dateOfBirth',
         'homeAddress',
+
         'parentName',
         'parentAddress',
         'relationship',
+        'parentNumber',
+        'height',
+        'weight',
+
+
         'infectedCovid',
         'infectedWhere',
+
         'recieveVaccine',
         'dataDose1',
         'dataDose2',
@@ -38,11 +47,15 @@ class student extends Model
         'semester',
         'schoolYear',
         'contact',
+
         'fad_Allergy',
         'fad_indicate',
 
 
     ];
 
-
+    public function consultation()
+    {
+        return $this->hasMany(Consultation::class);
+    }
 }

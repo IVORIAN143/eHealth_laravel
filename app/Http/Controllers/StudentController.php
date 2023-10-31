@@ -17,89 +17,97 @@ class StudentController extends Controller
         return view('students');
     }
 
-    public function store(Request $request){
-//        dd($request);
-$validated = $request->validate([
-    'fad_allergy' => 'required',
-    'student_id' => 'required|max:8',
-    'contact' => 'required',
-    'lastname' => 'required',
-    'firstname' => 'required',
-    'middlename' => 'required',
-    'sex' => 'required',
-    'dateOfBirth' => 'required',
-    'course' => 'required',
-    'year' => 'required',
-    'homeAddress' => 'required',
-    'parentAddress' => 'required',
-    'parentName' => 'required',
-    'relationship' => 'required',
-    'parentNumber' => 'required',
-    'height' => 'required',
-    'weight' => 'required',
-    'recieveVaccine' => 'required',
-    'infectedCovid' => 'required',
-    'semester' => 'required',
-    'schoolYear'=> 'required',
+    public function store(Request $request)
+    {
+        //        dd($request);
+        $validated = $request->validate([
+            'fad_allergy' => 'required',
 
-]);
+            'student_id' => 'required',
+            'contact' => 'required',
+            'lastname' => 'required',
+            'firstname' => 'required',
+            'middlename' => 'required',
+            'gender' => 'required',
+            'civilStat' => 'required',
+            'dateOfBirth' => 'required',
+            'course' => 'required',
+            'year' => 'required',
+
+            'homeAddress' => 'required',
+            'parentAddress' => 'required',
+            'parentName' => 'required',
+            'relationship' => 'required',
+            'parentNumber' => 'required',
+            'height' => 'required',
+            'weight' => 'required',
+            'recieveVaccine' => 'required',
+            'infectedCovid' => 'required',
+
+            'semester' => 'required',
+            'schoolYear' => 'required',
+
+        ]);
 
         $student = student::create([
-            'fad_Allergy'=>$request->fed_Allergy,
-            'fad_indicate'=>$request->fed_indicate,
-            'student_id'=> $request->student_id,
-            'contact'=>$request->contact,
-            'lastname'=>$request->lastname,
+            'fad_Allergy' => $request->fed_Allergy,
+            'fad_indicate' => $request->fed_indicate,
+
+            'student_id' => $request->student_id,
+            'contact' => $request->contact,
+            'lastname' => $request->lastname,
             'firstname' => $request->firstname,
             'middlename' => $request->middlename,
-            'sex'=>$request->sex,
-            'dateOfBirth'=>$request->dateOfBirth,
-            'course'=>$request->course,
-            'year'=>$request->year,
-            'homeAddress'=>$request->homeAddress,
-            'parentName'=>$request->parentName,
-            'parentAddress'=>$request->parentAddress,
-            'relationship'=>$request->relationship,
-            'parentNumber'=>$request->parentNumber,
+            'gender' => $request->gender,
+            'civilStat' => $request->civilStat,
+            'dateOfBirth' => $request->dateOfBirth,
+            'course' => $request->course,
+            'year' => $request->year,
+            'homeAddress' => $request->homeAddress,
 
-            'infectedCovid'=>$request->infectedCovid,
-            'inferctedWhere'=>$request->infectedWhere,
-            'recieveVaccine'=>$request->recieveVaccine,
+            'parentName' => $request->parentName,
+            'parentAddress' => $request->parentAddress,
+            'relationship' => $request->relationship,
+            'parentNumber' => $request->parentNumber,
+            'height' => $request->height,
+            'weight' => $request->weight,
 
-            'dateDose1'=>$request->dataDose1,
-            'dateDose2'=>$request->dataDose2,
-            'dateBoostDose1'=>$request->dataBoostDose1,
-            'dateBoostDose2'=>$request->dataBoostDose2,
+            'infectedCovid' => $request->infectedCovid,
+            'inferctedWhere' => $request->infectedWhere,
+            'recieveVaccine' => $request->recieveVaccine,
 
-            'vaccineBrand'=>$request->vaccineBrand,
-            'dose1'=>$request->dose1,
-            'dose2'=>$request->dose2,
-            'boostLocation1'=>$request->boosterLocation1,
-            'boostLocation2'=>$request->boosterLocation2,
+            'dateDose1' => $request->dataDose1,
+            'dateDose2' => $request->dataDose2,
+            'dateBoostDose1' => $request->dataBoostDose1,
+            'dateBoostDose2' => $request->dataBoostDose2,
+            'vaccineBrand' => $request->vaccineBrand,
+            'dose1' => $request->dose1,
+            'dose2' => $request->dose2,
+            'boostLocation1' => $request->boosterLocation1,
+            'boostLocation2' => $request->boosterLocation2,
 
             'semester' => $request->semester,
-            'schoolYear'=> $request->schoolYear,
+            'schoolYear' => $request->schoolYear,
 
 
         ]);
 
-        if(is_null($student))
+        if (is_null($student))
             Alert::error("Creation Error", "Can't Add Student");
         else
             Alert::success('Success', 'Successfuly Added!.');
-            return redirect(route('students'));
+        return redirect(route('students'));
     }
 
-    public function delete(Request $request){
+    public function delete(Request $request)
+    {
         $student = student::where('id', $request->id)->first();
-        if(is_null($student))
-        {
-            Alert::error('Delete Error', "Can't Delete student with id".$request->id);
+        if (is_null($student)) {
+            Alert::error('Delete Error', "Can't Delete student with id" . $request->id);
         }
         $student->delete();
         Alert::success('Success', 'Successfuly Delete!.');
         return redirect(route('students'));
-
     }
 
     public function datatable(Request $request)

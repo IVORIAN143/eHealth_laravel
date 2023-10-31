@@ -25,7 +25,8 @@ class ConsultationController extends Controller
         return view('consultation', compact(['students', 'medicines', 'equipments']));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
         $validated = $request->validate([
 
@@ -34,49 +35,49 @@ class ConsultationController extends Controller
             'medicine' => 'required',
             'instruction' => 'required',
             'semester' => 'required',
-            'schoolYear'=> 'required',
+            'schoolYear' => 'required',
 
         ]);
 
         $consultation = consultation::create([
-            'student_id'=>$request->student_id,
-            'diagnosis'=>$request->diagnosis,
-            'instruction'=>$request->instruction,
+            'student_id' => $request->student_id,
+            'diagnosis' => $request->diagnosis,
+            'instruction' => $request->instruction,
             'semester' => $request->semester,
-            'schoolYear'=> $request->schoolYear,
-            'status'=>0,
+            'schoolYear' => $request->schoolYear,
+            'status' => 0,
         ]);
 
 
-        foreach ($request->medicine as $value){
+        foreach ($request->medicine as $value) {
             $medused = MedUsed::create([
-                'fk_med_id'=> $value,
-                'fk_consultation_id'=>$consultation->id,
-                'quantity'=> $request->quantity[$value]
+                'fk_med_id' => $value,
+                'fk_consultation_id' => $consultation->id,
+                'quantity' => $request->quantity[$value]
             ]);
 
-            $medused->deductQuantity();
+            // $medused->deductQuantity();
         }
-        foreach ($request->equipment as $value){
+        foreach ($request->equipment as $value) {
             $equipused = EquipUsed::create([
-                'fk_equip_id'=> $value,
-                'fk_consultation_id'=>$consultation->id,
-                'equip_quantity'=> $request->equip_quantity[$value]
+                'fk_equip_id' => $value,
+                'fk_consultation_id' => $consultation->id,
+                'equip_quantity' => $request->equip_quantity[$value]
             ]);
 
-            $equipused->deductQuantity();
+            // $equipused->deductQuantity();
         }
 
-        if(is_null($consultation))
+        if (is_null($consultation))
             Alert::error("ERROR", 'Unsuccess please try again.');
         else
 
             Alert::success('Success', 'Successfuly Added!.');
         return redirect(route('consultation'));
-
     }
 
-    public function editConsultation(Request $request){
+    public function editConsultation(Request $request)
+    {
 
         $validated = $request->validate([
 
@@ -84,59 +85,57 @@ class ConsultationController extends Controller
             'diagnosis' => 'required',
             'medicine' => 'required',
             'instruction' => 'required',
-            'quentity.*'=>'required',
+            'quentity.*' => 'required',
         ]);
 
 
         $consultation = consultation::where('id', $request->id)->first();
-        if(is_null($consultation))
+        if (is_null($consultation))
             Alert::error("ERROR", 'Unsuccess please try again.');
         else {
-            if($consultation->status == 2 ){
+            if ($consultation->status == 2) {
                 $consultation->update([
-                   'status'=>0
+                    'status' => 0
                 ]);
             }
             $consultation->update([
                 'student_id' => $request->student_id,
-                'diagnosis'=> $request->diagnosis,
-                'instruction'=>$request->instruction,
+                'diagnosis' => $request->diagnosis,
+                'instruction' => $request->instruction,
             ]);
-            foreach ($request->medicine as $value){
-                foreach ($consultation->med_used as $med){
-                    if($med->fk_med_id != $value){
+            foreach ($request->medicine as $value) {
+                foreach ($consultation->med_used as $med) {
+                    if ($med->fk_med_id != $value) {
                         $target = MedUsed::where('fk_med_id', $med->medicine->id)->where('fk_consultation_id', $request->id)->first();
-                        if($target)
+                        if ($target)
                             $target->delete();
                     }
                 }
 
                 $target = MedUsed::where('fk_med_id', $value)->where('fk_consultation_id', $request->id)->first();
-                if(is_null($target)){
+                if (is_null($target)) {
                     MedUsed::create([
-                        'fk_med_id'=> $value,
-                        'fk_consultation_id'=>$consultation->id,
+                        'fk_med_id' => $value,
+                        'fk_consultation_id' => $consultation->id,
                     ]);
                 }
-
             }
-            foreach ($request->equipment as $value){
-                foreach ($consultation->equip_used as $equip){
-                    if($equip->fk_equip_id != $value){
+            foreach ($request->equipment as $value) {
+                foreach ($consultation->equip_used as $equip) {
+                    if ($equip->fk_equip_id != $value) {
                         $target = EquipUsed::where('fk_equip_id', $equip->equipment->id)->where('fk_consultation_id', $request->id)->first();
-                        if($target)
+                        if ($target)
                             $target->delete();
                     }
                 }
 
                 $target = EquipUsed::where('fk_equip_id', $value)->where('fk_consultation_id', $request->id)->first();
-                if(is_null($target)){
+                if (is_null($target)) {
                     EquipUsed::create([
-                        'fk_equip_id'=> $value,
-                        'fk_consultation_id'=>$consultation->id,
+                        'fk_equip_id' => $value,
+                        'fk_consultation_id' => $consultation->id,
                     ]);
                 }
-
             }
 
             Alert::success('Success', 'Successfuly Edited!.');
@@ -155,16 +154,15 @@ class ConsultationController extends Controller
 
 
 
-    public function delete(Request $request){
+    public function delete(Request $request)
+    {
         $consultation = consultation::where('id', $request->id)->first();
-        if(is_null($consultation))
-        {
-            Alert::error('Delete Error', "Can't Delete the Consultation with id".$request->id);
+        if (is_null($consultation)) {
+            Alert::error('Delete Error', "Can't Delete the Consultation with id" . $request->id);
         }
         $consultation->delete();
         Alert::success('Success', 'Successfuly Delete!.');
         return redirect(route('consultation'));
-
     }
 
 
@@ -174,70 +172,61 @@ class ConsultationController extends Controller
 
     public function datatable(Request $request)
     {
-        return DataTables::of(consultation::where('schoolYear', $request->schoolYear)->where('semester', $request->semester)->get())->addColumn('student_name', function ($query){
-            return $query->student->firstname.' '.$query->student->lastname;
-        })->addColumn('prescrib_med',function ($query){
+        return DataTables::of(consultation::where('schoolYear', $request->schoolYear)->where('semester', $request->semester)->get())->addColumn('student_name', function ($query) {
+            return $query->student->firstname . ' ' . $query->student->lastname;
+        })->addColumn('prescrib_med', function ($query) {
             $text = "";
-            foreach ($query->med_used as $med_use){
-                $text.= $med_use->medicine->med_name.", ";
+            foreach ($query->med_used as $med_use) {
+                $text .= $med_use->medicine->med_name . ", ";
             }
             return $text;
-
-        })->addColumn('prescrib_equip',function ($query){
+        })->addColumn('prescrib_equip', function ($query) {
             $text = "";
-            foreach ($query->equip_used as $equip_use){
-                $text.= $equip_use->equipment->equipname.", ";
+            foreach ($query->equip_used as $equip_use) {
+                $text .= $equip_use->equipment->equipname . ", ";
             }
             return $text;
-
-
-        })->addColumn('status_string', function ($query ){
-            if ($query->status == 1 ) {
+        })->addColumn('status_string', function ($query) {
+            if ($query->status == 1) {
                 return 'Approved';
-            }
-            elseif ($query->status == 2 ){
+            } elseif ($query->status == 2) {
                 return 'Disapproved';
-            }
-            else{
+            } else {
                 return 'Pending';
             }
-        })->addColumn('prescrib_meds', function ($query){
+        })->addColumn('prescrib_meds', function ($query) {
             $array = [];
-            foreach ($query->med_used as $med_use){
+            foreach ($query->med_used as $med_use) {
                 array_push($array, (int)$med_use->medicine->id);
             }
-            return implode(",",$array);
-
-        })->addColumn('prescrib_equips', function ($query){
+            return implode(",", $array);
+        })->addColumn('prescrib_equips', function ($query) {
             $array = [];
-            foreach ($query->equip_used as $equip_use){
+            foreach ($query->equip_used as $equip_use) {
                 array_push($array, (int)$equip_use->equipment->id);
             }
-            return implode(",",$array);
-        })->addColumn('Actions','component.consulttableaction')->rawColumns(['Actions'])->make(true);
+            return implode(",", $array);
+        })->addColumn('Actions', 'component.consulttableaction')->rawColumns(['Actions'])->make(true);
     }
 
 
-    public function statusApprove(Request $request){
-    $consultation = consultation::where('id', $request->id)->first();
-    if(is_null($consultation))
+    public function statusApprove(Request $request)
     {
-        Alert::error('Error', 'Please try again'.$request->id);
-    }
-    $consultation->update(['status' => 1]);
-    return redirect(route('consultation'));
+        $consultation = consultation::where('id', $request->id)->first();
+        if (is_null($consultation)) {
+            Alert::error('Error', 'Please try again' . $request->id);
+        }
+        $consultation->update(['status' => 1]);
+        return redirect(route('consultation'));
     }
 
-    public function statusDisapprove(Request $request){
+    public function statusDisapprove(Request $request)
+    {
         $consultation = consultation::where('id', $request->id)->first();
-        if(is_null($consultation))
-        {
-            Alert::error('Error', 'Please try again'.$request->id);
+        if (is_null($consultation)) {
+            Alert::error('Error', 'Please try again' . $request->id);
         }
         $consultation->update(['status' => 2]);
         return redirect(route('consultation'));
     }
-
-
-
 }
