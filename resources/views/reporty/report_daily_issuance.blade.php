@@ -43,6 +43,7 @@
             padding: 20px;
             /* Added padding for better spacing */
             position: relative;
+            text-align: center;
         }
 
         .tg {
@@ -66,11 +67,11 @@
 
         .tg .tg-1wig {
             font-weight: bold;
-            text-align: left;
+            text-align: center;
         }
 
         .tg .tg-0lax {
-            text-align: left;
+            text-align: center;
         }
 
         .logo {
@@ -78,7 +79,7 @@
             /* Position the image absolutely */
             top: 50px;
             /* Distance from top */
-            left: 300px;
+            left: 50px;
             /* Distance from left */
             max-width: 80px;
             /* Limit the width if necessary */
@@ -91,7 +92,7 @@
             /* Position the image absolutely */
             top: 50px;
             /* Distance from top */
-            right: 300px;
+            right: 50px;
             /* Distance from left */
             max-width: 80px;
             /* Limit the width if necessary */
@@ -161,42 +162,61 @@
             padding-bottom: 8px;
         }
 
+        .lefty {
+            text-align: left;
+            margin-left: -400px;
+            padding-bottom: 8px;
+        }
+
         .right {
             text-align: center;
             margin-left: -400px;
             padding-bottom: 8px;
+        }
+
+        .bot {
+            text-align: left;
+            padding-right: 290px;
+            padding-bottom: 5px;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="certificate">
-            <!-- START OF HEADER -->
-            <img src="assets/images/isu-logo.png" alt="Logo" class="logo"> <!-- Added logo image -->
-            <img src="assets/images/isu-logo.png" alt="Logo" class="logos"> <!-- Added logo image -->
-            <div class="header">
-                <div class="paragraphs">Republic of The Philippines</div>
-                <div class="paragraph">ISABELA STATE UNIVERSITY</div>
-                <div class="paragraphs">Santiago Extension Unit</div>
-                <div class="paragraphs">Santiago City</div>
-                <div class="hs"><i>Health Services
-                        <br> SUPPLIE CONSUMPTION
-                        <br> REPORT FOR MONTH OF
-                    </i></div>
-            </div>
-        </div>
+
 
         <div class="tg-wrap">
             <table class="tg">
                 <thead>
+                    <th class="tg-0lax" colspan="4">
+                        <div class="certificate">
+                            <!-- START OF HEADER -->
+                            <img src="assets/images/isu-logo.png" alt="Logo" class="logo"> <!-- Added logo image -->
+                            <img src="assets/images/isu-logo-med.png" alt="Logo" class="logos"> <!-- Added logo image -->
+                            <div class="header">
+                                <div class="paragraphs">Republic of The Philippines</div>
+                                <div class="paragraph">ISABELA STATE UNIVERSITY</div>
+                                <div class="paragraphs">Santiago Extension Unit</div>
+                                <div class="paragraphs">Santiago City</div>
+                                <div class="hs"><i>Health Services
+                                        <div class="solid"></div>
+                                        <br> MEDICAL MONITORING SHEET
+                                    </i></div>
+                            </div>
+                        </div>
+                    </th>
+                    @foreach ($meds as $med )
+                    <th class="tg-1wig"> {{ $med->med_name }}</th>
+                    @endforeach
                     <tr>
                         <td class="tg-1wig">DATE</td>
                         <td class="tg-1wig">PATIENT</td>
                         <td class="tg-1wig">COURSE/YR</td>
                         <td class="tg-1wig">DIAGNOSIS</td>
-                        <td class="tg-1wig">MEDICINES USED</td>
-                        <td class="tg-1wig">SIGNATURE</td>
+
+
+                        <!-- <td class="tg-1wig">SIGNATURE</td> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -210,12 +230,19 @@
                         </td>
                         <td class="tg-0pky">{{ $consultation->student->course }}-{{ $consultation->student->year }}</td>
                         <td class="tg-0pky">{{ $consultation->diagnosis }}</td>
+                        @foreach($consultation->med_used as $med)
+                        @foreach ($meds as $medicine)
                         <td class="tg-0pky">
-                            @foreach($consultation->med_used as $med)
-                            {{ $med->medicine->med_name }}: {{ $med->quantity }}<br>
-                            @endforeach
+                            @if($med->fk_med_id == $medicine->id)
+                            {{ $med->quantity }}
+                            @else
+                            0
+                            @endif
                         </td>
-                        <td class="tg-0pky"></td>
+                        @endforeach
+
+                        <!-- <td class="tg-0pky"></td> -->
+                        @endforeach
                     </tr>
                     @endforeach
                 </tbody>
@@ -224,17 +251,33 @@
         </div>
 
         <div class="flex-container">
-            <div class="left-text">DEBBIE-LYN P. DOLOJAN,RN,MSN</div>
-            <div class="right-text">NICOLAS L. ILAGAN, M.D., FPMSI.</div>
-        </div>
-        <div class="flex-container">
-            <div class="sn">School Nurse</div>
-            <div class="phy">University Physician & Director for Health Services</div>
-        </div>
+            <div class="left-text">
+                <div class="left-text">
+                    <div class="left">Prepared by:</div>
+                    <br>DEBBIE-LYN P. DOLOJAN,RN,MSN
+                    <div class="sn">Nurse Attednant</div>
+                </div>
+            </div>
 
-        <div class="bot"><b>ISUS-HeS-MCR-037c</b></div>
-        <div class="bot">Effectivity: March 29, 2022</div>
-        <div class="bot">Revision 0</div>
+            <div class="right-text">
+                <div class="right-text">
+                    <div class="right">Noted by:</div>
+                    <br>ENGR. EDWARD B. PANGANIBAN, Ph,D.
+                    <div class="phy">Campus Coordinator</div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="flex-container">
+            <div class="left-text">
+                <div class="bot">
+                    <div class="bot"><b>ISUS-HeS-MCR-037c</b></div>
+                    <div class="bot">Effectivity: March 29, 2022</div>
+                    <div class="bot">Revision 0</div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

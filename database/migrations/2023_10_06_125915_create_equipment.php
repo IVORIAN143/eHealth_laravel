@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('equipname');
             $table->string('descriptio');
             $table->string('equip_quantity');
+            $table->date('equi_expiration');
             $table->timestamps();
         });
     }

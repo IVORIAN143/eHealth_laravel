@@ -37,7 +37,12 @@ class medicine extends Model
             return $item->created_at->year == date('Y') && $item->created_at->month == date('m');
         });
 
-        return $Medicines->sum('med_quantity');
-        dd($Medicines);
+        return $Medicines->sum('medicine_quantity');
+    }
+    public function totalMed()
+    {
+        $Medicines = $this->addMed;
+
+        return $Medicines->sum('medicine_quantity');
     }
 }

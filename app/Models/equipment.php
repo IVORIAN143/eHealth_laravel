@@ -13,6 +13,7 @@ class equipment extends Model
     protected $fillable = [
         'equipname',
         'descriptio',
+        'equi_expiration',
         'equip_quantity',
     ];
 
@@ -34,6 +35,12 @@ class equipment extends Model
         $supplies = $this->addSupply->filter(function ($item) {
             return $item->created_at->year == date('Y') && $item->created_at->month == date('m');
         });
+
+        return $supplies->sum('equip_quantity');
+    }
+    public function TotalSupply()
+    {
+        $supplies = $this->addSupply();
 
         return $supplies->sum('equip_quantity');
     }

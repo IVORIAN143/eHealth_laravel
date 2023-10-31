@@ -89,6 +89,7 @@
                                 <th class="cell">ID</th>
                                 <th class="cell">Eqiupment</th>
                                 <th class="cell">Description</th>
+                                <th class="cell">Expiration</th>
                                 <th class="cell">Quantity</th>
                                 <th class="cell">Actions</th>
                             </tr>
@@ -130,7 +131,7 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Quantity</label>
-                        <input value="{{old('quantity')}}" type="text" name="quantity" class="form-control">
+                        <input value="{{old('quantity')}}" type="number" name="quantity" class="form-control">
                         @error('quantity')
                         <span class="error-message">{{$message}}</span>
                         @enderror
@@ -165,32 +166,32 @@
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
-                        <input hidden id="Edit_id" value="{{ old('med_name') }}" type="text" name="id">
+                        <input hidden id="Edit_id" value="{{ old('med_name') }}" type="text" name="id" required>
                     </div>
                     <div class="form-group">
                         <label for="Edit_med_name">Medicine Name</label>
-                        <input id="Edit_med_name" value="{{ old('med_name') }}" type="text" name="med_name" class="form-control">
+                        <input id="Edit_med_name" value="{{ old('med_name') }}" type="text" name="med_name" class="form-control" required>
                         @error('med_name')
                         <span class="error-message">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="Edit_description">Description</label>
-                        <input id="Edit_description" value="{{ old('description') }}" type="text" name="description" class="form-control">
+                        <input id="Edit_description" value="{{ old('description') }}" type="text" name="description" class="form-control" required>
                         @error('description')
                         <span class="error-message">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="Edit_quantity">Quantity</label>
-                        <input id="Edit_quantity" value="{{ old('quantity') }}" type="text" name="quantity" class="form-control">
+                        <input id="Edit_quantity" value="{{ old('quantity') }}" type="number" name="quantity" class="form-control" required>
                         @error('quantity')
                         <span class="error-message">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="Edit_expiration">Expiration</label>
-                        <input id="Edit_expiration" value="{{ old('expiration') }}" type="date" name="expiration" class="form-control">
+                        <input id="Edit_expiration" value="{{ old('expiration') }}" type="date" name="expiration" class="form-control" required>
                         @error('expiration')
                         <span class="error-message">{{ $message }}</span>
                         @enderror
@@ -228,17 +229,24 @@
                         @enderror
                     </div>
                     <div class="form-group">
+                        <label for="descriptio">Description</label>
+                        <input value="{{ old('descriptio') }}" type="text" name="descriptio" class="form-control">
+                        @error('descriptio')
+                        <span class="error-message">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="equip_quantity">Quantity</label>
-                        <input value="{{old('equip_quantity')}}" type="text" name="equip_quantity" class="form-control">
+                        <input value="{{old('equip_quantity')}}" type="number" name="equip_quantity" class="form-control">
                         @error('equip_quantity')
                         <span class="error-message">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="description">Description</label>
-                        <input value="{{ old('description') }}" type="text" name="description" class="form-control">
-                        @error('description')
-                        <span class="error-message">{{ $message }}</span>
+                        <label for="name">Expiration</label>
+                        <input value="{{old('equi_expiration')}}" type="date" name="equi_expiration" class="form-control">
+                        @error('equi_expiration')
+                        <span class="error-message">{{$message}}</span>
                         @enderror
                     </div>
                 </div>
@@ -267,23 +275,30 @@
                     </div>
                     <div class="form-group">
                         <label for="Edit_equipname">Equipment Name</label>
-                        <input id="Edit_equipname" value="{{ old('equipname') }}" type="text" name="equipname" class="form-control">
+                        <input id="Edit_equipname" value="{{ old('equipname') }}" type="text" name="equipname" class="form-control" required>
                         @error('equipname')
                         <span class="error-message">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="Edit_equip_quantity">Quantity</label>
-                        <input value="{{old('Edit_equip_quantity')}}" type="text" name="Edit_equip_quantity" class="form-control">
-                        @error('Edit_equip_quantity')
+                        <input id="Edit_equip_quantity" value="{{old('equip_quantity')}}" type="number" name="equip_quantity" class="form-control" required>
+                        @error('equip_quantity')
                         <span class="error-message">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="Edit_equipdescription">Description</label>
-                        <input id="Edit_equipdescription" value="{{ old('descriptio') }}" type="text" name="descriptio" class="form-control">
+                        <input id="Edit_equipdescription" value="{{ old('descriptio') }}" type="text" name="descriptio" class="form-control" required>
                         @error('descriptio')
                         <span class="error-message">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="Edit_equip_expiration">Expiration</label>
+                        <input id="Edit_equip_expiration" value="{{old('equi_expiration')}}" type="date" name="equi_expiration" class="form-control" required>
+                        @error('equi_expiration')
+                        <span class="error-message">{{$message}}</span>
                         @enderror
                     </div>
                 </div>
@@ -308,11 +323,11 @@
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
-                        <input id="supply_id_equip" type="text" name="id">
+                        <input id="supply_id_equip" type="text" name="id" hidden>
                     </div>
                     <div class="form-group">
                         <label for="supply_equip_quantity">Quantity</label>
-                        <input value="{{old('Edit_equip_quantity')}}" type="text" name="equip_quantity" class="form-control">
+                        <input value="{{old('Edit_quantity')}}" type="text" name="equip_quantity" class="form-control">
                         @error('Edit_equip_quantity')
                         <span class="error-message">{{$message}}</span>
                         @enderror
@@ -385,8 +400,8 @@
                     name: 'expiration'
                 },
                 {
-                    data: 'quantity',
-                    name: 'quantity'
+                    data: 'totalquantity',
+                    name: 'totalquantity'
                 },
                 {
                     data: 'Actions',
@@ -411,6 +426,10 @@
                     name: 'description'
                 },
                 {
+                    data: 'equi_expiration',
+                    name: 'equi_expiration'
+                },
+                {
                     data: 'equip_quantity',
                     name: 'equip_quantity'
                 },
@@ -427,24 +446,25 @@
         $('#Edit_med_name').val(name);
         $('#Edit_description').val(description);
         $('#Edit_expiration').val(expiration);
-        $('#Edit_equip_quantity').val(quantity);
+        $('#Edit_quantity').val(quantity);
         $('#editmedicneModal').modal('show');
     }
 
-    function ShowModalequip(id, name, description, quantity) {
+    function ShowAddModalmed(id) {
+        $('#supply_id_med').val(id);
+        $('#addsupplymedModal').modal('show');
+    }
+
+    function ShowModalequip(id, name, description, expiration, quantity) {
         $('#Edit_id_equip').val(id);
         $('#Edit_equipname').val(name);
         $('#Edit_equipdescription').val(description);
+        $('#Edit_equip_expiration').val(expiration);
         $('#Edit_equip_quantity').val(quantity);
         $('#editequipmentsModal').modal('show');
     }
 
     function ShowAddModalequip(id) {
-        $('#supply_id_equip').val(id);
-        $('#addsupplyequipmentsModal').modal('show');
-    }
-
-    function ShowAddModalmed(id) {
         $('#supply_id_equip').val(id);
         $('#addsupplyequipmentsModal').modal('show');
     }

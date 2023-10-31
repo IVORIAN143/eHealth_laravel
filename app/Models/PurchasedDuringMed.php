@@ -13,7 +13,7 @@ class PurchasedDuringMed extends Model
 
 
     public $fillable = [
-        'fk_med_id',
-        'med_quantity'
+        'fk_medicine_id',
+        'medicine_quantity'
     ];
 }

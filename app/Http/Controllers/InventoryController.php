@@ -77,8 +77,55 @@ class InventoryController extends Controller
 
     public function datatable()
     {
-        return DataTables::of(medicine::all())->addColumn('Actions', 'component.medicinetableaction')->rawColumns(['Actions'])->make(true);
+        return DataTables::of(medicine::all())
+            ->addColumn('totalquantity', function ($quantity) {
+                return $quantity->totalMed();
+            })
+            ->addColumn('Actions', 'component.medicinetableaction')->rawColumns(['Actions'])->make(true);
     }
+
+    public function addSupplyMed(Request $request)
+    {
+        $validated = $request->validate([
+            'id' => 'required', // Assuming 'id' is the medicine ID in the form
+            'med_quantity' => 'required',
+        ]);
+
+        $targetMed = medicine::find($request->id); // Use 'find' to fetch a specific medicine record by its ID
+
+        if (is_null($targetMed)) {
+            Alert::error("Edit Error", "Can't find Medicine");
+            return redirect(route('inventory'));
+        } else {
+            $supply = PurchasedDuringMed::create([
+                'fk_medicine_id' => $request->id,
+                'medicine_quantity' => $request->med_quantity, // Corrected the field name
+            ]);
+
+            Alert::success('Success', 'Successfully Supplied!');
+            return redirect(route('inventory'));
+        }
+    }
+
+
+    // public function deletemed(Request $request)
+    // {
+    //     $med = medicine::where('id', $request->id)->first();
+    //     if (is_null($med)) {
+    //         Alert::error('Delete Error', "Can't Delete equipment with id" . $request->id);;
+    //     }
+    //     $med->delete();
+    //     Alert::success('Success', 'Successfuly Deleted!.');
+    //     return redirect(route('inventory'));
+    // }
+    // public function datatablemed()
+    // {
+    //     return DataTables::of(medicine::all())->addColumn('Actions', 'component.medicinetableaction')->rawColumns(['Actions'])->make(true);
+    // }
+
+
+
+
 
     //    for equipments
     public function storeequipment(Request $request)
@@ -87,13 +134,15 @@ class InventoryController extends Controller
         $validated = $request->validate([
 
             'equipname' => 'required|unique:equipment',
-            'description' => 'required',
+            'descriptio' => 'required',
+            'equi_expiration' => 'required',
             'equip_quantity' => 'required',
         ]);
 
         $equip = equipment::create([
             'equipname' => $request->equipname,
-            'descriptio' => $request->description,
+            'descriptio' => $request->descriptio,
+            'equi_expiration' => $request->equi_expiration,
             'equip_quantity' => $request->equip_quantity,
 
         ]);
@@ -107,7 +156,7 @@ class InventoryController extends Controller
     public function editequip(Request $request)
     {
         $target = equipment::where('id', $request->id);
-        //        dd($target);
+        // dd($target);
         if (is_null($target))
             Alert::error("Edit Error", "Can't find Equipments");
         else {
@@ -115,12 +164,32 @@ class InventoryController extends Controller
                 'equipname' => $request->equipname,
                 'descriptio' => $request->descriptio,
                 'equip_quantity' => $request->equip_quantity,
+                'equi_expiration' => $request->equi_expiration,
             ]);
             Alert::success('Success', 'Successfuly edited!.');
             return redirect(route('inventory'));
         }
     }
 
+    public function deleteequip(Request $request)
+    {
+        $equip = equipment::where('id', $request->id)->first();
+        if (is_null($equip)) {
+            Alert::error('Delete Error', "Can't Delete equipment with id" . $request->id);;
+        }
+        $equip->delete();
+        Alert::success('Success', 'Successfuly Deleted!.');
+        return redirect(route('inventory'));
+    }
+
+    public function datatableequip()
+    {
+        return DataTables::of(equipment::all())
+            ->addColumn('equip_total_quantity', function ($quantity) {
+                return $quantity->TotalSupply();
+            })
+            ->addColumn('Actions', 'component.equiptableaction')->rawColumns(['Actions'])->make(true);
+    }
 
     // -----------
     public function addSupplyEquip(Request $request)
@@ -144,60 +213,5 @@ class InventoryController extends Controller
             Alert::success('Success', 'Successfuly Supplied!.');
             return redirect(route('inventory'));
         }
-    }
-
-    public function deleteequip(Request $request)
-    {
-        $equip = equipment::where('id', $request->id)->first();
-        if (is_null($equip)) {
-            Alert::error('Delete Error', "Can't Delete equipment with id" . $request->id);;
-        }
-        $equip->delete();
-        Alert::success('Success', 'Successfuly Deleted!.');
-        return redirect(route('inventory'));
-    }
-    public function datatableequip()
-    {
-        return DataTables::of(equipment::all())->addColumn('Actions', 'component.equiptableaction')->rawColumns(['Actions'])->make(true);
-    }
-
-
-    public function addSupplyMed(Request $request)
-    {
-        $validated = $request->validate([
-            'id' => 'required', // Assuming 'id' is the medicine ID in the form
-            'med_quantity' => 'required',
-        ]);
-
-        $targetMed = medicine::find($request->id); // Use 'find' to fetch a specific medicine record by its ID
-
-        if (is_null($targetMed)) {
-            Alert::error("Edit Error", "Can't find Medicine");
-            return redirect(route('inventory'));
-        } else {
-            $supply = PurchasedDuringMed::create([
-                'fk_med_id' => $request->id,
-                'med_quantity' => $request->med_quantity, // Corrected the field name
-            ]);
-
-            Alert::success('Success', 'Successfully Supplied!');
-            return redirect(route('inventory'));
-        }
-    }
-
-
-    public function deletemed(Request $request)
-    {
-        $med = medicine::where('id', $request->id)->first();
-        if (is_null($med)) {
-            Alert::error('Delete Error', "Can't Delete equipment with id" . $request->id);;
-        }
-        $med->delete();
-        Alert::success('Success', 'Successfuly Deleted!.');
-        return redirect(route('inventory'));
-    }
-    public function datatablemed()
-    {
-        return DataTables::of(medicine::all())->addColumn('Actions', 'component.medicinetableaction')->rawColumns(['Actions'])->make(true);
     }
 }

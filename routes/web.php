@@ -51,6 +51,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/consultation/delete', [\App\Http\Controllers\ConsultationController::class, 'delete'])->name('deleteConsultation');
     Route::post('/consultation/edit', [\App\Http\Controllers\ConsultationController::class, 'editConsultation'])->name('editConsultation');
 
+
+
+
     Route::get('/user/api/datatableUser', [\App\Http\Controllers\UserController::class, 'datatable'])->name('datatableUser');
     Route::post('/user', [\App\Http\Controllers\UserController::class, 'store'])->name('storeUser');
     Route::delete('/user/delete', [\App\Http\Controllers\UserController::class, 'deleteUser'])->name('deleteUser');
@@ -68,14 +71,13 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-
 Route::get('/studentCert', function (Request $request) {
     $student = Student::find($request->id);
     return view('reporty.report_certificate', compact('student'));
 })->name('studentCert');
 
 Route::get('/equipMonthly', function () {
-    $equipments = equipment::with('used')->get();
+    $equipments = equipment::whereMonth('created_at', date('m'))->with('used')->get();
     return  view('reporty.report_equipment_monthly_consumption', compact(['equipments']));
 })->name('equipMonthly');
 
@@ -86,7 +88,8 @@ Route::get('/medMonthly', function () {
 
 Route::get('/medicineDaily', function () {
     $consultations = consultation::with('student')->get();
-    return  view('reporty.report_daily_issuance', compact(['consultations']));
+    $meds = medicine::all();
+    return  view('reporty.report_daily_issuance', compact(['consultations', 'meds']));
 })->name('medDaily');
 
 Route::get('/medicineMonitoring', function () {

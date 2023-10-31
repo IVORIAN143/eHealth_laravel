@@ -173,7 +173,7 @@
     <div class="container">
         <div class="certificate">
             <!-- START OF HEADER -->
-            <img src="assets/images/isu-logo.png" alt="Logo" class="logo"> <!-- Added logo image -->
+            <img src="assets/images/isu-logo-med.png" alt="Logo" class="logo"> <!-- Added logo image -->
             <img src="assets/images/isu-logo.png" alt="Logo" class="logos"> <!-- Added logo image -->
             <div class="header">
                 <div class="paragraphs">Republic of The Philippines</div>
@@ -191,26 +191,22 @@
             <table class="tg">
                 <thead>
                     <tr>
-                        <th class="tg-0pky">Medicine</th>
-                        <th class="tg-0lax" colspan="2">Balance(Beginning)</th>
-                        <th class="tg-0lax" colspan="2">Purchased during the Period</th>
-                        <th class="tg-0lax">TOTAL</th>
-                        <th class="tg-0pky" colspan="2">Issued during the Period</th>
-                        <th class="tg-0pky" colspan="2">Balance(End)</th>
-                        <th class="tg-0pky">Expiry</th>
+                        <td class="tg-nrix" rowspan="2">MEDICINE</td>
+                        <td class="tg-nrix">BALANCE (Beggining)</td>
+                        <td class="tg-nrix">Purchase during Period</td>
+                        <td class="tg-nrix" rowspan="2">TOTAL</td>
+                        <td class="tg-nrix">Issued&nbsp;&nbsp;durring Period</td>
+                        <td class="tg-nrix">BALANCE(end)</td>
+                        <td class="tg-nrix" rowspan="2">TOTAL</td>
+                        <td class="tg-nrix" rowspan="2">EXPIRY</td>
+
                     </tr>
                     <tr>
-                        <td class="tg-baqh"></td>
-                        <td class="tg-baqh">Quantity</td>
-                        <td class="tg-baqh">Amount</td>
-                        <td class="tg-baqh">Quantity</td>
-                        <td class="tg-baqh">Amount</td>
-                        <td class="tg-baqh"></td>
-                        <td class="tg-baqh">Quantity</td>
-                        <td class="tg-baqh">Amount</td>
-                        <td class="tg-baqh">Quantity</td>
-                        <td class="tg-baqh">Amount</td>
-                        <td class="tg-baqh"></td>
+                        <td class="tg-nrix">QUANTITY</td>
+                        <td class="tg-nrix">QUANTITY</td>
+                        <td class="tg-nrix">QUANTITY</td>
+                        <td class="tg-nrix">QUANTITY</td>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -219,20 +215,18 @@
                         @php($totalQuantity = $medicine->med_quantity + $medicine->SumMed())
                         <td class="tg-0pky">{{$medicine->med_name}}</td>
                         <td class="tg-0pky">{{$medicine->quantity}}</td>
-                        <td class="tg-0pky"></td>
                         <td class="tg-0pky">{{$medicine->SumMed()}}</td>
-                        <td class="tg-0pky"></td>
                         <td class="tg-0pky">{{$totalQuantity}}</td>
                         <td class="tg-0pky">{{$medicine->countUsed()}}</td>
-                        <td class="tg-0pky"></td>
-                        <td class="tg-0pky">{{$totalQuantity - $medicine->countUsed()}}</td>
-                        <td class="tg-0pky"></td>
-                        <td class="tg-0pky">{{$medicine->description}}</td>
+                        <td class="tg-0pky">{{$medicine->countUsed() - $totalQuantity}}</td>
+                        <td class="tg-0pky">{{$medicine->countUsed() - $totalQuantity}}</td>
+                        <td class="tg-0pky">{{$medicine->expiration}}</td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
+
 
 
         <div class="flex-container">

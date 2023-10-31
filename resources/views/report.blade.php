@@ -9,12 +9,12 @@
             <div class="app-card-thumb">
                 <img class="thumb-image" src="assets\images\med_monthly.png" alt="" />
             </div>
-            <a class="app-card-link-mask" href="{{route('equipMonthly')}}"></a>
+            <a class="app-card-link-mask"></a>
         </div>
 
         <div class="app-card-body p-3 has-card-actions">
             <h4 class="app-doc-title truncate mb-0">
-                <a href="{{route('equipMonthly')}}">Medicine Monthly <br> Report</a>
+                <a>Medicine Monthly <br> Report</a>
             </h4>
         </div>
 

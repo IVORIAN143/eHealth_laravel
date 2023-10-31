@@ -179,7 +179,7 @@
 <div class="certificate">
     <!-- START OF HEADER -->
     <img src="assets/images/isu-logo.png" alt="Logo" class="logo"> <!-- Added logo image -->
-    <img src="assets/images/isu-logo.png" alt="Logo" class="logos"> <!-- Added logo image -->
+    <img src="assets/images/isu-logo-med.png" alt="Logo" class="logos"> <!-- Added logo image -->
     <div class="header">
         <div class="paragraphs">Republic of The Philippines</div>
         <div class="paragraph">ISABELA STATE UNIVERSITY</div>
@@ -193,7 +193,7 @@
     <div class="letter">
         <div class="wordleft">TO WHOM IT MAY CONCERN,</div>
         <div class="justify">
-            <b>THIS IS TO CERTIFY</b> that<strong><u>{{$student->firstname}} {{$student->middlename}} {{$student->lastname}}</u></strong>,
+            <b>THIS IS TO CERTIFY</b> that <strong><u>{{$student->firstname}} {{$student->middlename}} {{$student->lastname}}</u></strong>,
             age <span id="agePlaceholder">XX</span> years old, sex <strong><u>{{$student->gender}}</u></strong>
         </div>
         <div class="wr">civil status <u> {{$student->civilStat}} </u> , a student/employee of <b><u>ISABELA STATE UNIVERSITY-Santiago Extension Unit.</u></b></div>
