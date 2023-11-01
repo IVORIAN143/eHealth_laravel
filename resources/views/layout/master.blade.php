@@ -27,34 +27,35 @@
     @stack('css')
 </head>
 <style>
-    /* Style for the row containing elements */
-    .row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    .app-utility-item {
+        margin-bottom: 15px;
+        position: relative;
+        text-align: center;
     }
 
-    /* Style for the input and select elements */
     input[type="text"],
     select {
-        padding: 8px;
-        border: 1px solid #ccc;
+        width: calc(100% - 6px);
+        padding: 4px;
+        /* border: 2px solid #ccc; */
         border-radius: 4px;
-        width: 200px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        /* Adding box shadow */
-        margin-bottom: 8px;
+        /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+        font-size: 16px;
+        text-align: center;
     }
 
-    /* Style for the dropdown container */
-    .app-utility-item {
-        position: relative;
+    select {
+        background: white;
+        appearance: none;
     }
 
-    /* Style for the dropdown toggle */
+    select option:checked {
+        background: #f0f0f0;
+    }
+
     .dropdown-toggle {
         display: inline-block;
-        padding: 8px 12px;
+        padding: 4px;
         background-color: #f5f5f5;
         border: 1px solid #ccc;
         border-radius: 4px;
@@ -62,32 +63,28 @@
         text-decoration: none;
     }
 
-    /* Style for the dropdown menu */
     .dropdown-menu {
         display: none;
         position: absolute;
         background-color: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        padding: 8px;
-        border-radius: 4px;
+        box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 2px;
+        border-radius: 1px;
         z-index: 1;
         min-width: 120px;
     }
 
-    /* Style for dropdown items */
     .dropdown-menu li {
         list-style: none;
-        padding: 8px 0;
+        padding: 1px 0;
         cursor: pointer;
     }
 
-    /* Style for the divider */
     .dropdown-divider {
         border-top: 1px solid #ccc;
         margin: 6px 0;
     }
 
-    /* Style for the logout link */
     .dropdown-menu a {
         text-decoration: none;
         color: #333;
