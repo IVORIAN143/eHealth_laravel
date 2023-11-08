@@ -9,6 +9,7 @@ use App\Models\medicine;
 use App\Models\student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CsvImportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
+
+    Route::post('/import', [CsvImportController::class, 'import'])->name('import');
+
+
     Route::get('/students', [\App\Http\Controllers\StudentController::class, 'index'])->name('students');
     Route::get('/inventory', [\App\Http\Controllers\InventoryController::class, 'index'])->name('inventory');
     Route::get('/consultation', [\App\Http\Controllers\ConsultationController::class, 'index'])->name('consultation');
@@ -50,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/consultation', [\App\Http\Controllers\ConsultationController::class, 'store'])->name('storeConsult');
     Route::delete('/consultation/delete', [\App\Http\Controllers\ConsultationController::class, 'delete'])->name('deleteConsultation');
     Route::post('/consultation/edit', [\App\Http\Controllers\ConsultationController::class, 'editConsultation'])->name('editConsultation');
+    Route::post('/upload/signature', [\App\Http\Controls\ConsultationController::class, 'upload'])->name('uploadSignature');
 
 
 
@@ -59,6 +65,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/user/delete', [\App\Http\Controllers\UserController::class, 'deleteUser'])->name('deleteUser');
     Route::post('/user/edit', [\App\Http\Controllers\UserController::class, 'editUser'])->name('editUser');
 
+
     Route::get('/consultation/statusApprove', [\App\Http\Controllers\ConsultationController::class, 'statusApprove'])->name('statusApprove');
     Route::get('/consultation/statusDisapprove', [\App\Http\Controllers\ConsultationController::class, 'statusDisapprove'])->name('statusDisapprove');
 
@@ -67,10 +74,14 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+Route::get('/dailyMedTable', function () {
+    $medicines = medicine::all();
+    return view('report_tbl.dailyMedTable', compact(['medicines']));
+})->name('dailyMedTable');
 
 
 
-
+// print
 Route::get('/studentCert', function (Request $request) {
     $student = Student::find($request->id);
     return view('reporty.report_certificate', compact('student'));

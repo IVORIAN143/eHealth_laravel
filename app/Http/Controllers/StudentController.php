@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\DataTables;
 
+
+
+
 class StudentController extends Controller
 {
     public function index()

@@ -6,7 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\DataTables;
-use function Laravel\Prompts\text;
+use App\Imports\UsersImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -14,59 +15,63 @@ class UserController extends Controller
     {
         $title = 'Delete User!';
         $text = 'Are you sure you want to delete?';
-        confirmDelete($title,$text);
+        confirmDelete($title, $text);
         return view('user');
     }
 
-    public function store(Request $request){
-
+    public function storeUser(Request $request)
+    {
         $validated = $request->validate([
-            'username'=> 'required',
+            'username' => 'required',
             'role' => 'required',
             'email' => 'required',
             'password' => 'required',
         ]);
 
         $user = User::create([
-            'username'=> $request->username,
+            'username' => $request->username,
             'role' => $request->role,
             'email' => $request->email,
-            'password'=>$request->password,
+            'password' => $request->password,
         ]);
 
-        if(is_null($user))
-            Alert::error("Creation Error", "Can't Add Username");
-        else
-            Alert::success('Success', 'Successfuly Added!.');
+        if ($user) {
+            Alert::success('Success', 'Successfully Added!');
+        } else {
+            Alert::error('Creation Error', "Can't Add Username");
+        }
+
         return redirect(route('storeUser'));
     }
 
-    public function delete(Request $request){
-        $user = User::where('id', $request->id)->first();
-        if(is_null($user))
-        {
-            Alert::error('Delete Error', "Can't Delete username with id".$request->id);
+    public function deleteUser(Request $request)
+    {
+        $user = User::find($request->id);
+        if ($user) {
+            $user->delete();
+            Alert::success('Success', 'Successfully Deleted!');
+        } else {
+            Alert::error('Delete Error', "Can't Delete user with ID " . $request->id);
         }
-        $user->delete();
-        Alert::success('Success', 'Successfuly Delete!.');
-        return redirect(route('deleteUser'));
 
+        return redirect(route('deleteUser'));
     }
 
-    public function editUser(Request $request){
-        $target = User::where('id', $request->id);
-        if(is_null($target))
-            Alert::error("Edit User Error", "Can't Find User.");
-        else{
-            $target->update([
-                'username'=>$request->username,
-                'email'=>$request->email,
-                'role'=>$request->role,
+    public function editUser(Request $request)
+    {
+        $user = User::find($request->id);
+        if ($user) {
+            $user->update([
+                'username' => $request->username,
+                'email' => $request->email,
+                'role' => $request->role,
             ]);
-            Alert::success('Success', 'Successfuly Edited!.');
-            return redirect(route('user'));
-
+            Alert::success('Success', 'Successfully Edited!');
+        } else {
+            Alert::error("Edit User Error", "Can't Find User.");
         }
+
+        return redirect(route('user'));
     }
 
     public function datatable()
@@ -74,4 +79,3 @@ class UserController extends Controller
         return DataTables::of(User::all())->addColumn('Actions', 'component.usertableaction')->rawColumns(['Actions'])->make(true);
     }
 }
-

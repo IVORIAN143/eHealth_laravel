@@ -2,316 +2,478 @@
 
 @section('content')
 
-<style>
-    /* Update the styling */
+    <style>
+        /* Update the styling */
 
-    .flex-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        /* background-color: #f1f1f1;    */
-        padding: 10px;
-        height: auto;
-        /* Set height to fill the viewport */
-    }
+        .flex-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* background-color: #f1f1f1;    */
+            padding: 10px;
+            height: auto;
+            /* Set height to fill the viewport */
+        }
 
-    .flex-item {
-        /* flex: 1; */
-        margin: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+        .flex-item {
+            /* flex: 1; */
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    .card {
-        background: #fff;
-        padding: 10px;
-        text-align: center;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        max-width: 600px;
-        /* Set max width for better readability */
-    }
+        .card {
+            background: #fff;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            max-width: 600px;
+            /* Set max width for better readability */
+        }
 
-    .card:hover {
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
 
-    canvas {
-        width: 100%;
-        height: 240px;
-        display: block;
-        margin: 20px auto;
-        /* Adjust margin for better centering */
-    }
+        canvas {
+            width: 100%;
+            height: 180px;
+            display: block;
+            margin: 20px auto;
+            /* Adjust margin for better centering */
+        }
 
-    .card a {
-        text-decoration: none;
-        color: #333;
-        /* Set text color for readability */
-        font-size: 22px;
-        font-weight: bold;
-    }
+        .card a {
+            text-decoration: none;
+            color: #333;
+            /* Set text color for readability */
+            font-size: 22px;
+            font-weight: bold;
+        }
 
-    .card-link {
-        display: block;
-        padding: 20px;
-    }
-</style>
-<h1> Dashboard </h1>
+        .card-link {
+            display: block;
+            padding: 20px;
+        }
 
-<!-- Structure remains the same as your previous HTML code -->
 
-<div class="flex-container">
-    <div class="flex-item">
-        <div class="card">
-            <a href="#">Consultation</a>
-            <canvas id="myDonutChart"></canvas>
+        @media (max-width: 768px) {
+            .flex-container {
+                flex-direction: column;
+            }
+
+            .flex-item {
+                margin: 10px 0;
+            }
+
+            .card {
+                max-width: 100%;
+                /* Adjust width for smaller screens */
+            }
+
+            canvas {
+                width: 90%;
+                height: 200px;
+                /* Adjust height for smaller screens */
+            }
+
+            .card a {
+                font-size: 20px;
+                /* Adjust font size for smaller screens */
+            }
+        }
+    </style>
+    <h1> Dashboard </h1>
+
+    <!-- Structure remains the same as your previous HTML code -->
+
+    <div class="flex-container">
+
+        <div class="flex-item">
+            <div class="card">
+                <a href="{{ route('report') }}">Daily Medicine
+                    <canvas id="medicineChart"></canvas>
+                </a>
+            </div>
+        </div>
+        <div class="flex-item">
+            <div class="card">
+                <a href="{{ route('report') }}">Monthly Consumption
+                    <canvas id="medicineSupplyChart"></canvas>
+                </a>
+            </div>
+        </div>
+        <div class="flex-item">
+            <div class="card">
+                <a href="{{ route('inventory') }}">Equipment and Medicine Count
+                    <canvas id="equipmentMedicineChart"></canvas>
+                </a>
+            </div>
         </div>
     </div>
-    <div class="flex-item">
-        <div class="card">
-            <a href="#">Daily Medicine </a>
-            <canvas id="medicineChart"></canvas>
+
+    <div class="flex-container">
+        <div class="flex-item">
+            <div class="card">
+                <a href="{{ route('students') }}"><small>Total Student</small> <small id="studentsLabelCount">
+                    </small>
+                    <canvas id="myDonutChart"></canvas>
+                </a>
+            </div>
         </div>
-    </div>
-    <div class="flex-item">
-        <div class="card">
-            <a href="#">Monthly Consumption</a>
-            <canvas id="medicineSupplyChart"></canvas>
+
+
+        <div class="flex-item">
+            <div class="card">
+                <a href="{{ route('consultation') }}">
+                    <h3>Diagnosed Consultations</h3>
+                    <canvas id="diagnosedCountChart"></canvas>
+                </a>
+            </div>
         </div>
+        @if (Auth::user()->role == 'nurse')
+            <div class="flex-item">
+                <div class="card">
+                    <a href="{{ route('user') }}">
+                        <h3>User Roles</h3>
+                        <canvas id="userRoleChart"></canvas>
+                    </a>
+                </div>
+            </div>
+        @endif
+
+
+
     </div>
-</div>
-
-
-
-
-<div class="row g-4 mb-4">
-    <div class="col-6 col-lg-3">
-        <div class="app-card app-card-stat shadow-sm h-100">
-            <div class="app-card-body p-3 p-lg-4">
-                <h4 class="stats-type mb-1">Student</h4>
-                <div id="studentsLabelCount" class="stats-figure"></div>
-                <div class="stats-meta text-success">
-                    {{-- <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">--}}
-                    {{-- <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"></path>--}}
-                    {{-- </svg> 20%--}}
-                </div>
-            </div><!--//app-card-body-->
-            <a class="app-card-link-mask" href="{{route('students')}}"></a>
-        </div><!--//app-card-->
-    </div><!--//col-->
-
-    <div class="col-6 col-lg-3">
-        <div class="app-card app-card-stat shadow-sm h-100">
-            <div class="app-card-body p-3 p-lg-4">
-                <h4 class="stats-type mb-1">Equipment</h4>
-                <div class="stats-figure">{{ $equipment }}</div>
-                <div class="stats-meta text-success">
-                    {{-- <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">--}}
-                    {{-- <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"></path>--}}
-                    {{-- </svg> --}}
-                </div>
-            </div><!--//app-card-body-->
-            <a class="app-card-link-mask" href="{{route('inventory')}}"></a>
-        </div><!--//app-card-->
-    </div><!--//col-->
-    <div class="col-6 col-lg-3">
-        <div class="app-card app-card-stat shadow-sm h-100">
-            <div class="app-card-body p-3 p-lg-4">
-                <h4 class="stats-type mb-1">Medicine</h4>
-                <div class="stats-figure">{{$medicine}}</div>
-                <div class="stats-meta text-success">
-                    {{-- <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">--}}
-                    {{-- <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"></path>--}}
-                    {{-- </svg> --}}
-                </div>
-            </div><!--//app-card-body-->
-            <a class="app-card-link-mask" href="{{route('inventory')}}"></a>
-        </div><!--//app-card-->
-    </div><!--//col-->
-
-
-
-    <div class="col-6 col-lg-3">
-        <div class="app-card app-card-stat shadow-sm h-100">
-            <div class="app-card-body p-3 p-lg-4">
-                <h4 class="stats-type mb-1">Consultation</h4>
-                <div class="stats-figure"></div>
-
-            </div><!--//app-card-body-->
-            <a class="app-card-link-mask" href="{{route('consultation')}}"></a>
-        </div><!--//app-card-->
-    </div><!--//col-->
-
-
-
-    @if(Auth::user()->role == 'nurse')
-    <div class="col-6 col-lg-3">
-        <div class="app-card app-card-stat shadow-sm h-100">
-            <div class="app-card-body p-3 p-lg-4">
-                <h4 class="stats-type mb-1">User</h4>
-                <div class="stats-figure">{{$users}}</div>
-                <!-- <div class="stats-meta">
-                    Open</div> -->
-            </div><!--//app-card-body-->
-            <a class="app-card-link-mask" href="{{route('user')}}"></a>
-        </div><!--//app-card-->
-    </div><!--//col-->
-    @endif
-</div>
 @stop
 
 @push('js')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    $(function() {
-        initialize()
-        $("#semester").on("change", function() {
-            initialize()
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        let myDonutChart;
+        // start for student chart
+        $(function() {
+            initialize();
+            $("#semester").on("change", function() {
+                initialize();
+            });
+            $('#schoolYear').on('change', function() {
+                initialize();
+            });
         });
-        $('#schoolYear').on('change', function() {
-            initialize()
-        })
 
-    });
+        function initialize() {
+            $.ajax({
+                url: "{{ route('home') }}",
+                method: "get",
+                data: {
+                    semester: $("#semester").val(),
+                    schoolyear: $('#schoolYear').val()
+                },
+                success: function(response) {
+                    console.log(response); // Log the response to verify data
+                    $('#studentsLabelCount').html(response.students);
+                    updateDonutChart(response.bsit, response.bsa);
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Request Error: " + error);
+                    console.log("Status: " + status);
+                }
+            });
+        }
 
-    function initialize() {
-        $.ajax({
-            url: "{{ route('home') }}",
-            method: "get",
+
+        function updateDonutChart(bsitCount, bsaCount) {
+            let ctx = document.getElementById('myDonutChart').getContext('2d');
+
+            if (myDonutChart) {
+                myDonutChart.destroy(); // Destroy the existing chart instance
+            }
+
+            myDonutChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['BSIT', 'BSA'],
+                    datasets: [{
+                        data: [bsitCount, bsaCount],
+                        backgroundColor: [
+                            '#0056ed',
+                            '#00ed2b'
+                        ]
+                    }]
+                },
+                options: {}
+            });
+        }
+
+        // end student chart
+
+        // start equipment and medicine Chart
+        function createEquipmentMedicineChart(equipmentCount, medicineCount) {
+            if (!isNaN(equipmentCount) && !isNaN(medicineCount)) {
+                equipmentCount = parseInt(equipmentCount);
+                medicineCount = parseInt(medicineCount);
+
+                var ctx = document.getElementById('equipmentMedicineChart').getContext('2d');
+                var equipmentMedicineChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Equipment', 'Medicine'],
+                        datasets: [{
+                                label: 'Equipment',
+                                data: [equipmentCount, 0], // Values in respective positions
+                                backgroundColor: '#d01bb8',
+                                borderColor: '#d01bb8',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Medicine',
+                                data: [0, medicineCount], // Values in respective positions
+                                backgroundColor: '#57b1e6',
+                                borderColor: '#57b1e6',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        indexAxis: 'y', // Change orientation to vertical
+                        barPercentage: 0.5, // Adjust bar thickness
+                        categoryPercentage: 0.5, // Adjust space between bars
+                        scales: {
+                            x: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            } else {
+                console.error('Invalid or undefined values for the chart data.');
+            }
+        }
+
+        var equipmentCount = <?php echo isset($equipment) ? $equipment : '0'; ?>;
+        var medicineCount = <?php echo isset($medicine) ? $medicine : '0'; ?>;
+
+        createEquipmentMedicineChart(equipmentCount, medicineCount);
+
+
+        // end equipment and medicine Chart
+
+
+
+
+
+
+
+
+        // consultaion
+        function createDiagnosedCountChart(diagnosedCount, pending, notDiagnosedCount) {
+            if (!isNaN(diagnosedCount) && !isNaN(pending) && !isNaN(notDiagnosedCount)) {
+                diagnosedCount = parseInt(diagnosedCount);
+                pending = parseInt(pending);
+                notDiagnosedCount = parseInt(notDiagnosedCount);
+
+                var ctx = document.getElementById('diagnosedCountChart').getContext('2d');
+                var myBarChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Diagnosed', 'Pending', 'Not Diagnosed'],
+                        datasets: [{
+                                label: 'Diagnosed',
+                                data: [diagnosedCount, 0, 0], // Values in respective positions
+                                backgroundColor: '#005dff',
+                                borderColor: '#005dff',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Pending',
+                                data: [0, pending, 0], // Values in respective positions
+                                backgroundColor: '#0cf6e6',
+                                borderColor: '#0cf6e6',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Not Diagnosed',
+                                data: [0, 0, notDiagnosedCount], // Values in respective positions
+                                backgroundColor: '#ff0000',
+                                borderColor: '#ff0000',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                    precision: 0
+                                }
+                            }]
+                        },
+                        legend: {
+                            display: true,
+                            labels: {
+                                fontColor: 'black'
+                            }
+                        }
+                    }
+                });
+            } else {
+                console.error('Invalid or undefined values for the chart data.');
+            }
+        }
+
+        var diagnosedCount = {{ isset($approvedCount) ? $approvedCount : '0' }};
+        var pendingCount = {{ isset($pendingCount) ? $pendingCount : '0' }};
+        var declinedCount = {{ isset($declinedCount) ? $declinedCount : '0' }};
+
+        createDiagnosedCountChart(diagnosedCount, pendingCount, declinedCount);
+
+
+
+
+        // user///////////////
+
+        function createUserRoleChart(nurseCount, doctorCount) {
+            var ctx = document.getElementById('userRoleChart').getContext('2d');
+            var userRoleChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Nurse', 'Doctor'],
+                    datasets: [{
+                        data: [nurseCount, doctorCount],
+                        backgroundColor: [
+                            '#cc65fe', // Blue color for Nurse
+                            '#ffce56' // Red color for Doctor
+                        ],
+                        borderColor: [
+                            '#cc65fe',
+                            '#ffce56'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            createUserRoleChart(<?php echo $nurseCount; ?>, <?php echo $doctorCount; ?>);
+        });
+
+
+        //user end/////////////
+
+
+
+
+
+
+
+
+
+
+
+        // Sample data for monthly medicine intake and supply
+        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+        var medicineIntake = [10, 15, 20, 18, 25, 22, 30]; // Sample data for medicine intake per month
+        var supplyData = [50, 45, 60, 55, 70, 65, 80]; // Sample data for medicine supply per month
+
+        var ctx = document.getElementById('medicineSupplyChart').getContext('2d');
+        var medicineSupplyChart = new Chart(ctx, {
+            type: 'line',
             data: {
-                semester: $("#semester").val(),
-                schoolyear: $('#schoolYear').val()
+                labels: months,
+                datasets: [{
+                    label: 'Medicine Intake',
+                    data: medicineIntake,
+                    fill: false,
+                    borderColor: '#2986cc',
+                    tension: 0.4
+                }, {
+                    label: 'Medicine Supply',
+                    data: supplyData,
+                    fill: false,
+                    borderColor: '#c90076',
+                    tension: 0.4
+                }]
             },
-            success: function(response) {
-                $('#studentsLabelCount').html(response.students);
-                console.log(response.students);
-            },
-            error: function(xhr, status, error) {
-                console.error("AJAX Request Error: " + error);
-                console.log("Status: " + status);
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
             }
         });
-    }
 
+        // Sample data for medicine intake, using days as labels
+        var days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
+        var medicineTaken = [2, 3, 1, 4, 2, 5, 3]; // Sample data for medicines taken each day
 
-    //////////////////////////////////////
-    var data = {
-        labels: ['Label 1', 'Label 2', 'Label 3'],
-        datasets: [{
-            data: [30, 40, 20],
-            backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(75, 192, 192)'],
-        }]
-    };
-
-    var ctx = document.getElementById('myDonutChart').getContext('2d');
-    var myDonutChart = new Chart(ctx, {
-        type: 'doughnut', // Use 'doughnut' for a donut chart
-        data: data,
-        options: {
-            // Additional options for the chart
-        }
-    });
-
-
-
-
-    // Sample data for monthly medicine intake and supply
-    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-    var medicineIntake = [10, 15, 20, 18, 25, 22, 30]; // Sample data for medicine intake per month
-    var supplyData = [50, 45, 60, 55, 70, 65, 80]; // Sample data for medicine supply per month
-
-    var ctx = document.getElementById('medicineSupplyChart').getContext('2d');
-    var medicineSupplyChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: months,
-            datasets: [{
-                label: 'Medicine Intake',
-                data: medicineIntake,
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.4
-            }, {
-                label: 'Medicine Supply',
-                data: supplyData,
-                fill: false,
-                borderColor: 'rgb(255, 99, 132)',
-                tension: 0.4
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+        var ctx = document.getElementById('medicineChart').getContext('2d');
+        var medicineChart = new Chart(ctx, {
+            type: 'line', // Set the type to 'line' for a line chart
+            data: {
+                labels: days,
+                datasets: [{
+                    label: 'Medicine Intake',
+                    data: medicineTaken,
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
+        });
 
-    // Sample data for medicine intake, using days as labels
-    var days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
-    var medicineTaken = [2, 3, 1, 4, 2, 5, 3]; // Sample data for medicines taken each day
 
-    var ctx = document.getElementById('medicineChart').getContext('2d');
-    var medicineChart = new Chart(ctx, {
-        type: 'line', // Set the type to 'line' for a line chart
-        data: {
-            labels: days,
-            datasets: [{
-                label: 'Medicine Intake',
-                data: medicineTaken,
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.4
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+        var medicineIntake = [10, 15, 20, 18, 25, 22, 30]; // Sample data for medicine intake per month
+        var supplyData = [50, 45, 60, 55, 70, 65, 80]; // Sample data for medicine supply per month
+
+        var ctx = document.getElementById('medicineSupplyChart').getContext('2d');
+        var medicineSupplyChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: months,
+                datasets: [{
+                    label: 'Medicine Intake',
+                    data: medicineIntake,
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.4
+                }, {
+                    label: 'Medicine Supply',
+                    data: supplyData,
+                    fill: false,
+                    borderColor: 'rgb(255, 99, 132)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
-
-
-    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-    var medicineIntake = [10, 15, 20, 18, 25, 22, 30]; // Sample data for medicine intake per month
-    var supplyData = [50, 45, 60, 55, 70, 65, 80]; // Sample data for medicine supply per month
-
-    var ctx = document.getElementById('medicineSupplyChart').getContext('2d');
-    var medicineSupplyChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: months,
-            datasets: [{
-                label: 'Medicine Intake',
-                data: medicineIntake,
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.4
-            }, {
-                label: 'Medicine Supply',
-                data: supplyData,
-                fill: false,
-                borderColor: 'rgb(255, 99, 132)',
-                tension: 0.4
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-</script>
-
+        });
+    </script>
 @endpush

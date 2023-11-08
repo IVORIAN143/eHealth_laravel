@@ -215,3 +215,27 @@ class InventoryController extends Controller
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////
+// In the controller method where you fetch data for DataTable
+$medicines = Medicine::all();
+
+foreach ($medicines as $medicine) {
+    // Perform calculation for 'totalquantity'
+    $medicine->totalquantity = $medicine->quantity * $medicine->dosage; // Adjust this calculation based on your specific logic
+}
+
+return response()->json([
+    'data' => $medicines
+]);

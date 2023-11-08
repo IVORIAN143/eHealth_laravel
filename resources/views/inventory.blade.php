@@ -378,7 +378,8 @@
 @push('js')
 <script>
     // FOR MEDICINE
-    $(function() {
+           name: 'totalquantity'
+             $(function() {
         $('#medicineTable').DataTable({
             processing: true,
             serverSide: false,
@@ -401,7 +402,6 @@
                 },
                 {
                     data: 'totalquantity',
-                    name: 'totalquantity'
                 },
                 {
                     data: 'Actions',
