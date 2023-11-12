@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('content')
-    <h1 class="app-page-title">Student</h1>
+    <h1>Students</h1>
 
     <div class="row g-3 mb-4 align-items-center justify-content-between">
 

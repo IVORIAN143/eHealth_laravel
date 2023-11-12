@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('content')
-    <h1 class="app-page-title">User</h1>
+    <h1>User</h1>
 
     <div class="row g-3 mb-4 align-items-center justify-content-between">
 
@@ -15,24 +15,30 @@
                 <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
 
 
-                        <div class="col-auto">
-                            <a class="btn app-btn-secondary" type="button" data-bs-toggle="modal" data-bs-target="#addUsertModal">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-                                    <path fill-rule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
-                                </svg>
-                                Add Users
-                            </a>
-                        </div>
-                        <div class="col-auto">
-                            <a class="btn app-btn-secondary" type="button" data-toggle="modal" data-target="#importModal">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-                                    <path fill-rule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
-                                </svg>
-                                Import Data
-                            </a>
-                        </div>
+                    <div class="col-auto">
+                        <a class="btn app-btn-secondary" type="button" data-bs-toggle="modal" data-bs-target="#addUsertModal">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                <path fill-rule="evenodd"
+                                    d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                            </svg>
+                            Add Users
+                        </a>
+                    </div>
+                    <div class="col-auto">
+                        <a class="btn app-btn-secondary" type="button" data-toggle="modal" data-target="#importModal">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                <path fill-rule="evenodd"
+                                    d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                            </svg>
+                            Import Data
+                        </a>
+                    </div>
 
                 </div><!--//row-->
             </div><!--//table-utilities-->
@@ -46,14 +52,14 @@
                     <div class="table-responsive">
                         <table id="userTable" class="table app-table-hover mb-0 text-left">
                             <thead>
-                            <tr>
-                                <th class="cell">Id</th>
-                                <th class="cell">Username</th>
-                                <th class="cell">Role</th>
-                                <th class="cell">Email</th>
-                                <th class="cell">Actions</th>
+                                <tr>
+                                    <th class="cell">Id</th>
+                                    <th class="cell">Username</th>
+                                    <th class="cell">Role</th>
+                                    <th class="cell">Email</th>
+                                    <th class="cell">Actions</th>
 
-                            </tr>
+                                </tr>
                             </thead>
                         </table>
                     </div>
@@ -62,7 +68,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="addUsertModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addUsertModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -78,7 +85,7 @@
                             <label for="username">Username</label>
                             <input value="{{ old('username') }}" type="text" name="username" class="form-control">
                             @error('username')
-                            <span class="error-message">{{ $message }}</span>
+                                <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -88,14 +95,14 @@
                                 <option value="doctor">Doctor</option>
                             </select>
                             @error('role')
-                            <span class="error-message">{{ $message }}</span>
+                                <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input value="{{ old('email') }}" type="text" name="email" class="form-control">
                             @error('email')
-                            <span class="error-message">{{ $message }}</span>
+                                <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
@@ -109,7 +116,8 @@
     </div>
 
 
-    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -124,9 +132,10 @@
                         <input type="hidden" id="Edit_id" name="id">
                         <div class="form-group">
                             <label for="Edit_username">Username</label>
-                            <input id="Edit_username" value="{{ old('username') }}" type="text" name="username" class="form-control">
+                            <input id="Edit_username" value="{{ old('username') }}" type="text" name="username"
+                                class="form-control">
                             @error('username')
-                            <span class="error-message">{{ $message }}</span>
+                                <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -136,14 +145,15 @@
                                 <option value="doctor">Doctor</option>
                             </select>
                             @error('role')
-                            <span class="error-message">{{ $message }}</span>
+                                <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="Edit_email">Email</label>
-                            <input id="Edit_email" value="{{ old('email') }}" type="text" name="email" class="form-control">
+                            <input id="Edit_email" value="{{ old('email') }}" type="text" name="email"
+                                class="form-control">
                             @error('email')
-                            <span class="error-message">{{ $message }}</span>
+                                <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
@@ -165,18 +175,31 @@
                 processing: true,
                 serverSide: false,
                 ajax: '{{ route('datatableUser') }}',
-                columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'username', name: 'username' },
-                    { data: 'role', name: 'role' },
-                    { data: 'email', name: 'email' },
-                    { data: 'Actions', name: 'Actions' },
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'username',
+                        name: 'username'
+                    },
+                    {
+                        data: 'role',
+                        name: 'role'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        data: 'Actions',
+                        name: 'Actions'
+                    },
                 ]
             });
         });
 
-        function ShowModal(id, username, role, email)
-        {
+        function ShowModal(id, username, role, email) {
 
             $('#Edit_id').val(id);
             $('#Edit_username').val(username);

@@ -10,7 +10,7 @@
             transform: scale(1.1);
         }
     </style>
-    <h1 class="app-page-title">REPORT</h1>
+    <h1>Reports</h1>
 
     <div class="row">
         <!-- Daily Equipment Consumption Card -->
