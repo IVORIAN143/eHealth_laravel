@@ -380,12 +380,7 @@
                             <input type="text" name="boostLocation2" id="boostLocation2" class="form-control">
 
 
-
                         </div>
-
-
-
-
 
                     </div>
 

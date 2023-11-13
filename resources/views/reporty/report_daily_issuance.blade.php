@@ -57,7 +57,8 @@
         .tg th {
             border: 1px solid #333;
             /* Changed border-color to #333 */
-            padding: 10px;
+            padding: 8px;
+            padding-top: 5px;
             /* Simplified padding */
             font-family: Arial, sans-serif;
             font-size: 14px;
@@ -247,21 +248,24 @@
                             <td class="tg-0pky">{{ $consultation->student->course }}-{{ $consultation->student->year }}
                             </td>
                             <td class="tg-0pky">{{ $consultation->diagnosis }}</td>
-                            @foreach ($consultation->med_used as $med)
-                                @foreach ($meds as $medicine)
-                                    <td class="tg-0pky">
-                                        @if ($med->fk_med_id == $medicine->id)
-                                            {{ $med->quantity }}
-                                        @else
-                                            0
-                                        @endif
-                                    </td>
-                                @endforeach
+
+                            @foreach ($meds as $medicine)
+                                @php
+                                    $medication = $consultation->med_used->where('fk_med_id', $medicine->id)->first();
+                                @endphp
+
+                                <td class="tg-0pky">
+                                    {{ $medication ? $medication->quantity : 0 }}
+                                </td>
                             @endforeach
-                            <td><img src="{{ asset('storage/signImage/' . $consultation->student->id . '.png') }}"
-                                    alt="Patient Signature"></td>
+
+                            <td>
+                                <img src="{{ asset('storage/signImage/' . $consultation->student->id . '.png') }}"
+                                    alt="Patient Signature">
+                            </td>
                         </tr>
                     @endforeach
+
                 </tbody>
             </table>
 

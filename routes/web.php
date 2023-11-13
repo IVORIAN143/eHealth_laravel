@@ -85,7 +85,7 @@ Route::get('/dailyMedTable', function () {
 
 // for Student View
 Route::get('/studentView', function (Request $request) {
-    $consultations = consultation::find($request->id);
+    $$consultations = consultation::find($request->id);
     $medicines = medicine::find($request->id);
     $student = Student::find($request->id);
     return view('student_view.studentView', compact(['student', 'medicines', 'consultations']));

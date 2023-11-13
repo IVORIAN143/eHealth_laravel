@@ -225,13 +225,11 @@
                         <td class="tg-0lax"></td>
                         <td class="tg-0lax"></td>
                         <td class="tg-0lax"></td>
-                        @foreach ($records as $record)
-                            <!-- Display the record details -->
-                            <td class="tg-0lax">
-                                <img src="{{ asset('storage/signImage/' . $record->id . '_signature.png') }}"
-                                    alt="Patient Signature">
-                            </td>
-                        @endforeach
+                        <!-- Display the record details -->
+                        <td class="tg-0lax">
+                            <img src="{{ asset('storage/signImage/' . $record->id . $student->studentid + '.png') }}"
+                                alt="Patient Signature">
+                        </td>
                         <td class="tg-0lax"></td>
                         <td class="tg-0lax"></td>
                         <td class="tg-0lax"></td>
@@ -286,8 +284,8 @@
         const imgElement = document.createElement('img');
         imgElement.src = signatureImg.src;
         imgElement.alt = 'Signature';
-        imgElement.style.maxWidth = '100px';
-        imgElement.style.height = 'auto';
+        imgElement.style.maxWidth = '10%';
+        imgElement.style.height = '10%';
 
         // Clear the content of the target cell
         targetCell.innerHTML = '';

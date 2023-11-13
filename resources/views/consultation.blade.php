@@ -532,16 +532,52 @@
 
 
 
+        // function save(studentid) {
+        //     const fs = require('fs');
+        //     const path = require('path');
+
+        //     var canvas = document.getElementById('signaturePad');
+        //     var signatureData = canvas.toDataURL('image/png'); // Get signature data as a PNG
+
+
+        //     // Ensure 'app/public' directory exists
+        //     const publicDir = path.join(__dirname, 'app', 'public');
+        //     if (!fs.existsSync(publicDir)) {
+        //         fs.mkdirSync(publicDir, {
+        //             recursive: true
+        //         });
+        //         console.log('Directory created: app/public');
+        //     }
+
+        //     // Save the image to the 'app/public' directory
+        //     const imageData = signatureData;
+        //     const base64Data = imageData.replace(/^data:image\/png;base64,/, '');
+
+        //     // Write the image data to a file
+        //     const imageFilePath = path.join(publicDir, studentid + '.png');
+        //     try {
+        //         fs.writeFileSync(imageFilePath, base64Data, 'base64');
+        //         console.log('Image saved to app/public/signImage.png');
+        //     } {
+        //         catch (error) {
+        //             console.error('Error saving to:', error.messange);
+        //         }
+        //         // Redirect to the report page based on a condition or user choice
+        //         // const redirectTo = condition ? '/medicineMonitoring' : '/medicineDaily'; // Replace 'condition' with your logic
+        //         // Perform the redirect
+        //         // Example:
+        //         res.redirect(redirectTo); // Using Express.js
+        //     }
         function save(studentid) {
+            dd(studentid);
             const fs = require('fs');
             const path = require('path');
 
             var canvas = document.getElementById('signaturePad');
             var signatureData = canvas.toDataURL('image/png'); // Get signature data as a PNG
 
-
             // Ensure 'app/public' directory exists
-            const publicDir = path.join(__dirname, 'app', 'public');
+            const publicDir = path.join(__dirname, 'app', 'public', 'signImage');
             if (!fs.existsSync(publicDir)) {
                 fs.mkdirSync(publicDir, {
                     recursive: true
@@ -555,15 +591,17 @@
 
             // Write the image data to a file
             const imageFilePath = path.join(publicDir, studentid + '.png');
-            fs.writeFileSync(imageFilePath, base64Data, 'base64');
-
-            console.log('Image saved to app/public/signImage.png');
-
-            // Redirect to the report page based on a condition or user choice
-            const redirectTo = condition ? '/medicineMonitoring' : '/medicineDaily'; // Replace 'condition' with your logic
-            // Perform the redirect
-            // Example:
-            res.redirect(redirectTo); // Using Express.js
+            try {
+                fs.writeFileSync(imageFilePath, base64Data, 'base64');
+                console.log('Image saved to', imageFilePath);
+                // Redirect to the report page based on a condition or user choice
+                // const redirectTo = condition ? '/medicineMonitoring' : '/medicineDaily'; // Replace 'condition' with your logic
+                // Perform the redirect
+                // Example:
+                res.redirect(redirectTo); // Using Express.js
+            } catch (error) {
+                console.error('Error saving to:', error.message);
+            }
         }
     </script>
 @endpush
