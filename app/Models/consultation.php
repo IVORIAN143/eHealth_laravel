@@ -15,8 +15,11 @@ class consultation extends Model
         'student_id',
         'fk_med_used_id',
         'fk_equip_used_id',
+        'complaints',
         'diagnosis',
         'instruction',
+        'remarks',
+        // 'signature',
         'quantity',
         'status',
         'schoolYear',
@@ -35,13 +38,14 @@ class consultation extends Model
 
     public function student()
     {
-        return $this->hasOne(student::class, 'id', 'student_id');
+        return $this->hasOne(Student::class, 'id', 'student_id');
     }
 
     public  function med_used()
     {
         return $this->hasMany(MedUsed::class, 'fk_consultation_id', 'id');
     }
+
     public function equip_used()
     {
         return $this->hasMany(EquipUsed::class, 'fk_consultation_id', 'id');

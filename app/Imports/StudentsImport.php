@@ -17,17 +17,17 @@ class StudentsImport implements ToModel, WithHeadingRow
         $lastName = $studentNameParts[0] ?? null;
         $firstName = $studentNameParts[1] ?? null;
         $middleName = $studentNameParts[2] ?? null;
-
         $formattedData = [
             'student_id' => $row['student_id'],
             'lastname' => $lastName,
             'firstname' => $firstName,
             'middlename' => $middleName,
             'contact' => $row['contact'],
+            'section' => $row['section'],
             'course' => $row['course'],
             'year' => $row['year'],
             'semester' => $row['semester'],
-            // 'schoolYear' => $row['schoolYear'],
+            'schoolYear' => $row['schoolyear'],
             // ... map other fields as needed
         ];
         return new Student($formattedData);

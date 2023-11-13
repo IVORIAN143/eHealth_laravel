@@ -142,6 +142,13 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="complaints">Complaints</label>
+                            <textarea name="complaints" id="complaints" class="form-control" rows="5" required></textarea>
+                            @error('complaints')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="diagnosis">Diagnosis</label>
                             <textarea name="diagnosis" id="diagnosis" class="form-control" rows="5" required></textarea>
                             @error('diagnosis')
@@ -179,6 +186,13 @@
                             <label for="instruction">Instruction</label>
                             <textarea name="instruction" id="instruction" class="form-control" rows="5" required></textarea>
                             @error('instruction')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="remarks">Remarks</label>
+                            <textarea name="remarks" id="remarks" class="form-control" rows="5" required></textarea>
+                            @error('remarks')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -245,6 +259,13 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="complaints">complaints</label>
+                            <textarea name="complaints" id="editComplaints" class="form-control" rows="5"></textarea>
+                            @error('complaints')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="medicine">Select Medicine</label>
                             <select id="editMedicine" name="medicine[]" multiple class="form-control"
                                 style="width: 50%;">
@@ -279,6 +300,13 @@
                             <label for="instruction">Instruction</label>
                             <textarea name="instruction" id="editInstruction" class="form-control" rows="5"></textarea>
                             @error('instruction')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="remarks">Instruction</label>
+                            <textarea name="remarks" id="editRemarks" class="form-control" rows="5"></textarea>
+                            @error('remarks')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -471,10 +499,12 @@
 
             $('#consultID').val(id);
             $('#editStudent').val(student_id).trigger('change');
+            $('#editComplaints').val(complaints);
             $('#editDiagnosis').val(diagnosis);
             // $('#editMedicine').val(medicine).trigger('change');
             $('#editEquipment').val(equipment).trigger('change');
             $('#editInstruction').val(instruction);
+            $('#editRemarks').val(remarks);
             $('#editConsultModal').modal('show');
         }
 

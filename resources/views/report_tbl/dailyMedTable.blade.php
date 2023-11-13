@@ -100,31 +100,31 @@
     <table id="reportTable" class="display">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Medicine Name</th>
-                {{-- <th>Content</th>
-                <th>Author</th>
-                <th>Date Created</th> --}}
+                <th>DATE</th>
+                <th>PATIENT</th>
+                <th>COURSE</th>
+                <th>DIAGNOSIS</th>
+                <th>MEDICINE NAME</th>
+
             </tr>
         </thead>
     </table>
 @stop
 
 @push('js')
-    <script src="{{ asset('path-to-chart-js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#reportTable').DataTable({
                 serverSide: true,
                 processing: true,
-                ajax: "{{ route('reports.datatable') }}",
+                ajax: "{{ route('datatablestudent') }}",
                 columns: [{
                         data: 'id',
                         name: 'id'
                     },
                     {
-                        data: 'med_name',
-                        name: 'med_name'
+                        data: 'lastname',
+                        name: 'lastname'
                     },
                     // {
                     //     data: 'content',
@@ -134,40 +134,12 @@
                     //     data: 'author',
                     //     name: 'author'
                     // },
-                    // {
-                    //     data: 'date_created',
-                    //     name: 'date_created'
-                    // }
+                    {
+                        data: 'date_created',
+                        name: 'date_created'
+                    }
                 ]
             });
-        });
-
-        $('.datepicker').datepicker({
-        format: 'yyyy-mm-dd',
-        autoclose: true
-        });
-
-        // // Sample line chart data (replace this with your actual data)
-        // let ctx = document.getElementById('lineChart').getContext('2d');
-        // let lineChart = new Chart(ctx, {
-        //     type: 'line',
-        //     data: {
-        //         labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-        //         datasets: [{
-        //             label: 'Medicine Daily Used',
-        //             data: [10, 15, 20, 18],
-        //             borderColor: 'green',
-        //             fill: false
-        //         }]
-        //     },
-        //     options: {
-        //         scales: {
-        //             y: {
-        //                 beginAtZero: true
-        //             }
-        //         }
-        //     }
-        // });
         });
     </script>
 @endpush

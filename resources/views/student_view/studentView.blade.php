@@ -54,14 +54,17 @@
                                 </thead>
 
                                 <tbody>
-                                    <tr>
-                                        {{-- <td>{{ $consultations->student_id }}</td> --}}
-                                        {{-- <td>{{ $consultation->complaints }}</td>
-                                        <td>{{ $consultation->diagnosis }}</td>
-                                        <td>{{ $consultation->treatment }}</td>
-                                        <td>{{ $consultation->remarks }}</td>
-                                        <td>{{ $consultation->physician }}</td> --}}
-                                    </tr>
+                                    @foreach ($student->consultation as $consultation)
+                                        <tr>
+                                            {{-- Add the necessary columns based on your table structure --}}
+                                            <td>{{ $consultation->updated_at }}</td>
+                                            <td>{{ $consultation->complaints }}</td>
+                                            <td>{{ $consultation->diagnosis }}</td>
+                                            <td>{{ $consultation->instruction }}</td>
+                                            <td>{{ $consultation->remarks }}</td>
+                                            <td>{{ $consultation->users }}</td>
+                                        </tr>
+                                    @endforeach
 
                                 </tbody>
                             </table>

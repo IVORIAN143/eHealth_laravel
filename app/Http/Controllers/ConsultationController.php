@@ -31,22 +31,34 @@ class ConsultationController extends Controller
         $validated = $request->validate([
 
             'student_id' => 'required',
+            'complaints' => 'required',
             'diagnosis' => 'required',
             'medicine' => 'required',
             'instruction' => 'required',
+            'remarks' => 'required',
+            // 'signature' => 'required',
             'semester' => 'required',
             'schoolYear' => 'required',
 
         ]);
+        // $response = Http::post('/upload/signature', [
+        //     'signature' => $request->signature
+        // ]);
+
+        // $signatureFilePath = $response->json('file_path');
 
         $consultation = consultation::create([
             'student_id' => $request->student_id,
+            'complaints' => $request->complaints,
             'diagnosis' => $request->diagnosis,
             'instruction' => $request->instruction,
+            'remarks' => $request->remarks,
+            // 'signature' => $request->signature,
             'semester' => $request->semester,
             'schoolYear' => $request->schoolYear,
             'status' => 0,
         ]);
+
 
 
         foreach ($request->medicine as $value) {
@@ -82,9 +94,11 @@ class ConsultationController extends Controller
         $validated = $request->validate([
 
             'student_id' => 'required',
+            'complaints' => 'required',
             'diagnosis' => 'required',
             'medicine' => 'required',
             'instruction' => 'required',
+            'remarks' => 'required',
             'quentity.*' => 'required',
         ]);
 
@@ -100,8 +114,10 @@ class ConsultationController extends Controller
             }
             $consultation->update([
                 'student_id' => $request->student_id,
+                'complaints' => $request->complaints,
                 'diagnosis' => $request->diagnosis,
                 'instruction' => $request->instruction,
+                'remarks' => $request->remarks,
             ]);
             foreach ($request->medicine as $value) {
                 foreach ($consultation->med_used as $med) {
@@ -229,4 +245,16 @@ class ConsultationController extends Controller
         $consultation->update(['status' => 2]);
         return redirect(route('consultation'));
     }
+
+    // public function upload(Request $request)
+    // {
+    //     $folderPath = public_path('uploads/signature/');
+    //     $image_parts = explode(";base64,", $request->signature);
+    //     $image_type_aux = explode("image/", $image_parts[0]);
+    //     $image_type = $image_type_aux[1];
+    //     $image_base64 = base64_decode($image_parts[1]);
+    //     $file = $folderPath . uniqid() . '.' . $image_type;
+    //     file_put_contents($file, $image_base64);
+    //     return response()->json(['file_path' => $file]);
+    // }
 }

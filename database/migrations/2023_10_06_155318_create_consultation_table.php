@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('consultation', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->references('id')->on('students')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('complaints', 255);
             $table->string('diagnosis', 255);
             $table->string('instruction', 255);
+            $table->string('remarks', 255);
             $table->json('signature')->nullable();
             $table->integer('status');
             $table->integer('semester');

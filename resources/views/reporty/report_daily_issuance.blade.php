@@ -179,6 +179,17 @@
             padding-right: 290px;
             padding-bottom: 5px;
         }
+
+        .vertical-text {
+            writing-mode: tb-rl;
+            /* Vertical writing */
+            transform: initial;
+            /* For cross-browser support */
+            white-space: normal;
+            /* Prevent text wrapping */
+            text-align: center;
+            /* Adjust the text alignment */
+        }
     </style>
 </head>
 
@@ -192,8 +203,10 @@
                     <th class="tg-0lax" colspan="4">
                         <div class="certificate">
                             <!-- START OF HEADER -->
-                            <img src="assets/images/isu-logo.png" alt="Logo" class="logo"> <!-- Added logo image -->
-                            <img src="assets/images/isu-logo-med.png" alt="Logo" class="logos"> <!-- Added logo image -->
+                            <img src="assets/images/isu-logo.png" alt="Logo" class="logo">
+                            <!-- Added logo image -->
+                            <img src="assets/images/isu-logo-med.png" alt="Logo" class="logos">
+                            <!-- Added logo image -->
                             <div class="header">
                                 <div class="paragraphs">Republic of The Philippines</div>
                                 <div class="paragraph">ISABELA STATE UNIVERSITY</div>
@@ -206,44 +219,48 @@
                             </div>
                         </div>
                     </th>
-                    @foreach ($meds as $med )
-                    <th class="tg-1wig"> {{ $med->med_name }}</th>
+                    @foreach ($meds as $med)
+                        <th class="vertical-text"> {{ $med->med_name }}</th>
                     @endforeach
+                    <td class="tg-1wig">SIGNATURE</td>
                     <tr>
                         <td class="tg-1wig">DATE</td>
                         <td class="tg-1wig">PATIENT</td>
                         <td class="tg-1wig">COURSE/YR</td>
                         <td class="tg-1wig">DIAGNOSIS</td>
-
-
-                        <!-- <td class="tg-1wig">SIGNATURE</td> -->
+                        <td class="tg-1wig"></td>
+                        <td class="tg-1wig"></td>
+                        <td class="tg-1wig"></td>
+                        <td class="tg-1wig"></td>
+                        <td class="tg-1wig"></td>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($consultations as $consultation)
-                    <tr>
-                        <td class="tg-0pky">{{ $consultation->created_at->format('Y-m-d') }}</td>
-                        <td class="tg-0pky">
-                            {{ $consultation->student->firstname }}
-                            {{ $consultation->student->middlename }}
-                            {{ $consultation->student->lastname }}
-                        </td>
-                        <td class="tg-0pky">{{ $consultation->student->course }}-{{ $consultation->student->year }}</td>
-                        <td class="tg-0pky">{{ $consultation->diagnosis }}</td>
-                        @foreach($consultation->med_used as $med)
-                        @foreach ($meds as $medicine)
-                        <td class="tg-0pky">
-                            @if($med->fk_med_id == $medicine->id)
-                            {{ $med->quantity }}
-                            @else
-                            0
-                            @endif
-                        </td>
-                        @endforeach
-
-                        <!-- <td class="tg-0pky"></td> -->
-                        @endforeach
-                    </tr>
+                    @foreach ($consultations as $consultation)
+                        <tr>
+                            <td class="tg-0pky">{{ $consultation->created_at->format('Y-m-d') }}</td>
+                            <td class="tg-0pky">
+                                {{ $consultation->student->firstname }}
+                                {{ $consultation->student->middlename }}
+                                {{ $consultation->student->lastname }}
+                            </td>
+                            <td class="tg-0pky">{{ $consultation->student->course }}-{{ $consultation->student->year }}
+                            </td>
+                            <td class="tg-0pky">{{ $consultation->diagnosis }}</td>
+                            @foreach ($consultation->med_used as $med)
+                                @foreach ($meds as $medicine)
+                                    <td class="tg-0pky">
+                                        @if ($med->fk_med_id == $medicine->id)
+                                            {{ $med->quantity }}
+                                        @else
+                                            0
+                                        @endif
+                                    </td>
+                                @endforeach
+                            @endforeach
+                            <td><img src="{{ asset('storage/signImage/' . $consultation->student->id . '.png') }}"
+                                    alt="Patient Signature"></td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>

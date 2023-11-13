@@ -191,13 +191,11 @@
             </div>
         </div>
         <div class="tg-wrap">
-            <table class="tg">
-            </table>
+            <img id="signatureImage" src="path_to_your_signature_image.png" alt="Signature"
+                style="max-width: 100px; height: auto; display: none;" />
             <table class="tg">
                 <thead>
                     <tr>
-                        <th class="tg-cly1" rowspan="2">
-
                         </th>
                         <th class="tg-cly1" rowspan="2">DATE</th>
                         <th class="tg-cly1" rowspan="2">TIME OF <br>ARRIVAL</th>
@@ -227,7 +225,13 @@
                         <td class="tg-0lax"></td>
                         <td class="tg-0lax"></td>
                         <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
+                        @foreach ($records as $record)
+                            <!-- Display the record details -->
+                            <td class="tg-0lax">
+                                <img src="{{ asset('storage/signImage/' . $record->id . '_signature.png') }}"
+                                    alt="Patient Signature">
+                            </td>
+                        @endforeach
                         <td class="tg-0lax"></td>
                         <td class="tg-0lax"></td>
                         <td class="tg-0lax"></td>
@@ -271,3 +275,23 @@
         </div>
     </div>
 </body>
+<!-- Place this script before the closing body tag -->
+<script>
+    // When the window loads
+    window.onload = function() {
+        const signatureImg = document.getElementById('signatureImage');
+        const targetCell = document.querySelectorAll('.tg-0lax')[9]; // Selecting the 10th cell
+
+        // Create an image element
+        const imgElement = document.createElement('img');
+        imgElement.src = signatureImg.src;
+        imgElement.alt = 'Signature';
+        imgElement.style.maxWidth = '100px';
+        imgElement.style.height = 'auto';
+
+        // Clear the content of the target cell
+        targetCell.innerHTML = '';
+        // Append the image to the table cell
+        targetCell.appendChild(imgElement);
+    };
+</script>

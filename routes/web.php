@@ -10,6 +10,8 @@ use App\Models\student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CsvImportController;
+use App\Http\Controllers\SignatureController;
+use PhpOffice\PhpSpreadsheet\Reader\Xls\RC4;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user', [\App\Http\Controllers\UserController::class, 'index'])->name('user');
 
 
+
     Route::post('/students', [\App\Http\Controllers\StudentController::class, 'store'])->name('storestudent');
     Route::delete('/students/delete', [\App\Http\Controllers\StudentController::class, 'delete'])->name('deletestudent');
     Route::get('/students/api/datatable', [\App\Http\Controllers\StudentController::class, 'datatable'])->name('datatablestudent');
@@ -57,7 +60,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/consultation/edit', [\App\Http\Controllers\ConsultationController::class, 'editConsultation'])->name('editConsultation');
     Route::post('/upload/signature', [\App\Http\Controls\ConsultationController::class, 'upload'])->name('uploadSignature');
 
-
+    Route::post('/save-signature', [SignatureController::class, 'saveSignature'])->name('saveSignature');
 
 
     Route::get('/user/api/datatableUser', [\App\Http\Controllers\UserController::class, 'datatable'])->name('datatableUser');
@@ -79,6 +82,14 @@ Route::get('/dailyMedTable', function () {
     return view('report_tbl.dailyMedTable', compact(['medicines']));
 })->name('dailyMedTable');
 
+
+// for Student View
+Route::get('/studentView', function (Request $request) {
+    $consultations = consultation::find($request->id);
+    $medicines = medicine::find($request->id);
+    $student = Student::find($request->id);
+    return view('student_view.studentView', compact(['student', 'medicines', 'consultations']));
+})->name('studentView');
 
 
 // print
@@ -106,3 +117,22 @@ Route::get('/medicineDaily', function () {
 Route::get('/medicineMonitoring', function () {
     return  view('reporty.report_medical_monitoring');
 })->name('medMonitor');
+
+Route::get('/esig', function (Request $request) {
+    $folderPath = public_path('esig/');
+    $image_parts = explode(";base64,", $request->signed);
+
+    $image_type_aux = explode("image/", $image_parts[0]);
+
+    $image_type = $image_type_aux[1];
+
+    $image_base64 = base64_decode($image_parts[1]);
+
+    $file = $folderPath . $request->sutdentId . '.' . $image_type;
+    file_put_contents($file, $image_base64);
+
+
+    return response()->json([
+        'message' => 'success'
+    ]);
+})->name('esig');
