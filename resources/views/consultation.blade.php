@@ -240,7 +240,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="student">Student</label>
-                            <select id="editStudent" name="student_id" class="form-control">
+                            <select id="editStudent" name="student_id" class="form-control" disabled>
                                 @foreach ($students as $student)
                                     <option value="{{ $student->id }}">{{ $student->lastname }}
                                         {{ $student->fistname }} {{ $student->middlename }}, {{ $student->student_id }},
@@ -253,18 +253,19 @@
                         </div>
                         <div class="form-group">
                             <label for="diagnosis">Diagnosis</label>
-                            <textarea name="Diagnosis" id="editDiagnosis" class="form-control" rows="5"></textarea>
+                            <textarea name="Diagnosis" id="editDiagnosis" class="form-control" rows="5">{{ old('diagnosis') }}</textarea>
                             @error('diagnosis')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="complaints">complaints</label>
-                            <textarea name="complaints" id="editComplaints" class="form-control" rows="5"></textarea>
+                            <label for="complaints">Complaints</label>
+                            <textarea name="complaints" id="editComplaints" class="form-control" rows="5">{{ old('complaints') }}</textarea>
                             @error('complaints')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+
                         <div class="form-group">
                             <label for="medicine">Select Medicine</label>
                             <select id="editMedicine" name="medicine[]" multiple class="form-control"
@@ -278,6 +279,7 @@
                             @enderror
                         </div>
                         <div class="form-group" id="medicine_used_quantity_folder">
+                            {{ old('medicine_used_quantity_folder') }}
                         </div>
 
                         <div class="form-group">
@@ -293,7 +295,6 @@
                             @enderror
                         </div>
                         <div class="form-group" id="equipment_used_quantity_folder">
-
                         </div>
 
                         <div class="form-group">
@@ -319,6 +320,7 @@
             </div>
         </div>
     </div>
+
 
 @stop
 @push('js')
@@ -428,8 +430,12 @@
 
                 medicine_used.forEach(function(medicine) {
                     $folder.append(
-                        '<div><label>Quantity</label><input type="text" name="quantity[' +
-                        medicine + ']" class="form-control" required></div>'
+                        '<div><label>Quantity</label><input type="text" pattern="[0-9]+" name="quantity[' +
+                        medicine +
+                        ']" class="form-control" required placeholder="Enter a number" maxlength="2"></div>'
+
+
+
                     );
                 });
             });
@@ -455,8 +461,11 @@
 
                 equipment_used.forEach(function(equipment) {
                     $folder.append(
-                        '<div><label>Quantity</label><input type="text" name="equip_quantity[' +
-                        equipment + ']" class="form-control" required ></input></div>'
+                        '<div><label>Quantity</label><input type="text" pattern="[0-9]+" name="equip_quantity[' +
+                        equipment +
+                        ']" class="form-control" required placeholder="Enter a number" maxlength="2"></div>'
+
+
                     );
                 });
             });

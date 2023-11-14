@@ -91,6 +91,7 @@ class ConsultationController extends Controller
     public function editConsultation(Request $request)
     {
 
+
         $validated = $request->validate([
 
             'student_id' => 'required',
@@ -158,7 +159,6 @@ class ConsultationController extends Controller
             return redirect(route('consultation'));
         }
     }
-
 
 
 
