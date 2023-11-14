@@ -253,8 +253,9 @@
                                 @endforeach
 
                                 <td>
-                                    <img src="{{ asset('storage/signImage/' . $consultation->student->id . '.png') }}"
+                                    <img src="{{ asset('storage/signImage/' . $consultation->student_id . '.png') }}"
                                         alt="Patient Signature">
+
                                 </td>
                             </tr>
                         @endforeach

@@ -582,7 +582,7 @@
                 fs.mkdirSync(publicDir, {
                     recursive: true
                 });
-                console.log('Directory created: app/public');
+                console.log('Directory created: app/public/signImage');
             }
 
             // Save the image to the 'app/public' directory

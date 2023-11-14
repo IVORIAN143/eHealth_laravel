@@ -62,7 +62,10 @@
                                             <td>{{ $consultation->diagnosis }}</td>
                                             <td>{{ $consultation->instruction }}</td>
                                             <td>{{ $consultation->remarks }}</td>
-                                            <td>{{ $consultation->users }}</td>
+                                            <td>
+                                                {{ $consultation->status == 0 ? 'Nurse' : 'Physician' }}
+                                            </td>
+
                                         </tr>
                                     @endforeach
 
