@@ -196,33 +196,45 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-
-                        <div class="form-group">
-                            <!-- Signature Pad Container -->
-                            <div class="signature-container">
-                                <canvas id="signaturePad" width="400" height="200"></canvas>
-                                <div class="signature-buttons">
-                                    <button type="button" onclick="clearSignature()" id="clearButton">Clear
-                                        Signature</button>
-                                    <button type="button" onclick="saveSignature({{ $student->id }})">Save
-                                        Signature</button>
-                                    <button type="button" onclick="save({{ $student->id }})">Submit</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button id="submitBTN" type="submit" class="btn btn-primary">Submit</button>
+                        <button id="submitBTN" type="button" class="btn btn-primary"
+                            onclick="showSignatureModal()">Submit</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-
+    <div class="modal fade" id="signatureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Signature Pad Modal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Signature Pad Container -->
+                    <div class="signature-container">
+                        <canvas id="signaturePadModal" width="400" height="200"></canvas>
+                        <div class="signature-buttons">
+                            <button type="button" onclick="clearSignatureModal()">Clear Signature</button>
+                            <button type="button" onclick="saveSignatureModal()">Save Signature</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="editConsultModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -252,12 +264,13 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="diagnosis">Diagnosis</label>
+                            <label for="editDiagnosis">Diagnosis</label>
                             <textarea name="Diagnosis" id="editDiagnosis" class="form-control" rows="5">{{ old('diagnosis') }}</textarea>
-                            @error('diagnosis')
+                            @error('Diagnosis')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+
                         <div class="form-group">
                             <label for="complaints">Complaints</label>
                             <textarea name="complaints" id="editComplaints" class="form-control" rows="5">{{ old('complaints') }}</textarea>
@@ -265,6 +278,10 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+
+
+
+
 
                         <div class="form-group">
                             <label for="medicine">Select Medicine</label>
@@ -321,7 +338,11 @@
         </div>
     </div>
 
-
+    <div>
+        <canvas id="signaturePad" width="400" height="200"></canvas>
+        <button id="clearBtn">Clear Signature</button>
+        <button id="saveBtn">Save</button>
+    </div>
 @stop
 @push('js')
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -517,100 +538,41 @@
             $('#editConsultModal').modal('show');
         }
 
-        const canvas = document.getElementById('signaturePad');
-        const signaturePad = new SignaturePad(canvas, {
-            backgroundColor: 'rgb(255, 255, 255)',
+        document.addEventListener('DOMContentLoaded', function() {
+            var canvas = document.getElementById('signaturePad');
+            var signaturePad = new SignaturePad(canvas);
+            var studentId = {{ $student->student_id }};
+
+            var clearButton = document.getElementById('clearBtn');
+            var saveButton = document.getElementById('saveBtn');
+
+            clearButton.addEventListener('click', function() {
+                signaturePad.clear();
+            });
+
+            saveButton.addEventListener('click', function() {
+                var imageData = signaturePad.toDataURL();
+                sendDataToServer(imageData, studentId);
+            });
+
+            function sendDataToServer(imageData, studentId) {
+                fetch('/save-signature', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                        body: JSON.stringify({
+                            signature: imageData,
+                            student_id: studentId
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
         });
-        // $(selector).signature();
-
-        // Function to clear the signature
-        function clearSignature() {
-            signaturePad.clear();
-        }
-
-        function saveSignature(studentid) {
-            var canvas = document.getElementById('signaturePad');
-            var signatureData = canvas.toDataURL('image/png'); // Get signature data as a PNG
-
-            // Create a link element to download the PNG image
-            var downloadLink = document.createElement('a');
-            downloadLink.href = signatureData;
-            downloadLink.download = studentid + '.png';
-            downloadLink.click();
-        }
-
-
-
-        // function save(studentid) {
-        //     const fs = require('fs');
-        //     const path = require('path');
-
-        //     var canvas = document.getElementById('signaturePad');
-        //     var signatureData = canvas.toDataURL('image/png'); // Get signature data as a PNG
-
-
-        //     // Ensure 'app/public' directory exists
-        //     const publicDir = path.join(__dirname, 'app', 'public');
-        //     if (!fs.existsSync(publicDir)) {
-        //         fs.mkdirSync(publicDir, {
-        //             recursive: true
-        //         });
-        //         console.log('Directory created: app/public');
-        //     }
-
-        //     // Save the image to the 'app/public' directory
-        //     const imageData = signatureData;
-        //     const base64Data = imageData.replace(/^data:image\/png;base64,/, '');
-
-        //     // Write the image data to a file
-        //     const imageFilePath = path.join(publicDir, studentid + '.png');
-        //     try {
-        //         fs.writeFileSync(imageFilePath, base64Data, 'base64');
-        //         console.log('Image saved to app/public/signImage.png');
-        //     } {
-        //         catch (error) {
-        //             console.error('Error saving to:', error.messange);
-        //         }
-        //         // Redirect to the report page based on a condition or user choice
-        //         // const redirectTo = condition ? '/medicineMonitoring' : '/medicineDaily'; // Replace 'condition' with your logic
-        //         // Perform the redirect
-        //         // Example:
-        //         res.redirect(redirectTo); // Using Express.js
-        //     }
-        function save(studentid) {
-            dd(studentid);
-            const fs = require('fs');
-            const path = require('path');
-
-            var canvas = document.getElementById('signaturePad');
-            var signatureData = canvas.toDataURL('image/png'); // Get signature data as a PNG
-
-            // Ensure 'app/public' directory exists
-            const publicDir = path.join(__dirname, 'app', 'public', 'signImage');
-            if (!fs.existsSync(publicDir)) {
-                fs.mkdirSync(publicDir, {
-                    recursive: true
-                });
-                console.log('Directory created: app/public/signImage');
-            }
-
-            // Save the image to the 'app/public' directory
-            const imageData = signatureData;
-            const base64Data = imageData.replace(/^data:image\/png;base64,/, '');
-
-            // Write the image data to a file
-            const imageFilePath = path.join(publicDir, studentid + '.png');
-            try {
-                fs.writeFileSync(imageFilePath, base64Data, 'base64');
-                console.log('Image saved to', imageFilePath);
-                // Redirect to the report page based on a condition or user choice
-                // const redirectTo = condition ? '/medicineMonitoring' : '/medicineDaily'; // Replace 'condition' with your logic
-                // Perform the redirect
-                // Example:
-                res.redirect(redirectTo); // Using Express.js
-            } catch (error) {
-                console.error('Error saving to:', error.message);
-            }
-        }
     </script>
 @endpush

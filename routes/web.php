@@ -74,6 +74,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/equip/addSupply', [\App\Http\Controllers\InventoryController::class, 'addSupplyEquip'])->name('addsupplyEquipment');
     Route::post('/med/addSupply', [\App\Http\Controllers\InventoryController::class, 'addSupplyMed'])->name('addsupplyMedicine');
+
+    Route::post('/save-signature', [SignatureController::class, 'saveSignature'])->name('signature.save');
 });
 
 

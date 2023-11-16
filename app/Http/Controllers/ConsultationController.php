@@ -16,13 +16,14 @@ class ConsultationController extends Controller
 {
     public function index()
     {
+        $consultation = consultation::all();
         $students = student::all();
         $medicines = medicine::all();
         $equipments = equipment::all();
         $title = 'Delete Consultation!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
-        return view('consultation', compact(['students', 'medicines', 'equipments']));
+        return view('consultation', compact(['students', 'medicines', 'equipments', 'consultation']));
     }
 
     public function store(Request $request)

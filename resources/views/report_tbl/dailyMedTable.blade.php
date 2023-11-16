@@ -65,7 +65,7 @@
     </style>
     <h1>Medicine Daily</h1>
     {{-- <canvas id="lineChart"></canvas> --}}
-    <form action="search_date" method="post">
+    {{-- <form action="search_date" method="post">
         @csrf
         <br>
         <div class="container">
@@ -89,7 +89,7 @@
                 </div>
             </div>
         </div>
-    </form>
+    </form> --}}
 
 
 
@@ -97,14 +97,12 @@
 
 
 
-    <table id="reportTable" class="display">
+    <table id="medicineTable" class="table app-table-hover mb-0 text-left">
         <thead>
             <tr>
-                <th>DATE</th>
-                <th>PATIENT</th>
-                <th>COURSE</th>
-                <th>DIAGNOSIS</th>
-                <th>MEDICINE NAME</th>
+                <th class="cell">ID</th>
+                <th class="cell">Medicine</th>
+                <th class="cell">Total Quantity</th>
 
             </tr>
         </thead>
@@ -114,31 +112,43 @@
 @push('js')
     <script>
         $(document).ready(function() {
-            $('#reportTable').DataTable({
+            $('#medicineTable').DataTable({
                 serverSide: true,
                 processing: true,
-                ajax: "{{ route('datatablestudent') }}",
+                ajax: "{{ route('datatablemedicine') }}", // Assuming you have a route for medicine data
                 columns: [{
-                        data: 'id',
-                        name: 'id'
+                        data: 'date',
+                        name: 'date'
                     },
                     {
-                        data: 'lastname',
-                        name: 'lastname'
+                        data: 'medicine_name',
+                        name: 'medicine_name'
                     },
-                    // {
-                    //     data: 'content',
-                    //     name: 'content'
-                    // },
-                    // {
-                    //     data: 'author',
-                    //     name: 'author'
-                    // },
                     {
-                        data: 'date_created',
-                        name: 'date_created'
+                        data: 'quantity_used',
+                        name: 'quantity_used'
                     }
+                    // Add more columns as needed
                 ]
+            });
+
+            // Add your code to handle the form submission for storing daily medicine data
+            $('#yourFormId').submit(function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('storeDailyMedicine') }}",
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        alert(response.message);
+                        // Add any additional handling as needed
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        // Add error handling as needed
+                    }
+                });
             });
         });
     </script>

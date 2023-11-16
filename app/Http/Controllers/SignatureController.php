@@ -3,24 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SignatureController extends Controller
 {
     public function saveSignature(Request $request)
     {
-        if ($request->has('signatureData')) {
-            $signatureData = $request->input('signatureData');
-            $image = str_replace('data:image/png;base64,', '', $signatureData);
-            $image = base64_decode($image);
+        $request->validate([
+            'signature' => 'required|string',
 
-            $fileName = 'signature_' . time() . '.png'; // Create a unique file name
-            $path = public_path('signImage/' . $fileName);
+        ]);
 
-            file_put_contents($path, $image);
+        $signatureData = $request->input('signature');
+        $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signatureData));
 
-            return 'Signature saved successfully.';
-        }
+        $filename = uniqid() . '.png';
+        $path = 'public/signImage/' . $filename;
 
-        return 'No signature data received.';
+        Storage::put($path, $imageData);
+
+        return response()->json(['file_path' => $filename]);
     }
 }
