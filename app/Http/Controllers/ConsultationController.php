@@ -235,7 +235,7 @@ class ConsultationController extends Controller
 
     public function upload(Request $request)
     {
-        $folderPath = public_path('app/public/signImage');
+        $folderPath = public_path('app/public/signature');
         $image_parts = explode(";base64,", $request->signature);
         $image_type_aux = explode("image/", $image_parts[0]);
         $image_type = $image_type_aux[1];

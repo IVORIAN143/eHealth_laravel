@@ -189,7 +189,7 @@
 </head>
 
 <body>
-    @foreach ($consultations->chunk(10) as $consultationChunk)
+    @foreach ($consultations->chunk(9) as $consultationChunk)
         <div class="container">
             <div class="tg-wrap">
                 <table class="tg">
@@ -253,10 +253,11 @@
                                 @endforeach
 
                                 <td>
-                                    <img src="{{ asset('storage/signImage/' . $consultation->student_id . '.png') }}"
-                                        alt="Patient Signature">
-
+                                    <img src="{{ asset('storage/signatures/' . $consultation->student_id . '.png') }}"
+                                        alt="Patient Signature" width="90" height="20">
                                 </td>
+
+
                             </tr>
                         @endforeach
                     </tbody>
