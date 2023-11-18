@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\consultation;
-use App\Models\equipment;
+use App\Models\Consultation;
+use App\Models\Equipment;
 use App\Models\EquipUsed;
-use App\Models\medicine;
+use App\Models\Medicine;
 use App\Models\MedUsed;
-use App\Models\student;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\DataTables;
@@ -16,76 +16,62 @@ class ConsultationController extends Controller
 {
     public function index()
     {
-        $consultation = consultation::all();
-        $students = student::all();
-        $medicines = medicine::all();
-        $equipments = equipment::all();
+        $consultations = Consultation::all();
+        $students = Student::all();
+        $medicines = Medicine::all();
+        $equipments = Equipment::all();
         $title = 'Delete Consultation!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
-        return view('consultation', compact(['students', 'medicines', 'equipments', 'consultation']));
+        return view('consultation', compact('students', 'medicines', 'equipments', 'consultations'));
     }
 
     public function store(Request $request)
     {
-
         $validated = $request->validate([
-
             'student_id' => 'required',
             'complaints' => 'required',
             'diagnosis' => 'required',
             'medicine' => 'required',
             'instruction' => 'required',
             'remarks' => 'required',
-            // 'signature' => 'required',
             'semester' => 'required',
             'schoolYear' => 'required',
-
         ]);
-        // $response = Http::post('/upload/signature', [
-        //     'signature' => $request->signature
-        // ]);
 
-        // $signatureFilePath = $response->json('file_path');
-
-        $consultation = consultation::create([
+        $consultation = Consultation::create([
             'student_id' => $request->student_id,
             'complaints' => $request->complaints,
             'diagnosis' => $request->diagnosis,
             'instruction' => $request->instruction,
             'remarks' => $request->remarks,
-            // 'signature' => $request->signature,
             'semester' => $request->semester,
             'schoolYear' => $request->schoolYear,
             'status' => 0,
         ]);
 
-
-
         foreach ($request->medicine as $value) {
-            $medused = MedUsed::create([
+            MedUsed::create([
                 'fk_med_id' => $value,
                 'fk_consultation_id' => $consultation->id,
                 'quantity' => $request->quantity[$value]
             ]);
-
-            // $medused->deductQuantity();
         }
+
         foreach ($request->equipment as $value) {
-            $equipused = EquipUsed::create([
+            EquipUsed::create([
                 'fk_equip_id' => $value,
                 'fk_consultation_id' => $consultation->id,
                 'equip_quantity' => $request->equip_quantity[$value]
             ]);
-
-            // $equipused->deductQuantity();
         }
 
-        if (is_null($consultation))
-            Alert::error("ERROR", 'Unsuccess please try again.');
-        else
+        if (is_null($consultation)) {
+            Alert::error("ERROR", 'Unsuccessful, please try again.');
+        } else {
+            Alert::success('Success', 'Successfully Added!');
+        }
 
-            Alert::success('Success', 'Successfuly Added!.');
         return redirect(route('consultation'));
     }
 

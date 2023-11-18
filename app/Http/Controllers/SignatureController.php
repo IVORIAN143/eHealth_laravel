@@ -11,7 +11,6 @@ class SignatureController extends Controller
     {
         $request->validate([
             'signature' => 'required|string',
-
         ]);
 
         $signatureData = $request->input('signature');
@@ -22,6 +21,11 @@ class SignatureController extends Controller
 
         Storage::put($path, $imageData);
 
-        return response()->json(['file_path' => $filename]);
+        // Check if the image was saved successfully
+        if (Storage::exists($path)) {
+            return response()->json(['file_path' => $filename, 'success' => true]);
+        } else {
+            return response()->json(['error' => 'Failed to save the signature.'], 500);
+        }
     }
 }
