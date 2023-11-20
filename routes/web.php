@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\InventoryController;
-use App\Http\Controllers\TestController;
 use App\Models\consultation;
 use App\Models\equipment;
 use App\Models\medicine;
@@ -11,7 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CsvImportController;
 use App\Http\Controllers\SignatureController;
-use PhpOffice\PhpSpreadsheet\Reader\Xls\RC4;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -115,6 +114,7 @@ Route::get('/medicineDaily', function () {
     $meds = medicine::all();
     return  view('reporty.report_daily_issuance', compact(['consultations', 'meds']));
 })->name('medDaily');
+
 
 Route::get('/medicineMonitoring', function () {
     return  view('reporty.report_medical_monitoring');

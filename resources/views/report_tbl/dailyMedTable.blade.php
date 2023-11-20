@@ -64,8 +64,8 @@
         }
     </style>
     <h1>Medicine Daily</h1>
-    {{-- <canvas id="lineChart"></canvas> --}}
-    {{-- <form action="search_date" method="post">
+    <canvas id="lineChart"></canvas>
+    <form action="search_date" method="post">
         @csrf
         <br>
         <div class="container">
@@ -89,66 +89,59 @@
                 </div>
             </div>
         </div>
-    </form> --}}
+    </form>
 
-
-
-
-
-
-
-    <table id="medicineTable" class="table app-table-hover mb-0 text-left">
+    <table id="medicineTable" class="display" style="width:100%">
         <thead>
             <tr>
-                <th class="cell">ID</th>
-                <th class="cell">Medicine</th>
-                <th class="cell">Total Quantity</th>
-
+                <th>Date</th>
+                <th>Student Name</th>
+                <th>Course-Year</th>
+                <th>Diagnosis</th>
+                @foreach ($meds as $medicine)
+                    <th>{{ $medicine->name }} Quantity</th>
+                @endforeach
             </tr>
         </thead>
+        <tbody>
+            <!-- Table rows will be populated dynamically through AJAX -->
+        </tbody>
     </table>
+
+
+
+
+
+
 @stop
 
 @push('js')
     <script>
         $(document).ready(function() {
             $('#medicineTable').DataTable({
-                serverSide: true,
-                processing: true,
-                ajax: "{{ route('datatablemedicine') }}", // Assuming you have a route for medicine data
+                ajax: {
+                    url: '{{ route('medDailyTable') }}', // Laravel route name
+                    type: 'GET',
+                    dataSrc: '',
+                },
                 columns: [{
-                        data: 'date',
-                        name: 'date'
+                        data: 'created_at'
                     },
                     {
-                        data: 'medicine_name',
-                        name: 'medicine_name'
+                        data: 'student.firstname'
                     },
                     {
-                        data: 'quantity_used',
-                        name: 'quantity_used'
-                    }
-                    // Add more columns as needed
-                ]
-            });
-
-            // Add your code to handle the form submission for storing daily medicine data
-            $('#yourFormId').submit(function(e) {
-                e.preventDefault();
-
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('storeDailyMedicine') }}",
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        alert(response.message);
-                        // Add any additional handling as needed
+                        data: 'student.course_year'
                     },
-                    error: function(error) {
-                        console.log(error);
-                        // Add error handling as needed
-                    }
-                });
+                    {
+                        data: 'diagnosis'
+                    },
+                    @foreach ($meds as $medicine)
+                        {
+                            data: 'med_used.{{ $medicine->id }}.quantity'
+                        },
+                    @endforeach
+                ],
             });
         });
     </script>

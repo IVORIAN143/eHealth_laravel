@@ -1,6 +1,38 @@
 @extends('layout.master')
 
 @section('content')
+    <style>
+        signature-container {
+            position: relative;
+            width: 100%;
+        }
+
+        canvas {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+
+
+
+
+
     <h1 class="app-page-title">Consultation</h1>
 
     <div class="row g-3 mb-4 align-items-center justify-content-between">
@@ -94,7 +126,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="student">Student</label>
-                            <select id="student" name="student_id" class="form-control">
+                            <select id="student" name="student_id" class="form-control" style="width: 100%;">
                                 @foreach ($students as $student)
                                     <option value="{{ $student->id }}">{{ $student->lastname }} {{ $student->fistname }}
                                         {{ $student->middlename }}, {{ $student->student_id }},
@@ -105,23 +137,25 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+
                         <div class="form-group">
                             <label for="complaints">Complaints</label>
-                            <textarea name="complaints" id="complaints" class="form-control" rows="5"></textarea>
+                            <textarea name="complaints" id="complaints" class="form-control" rows="5" required></textarea>
                             @error('complaints')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="diagnosis">Diagnosis</label>
-                            <textarea name="diagnosis" id="diagnosis" class="form-control" rows="5"></textarea>
+                            <textarea name="diagnosis" id="diagnosis" class="form-control" rows="5" required></textarea>
                             @error('diagnosis')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="medicine">Select Medicine</label>
-                            <select id="medicine" name="medicine[]" multiple class="form-control" style="width: 50%;">
+                            <select id="medicine" name="medicine[]" multiple class="form-control" style="width: 100%;"
+                                required size="3">
                                 @foreach ($medicines as $medicine)
                                     <option value="{{ $medicine->id }}">{{ $medicine->med_name }}</option>
                                 @endforeach
@@ -135,8 +169,10 @@
 
                         <div class="form-group">
                             <label for="equipment">Select Equipment</label>
-                            <select id="equipment" name="equipment[]" multiple class="form-control" style="width: 50%;">
+                            <select id="equipment" name="equipment[]" multiple class="form-control"
+                                style="width: 100%;">
                                 @foreach ($equipments as $equipment)
+                                    <option value="0">Empty</option>
                                     <option value="{{ $equipment->id }}">{{ $equipment->equipname }}</option>
                                 @endforeach
                             </select>
@@ -145,33 +181,32 @@
                             @enderror
                         </div>
                         <div class="form-group" id="equipment_used_quantity_folder">
-
                         </div>
+
 
                         <div class="form-group">
                             <label for="instruction">Instruction</label>
-                            <textarea name="instruction" id="instruction" class="form-control" rows="5"></textarea>
+                            <textarea name="instruction" id="instruction" class="form-control" rows="5" required></textarea>
                             @error('instruction')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="remarks"></label>Remarks</label>
-                            <textarea name="remarks" id="instruction" class="form-control" rows="5"></textarea>
+                            <textarea name="remarks" id="instruction" class="form-control" rows="5" required></textarea>
                             @error('remarks')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="signature">Signature</label>
-                        <div>
-                            <canvas id="signaturePad" width="800" height="200"></canvas>
+
+                        <div class="form-group">
+                            <label for="signature">Signature</label>
+                            <div>
+                                <canvas id="signaturePad" width="750" height="200"></canvas>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <!-- Add this button to your form -->
-                        {{-- <button type="button" class="btn btn-primary" id="saveSignatureBtn">Save Signature</button> --}}
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button id="clearBtn" type="button" class="btn btn-danger">Clear Signature</button>
                         <button id="saveSignatureBtn" type="submit" class="btn btn-primary">Submit</button>
@@ -211,15 +246,24 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="diagnosis">Diagnosis</label>
-                            <textarea name="editDiagnosis" id="diagnosis" class="form-control" rows="5"></textarea>
-                            @error('diagnosis')
+                            <label for="complaints">Complaints</label>
+                            <textarea name="editComplaints" id="editComplaints" class="form-control" rows="5">{{ old('editComplaints') }}</textarea>
+                            @error('editComplaints')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="editDiagnosis">Diagnosis</label>
+                            <textarea name="editDiagnosis" id="editDiagnosis" class="form-control" rows="5">{{ old('diagnosis') }}</textarea>
+                            @error('editDiagnosis')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="medicine">Select Medicine</label>
-                            <select id="medicine" name="medicine[]" multiple class="form-control" style="width: 50%;">
+                            <label for="editMedicine">Select Medicine</label>
+                            <select id="editMedicine" name="Medicine[]" multiple class="form-control"
+                                style="width: 100%;">
                                 @foreach ($medicines as $medicine)
                                     <option value="{{ $medicine->id }}">{{ $medicine->med_name }}</option>
                                 @endforeach
@@ -232,32 +276,32 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="equipment">Select Equipment</label>
-                            <select id="equipment" name="equipment[]" multiple class="form-control" style="width: 50%;">
+                            <label for="editEquipment">Select Equipment</label>
+                            <select id="editEquipment" name="editEquipment[]" multiple class="form-control"
+                                style="width: 100%;">
                                 @foreach ($equipments as $equipment)
                                     <option value="{{ $equipment->id }}">{{ $equipment->equipname }}</option>
                                 @endforeach
                             </select>
-                            @error('equipment')
+                            @error('editEquipment')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group" id="equipment_used_quantity_folder">
-
                         </div>
 
                         <div class="form-group">
-                            <label for="instruction">Instruction</label>
-                            <textarea name="instruction" id="instruction" class="form-control" rows="5"></textarea>
-                            @error('instruction')
+                            <label for="editInstruction">Instruction</label>
+                            <textarea name="editInstruction" id="editInstruction" class="form-control" rows="5">{{ old('instruction') }}</textarea>
+                            @error('editInstruction')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
                         <div class="form-group">
-                            <label for="remarks">Remarks</label>
-                            <textarea name="remarks" id="remarks" class="form-control" rows="5"></textarea>
-                            @error('remarks')
+                            <label for="editRemarks">Remarks</label>
+                            <textarea name="editRemarks" id="editRemarks" class="form-control" rows="5">{{ old('remarks') }}</textarea>
+                            @error('editRemarks')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -320,21 +364,21 @@
                     },
                 ]
             });
+
+            // Schoolyear & Semester
             $('#Semester').val($('#semester').val())
             $('#Schoolyear').val($('#schoolYear').val())
-
 
             $("#semester").on("change", function() {
                 $('#Semester').val($('#semester').val())
                 consulttable.ajax.reload();
-
             });
             $("#schoolYear").on("change", function() {
                 $('#Schoolyear').val($('#schoolYear').val())
                 consulttable.ajax.reload();
             });
 
-
+            // for addConsultModal
             $('#student').select2({
                 dropdownParent: $('#addConsultModal')
             });
@@ -344,31 +388,21 @@
             $('#equipment').select2({
                 dropdownParent: $('#addConsultModal')
             })
-            $('#editStudent').select2({
-                dropdownParent: $('#editConsultModal')
-            });
-            $('#editMedicine').select2({
-                dropdownParent: $('#editConsultModal')
-            });
-            $('#editEquipment').select2({
-                dropdownParent: $('#addConsultModal')
-            })
-
-
 
             $("#medicine").change(function() {
                 var medicine_used = $("#medicine").val();
                 var $folder = $('#medicine_used_quantity_folder');
 
-                // I-clear ang mga umiiral na elemento sa #medicine_used_quantity_folder
                 $folder.empty();
 
                 medicine_used.forEach(function(medicine) {
                     $folder.append(
                         '<div><label>Quantity</label><input type="text" name="quantity[' +
-                        medicine + ']" class="form-control" required></div>'
+                        medicine +
+                        ']" class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,2)" maxlength="2" required></div>'
                     );
                 });
+
             });
 
             $('#equipment').change(function() {
@@ -380,26 +414,75 @@
                 equipment_used.forEach(function(equipment) {
                     $folder.append(
                         '<div><label>Quantity</label><input type="text" name="equip_quantity[' +
-                        equipment + ']" class="form-control" required ></input></div>'
+                        equipment +
+                        ']" class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,2)" maxlength="2" required></div>'
+                    );
+                });
+
+            });
+
+            // for editConsulModal
+            $('#editStudent').select2({
+                dropdownParent: $('#editConsultModal')
+            });
+            $('#editMedicine').select2({
+                dropdownParent: $('#editConsultModal')
+            });
+            $('#editEquipment').select2({
+                dropdownParent: $('#editConsultModal')
+            });
+
+            $("#editMedicine").change(function() {
+                var medicine_used = $("#editMedicine").val();
+                var $folder = $('#medicine_used_quantity_folder');
+
+
+                $folder.empty();
+
+                medicine_used.forEach(function(medicine) {
+                    $folder.append(
+                        '<div><label>Quantity</label><input type="text" name="editQuantity[' +
+                        medicine + ']" class="form-control" required></div>'
                     );
                 });
             });
+
+            $('#editEquipment').change(function() {
+                var equipment_used = $('#editEquipment').val();
+                var $folder = $('#equipment_used_quantity_folder');
+
+                $folder.empty();
+
+                equipment_used.forEach(function(equipment) {
+                    $folder.append(
+                        '<div><label>Quantity</label><input type="text" name="editEquipQuantity[' +
+                        equipment + ']" class="form-control"></input></div>'
+                    );
+                });
+            });
+
         });
 
         function ShowModal(id, student_id, diagnosis, medicine, equipment, instruction) {
-            const arr = medicine.split(",");
+            const arrMedicine = medicine.split(",");
+            const arrEquipment = equipment.split(",");
+
             $('#consultID').val(id);
             $('#editStudent').val(student_id);
             $('#editStudent').trigger('change');
             $('#editDiagnosis').val(diagnosis);
-            $('#editMedicine').val(arr);
+            $('#editMedicine').val(arrMedicine);
             $('#editMedicine').trigger('change');
+            $('#editEquipment').val(arrEquipment);
             $('#editEquipment').trigger('change');
             $('#editInstruction').val(instruction);
             $('#editConsultModal').modal('show');
         }
 
 
+
+
+        // for signature DONT TOUCH IT PLEASE!
         document.addEventListener('DOMContentLoaded', function() {
             var canvas = document.getElementById('signaturePad');
             var signaturePad = new SignaturePad(canvas);

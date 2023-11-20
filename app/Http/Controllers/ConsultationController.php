@@ -77,8 +77,6 @@ class ConsultationController extends Controller
 
     public function editConsultation(Request $request)
     {
-
-
         $validated = $request->validate([
 
             'student_id' => 'required',
@@ -89,7 +87,6 @@ class ConsultationController extends Controller
             'remarks' => 'required',
             'quentity.*' => 'required',
         ]);
-
 
         $consultation = consultation::where('id', $request->id)->first();
         if (is_null($consultation))
@@ -168,11 +165,6 @@ class ConsultationController extends Controller
         return redirect(route('consultation'));
     }
 
-
-
-
-
-
     public function datatable(Request $request)
     {
         return DataTables::of(consultation::where('schoolYear', $request->schoolYear)->where('semester', $request->semester)->get())->addColumn('student_name', function ($query) {
@@ -231,17 +223,5 @@ class ConsultationController extends Controller
         }
         $consultation->update(['status' => 2]);
         return redirect(route('consultation'));
-    }
-
-    public function upload(Request $request)
-    {
-        $folderPath = public_path('app/public/signature');
-        $image_parts = explode(";base64,", $request->signature);
-        $image_type_aux = explode("image/", $image_parts[0]);
-        $image_type = $image_type_aux[1];
-        $image_base64 = base64_decode($image_parts[1]);
-        $file = $folderPath . uniqid() . '.' . $image_type;
-        file_put_contents($file, $image_base64);
-        return response()->json(['file_path' => $file]);
     }
 }
