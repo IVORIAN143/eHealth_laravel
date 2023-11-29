@@ -18,6 +18,7 @@
                         <div class="col-auto">
                             <a class="btn app-btn-secondary" type="button" data-bs-toggle="modal"
                                 data-bs-target="#addstudentModal">
+
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
@@ -28,8 +29,10 @@
                                 Add Student
                             </a>
                         </div>
+
                         <div class="col-auto">
-                            <a class="btn app-btn-secondary" type="button" data-toggle="modal" data-target="#importModal">
+                            <a class="btn app-btn-secondary" type="button" data-bs-toggle="modal"
+                                data-bs-target="#importModal">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
@@ -54,18 +57,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Import Data</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    {{-- <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data" id="importForm">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="importFile" class="form-label">Choose CSV File</label>
-                        <input class="form-control" type="file" name="file" id="importFile" accept=".csv">
-                    </div>
-                </form> --}}
                     <form action="import" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="input-group mb-3">
@@ -110,9 +106,8 @@
     </div>
 
 
-    <div class="modal fade" id="addstudentModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document"> <!-- Added 'modal-lg' class -->
+    <div class="modal fade" id="addstudentModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="importModalLabel">Add Student</h5>
@@ -122,8 +117,8 @@
                 </div>
                 <form action="{{ route('storestudent') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <input id="Semester" type="text" name="semester" hidden></input>
-                    <input id="Schoolyear" type="text" name="schoolYear" hidden></input>
+                    <input id="Semester" type="text" name="semester" hidden>
+                    <input id="Schoolyear" type="text" name="schoolYear" hidden>
 
                     <div class="modal-body">
                         <div class="form-group">
@@ -153,7 +148,7 @@
                             @error('student_id')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
-                            <div class="text-danger" id="student-id-error"></div> <!-- Error message container -->
+                            <div class="text-danger" id="student-id-error"></div>
                         </div>
 
                         <div class="form-group">
@@ -163,7 +158,7 @@
                             @error('contact')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
-                            <div class="text-danger" id="contact-error"></div> <!-- Error message container -->
+                            <div class="text-danger" id="contact-error"></div>
                         </div>
 
                         <div class="form-group">
@@ -304,7 +299,7 @@
                         <div class="form-group">
                             <label for="height">Height</label>
                             <input id="height" value="{{ old('height') }}" type="text" name="height"
-                                class="form-control">
+                                class="form-control" placeholder="Kilogram not pound">
                             @error('height')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -313,7 +308,7 @@
                         <div class="form-group">
                             <label for="weight">Weight</label>
                             <input id="weight" value="{{ old('weight') }}" type="text" name="weight"
-                                class="form-control">
+                                class="form-control" placeholder="Centimeter not feet">
                             @error('weight')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -398,43 +393,27 @@
 @push('js')
     <script>
         $(document).ready(function() {
-            $(":input").inputmask(); // Apply input mask to all input fields
+            // studentID
+            $(":input").inputmask();
             $("#student_id").inputmask("99-99999");
-
-            // Add an input event listener to validate the input
             $("#student_id").on("input", function() {
                 var studentIdValue = $(this).val();
                 var isValid = /^\d{2}-\d{5}$/.test(studentIdValue);
-
                 if (!isValid) {
                     $("#student-id-error").text("Invalid student ID format (e.g., 99-99999)");
                 } else {
-                    $("#student-id-error").text(""); // Clear the error message
+                    $("#student-id-error").text("");
                 }
-            });
-            $("#contact").inputmask("9999999999");
 
-            // Add an input event listener to validate the input
-            $("#contact").on("input", function() {
-                var contactValue = $(this).val();
-                var isValid = /^\(\d{3}\) \d{3}-\d{4}$/.test(contactValue);
+            });
 
-                if (!isValid) {
-                    $("#contact-error").text("Invalid contact format (e.g., (123) 456-7890)");
-                } else {
-                    $("#contact-error").text(""); // Clear the error message
-                }
-            });
-            $("#parentNumber").inputmask("999999-9999");
-            $("#parentNumber").on("input", function() {
-                var parentNumberValue = $(this).val();
-                var isValid = /^\(\d{3}\) \d{3}-\d{4}$/.test(parentNumberValue);
-                if (!isValid) {
-                    $("#parentNumber-error").text("Invalid format (e.g., (123) 456-7890)");
-                } else {
-                    $("#parentNumber-error").text("");
-                }
-            });
+            // studentContactNumber
+            $("#contact").inputmask("99999999999");
+
+
+
+            // parentNumber
+            $("#parentNumber").inputmask("99999999999");
 
             $("#height").inputmask("999"); // Apply specific mask to the student_id input field
             $("#weight").inputmask("999"); // Apply specific mask to the student_id input field
@@ -534,6 +513,7 @@
         });
 
 
+        // import student
 
         $('.app-btn-secondary').on('click', function() {
             $('#importModal').modal('show');

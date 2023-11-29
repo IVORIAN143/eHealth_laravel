@@ -110,22 +110,22 @@
     }
 
     .left-text {
-        font-size: 19px;
+        font-size: 15px;
         margin-top: 15px;
         text-indent: 15px;
         text-decoration: underline;
         font-weight: bold;
-        padding-top: 30px;
+        padding-top: 40px;
     }
 
     .right-text {
-        font-size: 19px;
+        font-size: 15px;
         margin-top: 15px;
         text-indent: 15px;
         text-decoration: underline;
         font-weight: bold;
         padding-right: 55px;
-        padding-top: 30px;
+        padding-top: 40px;
     }
 
     .sn {
@@ -193,17 +193,22 @@
     <div class="letter">
         <div class="wordleft">TO WHOM IT MAY CONCERN,</div>
         <div class="justify">
-            <b>THIS IS TO CERTIFY</b> that <strong><u>{{$student->firstname}} {{$student->middlename}} {{$student->lastname}}</u></strong>,
-            age <span id="agePlaceholder">XX</span> years old, sex <strong><u>{{$student->gender}}</u></strong>
+            <b>THIS IS TO CERTIFY</b> that <strong><u>{{ $student->firstname }} {{ $student->middlename }}
+                    {{ $student->lastname }}</u></strong>,
+            age <span id="agePlaceholder">XX</span> years old, sex <strong><u>{{ $student->gender }}</u></strong>
         </div>
-        <div class="wr">civil status <u> {{$student->civilStat}} </u> , a student/employee of <b><u>ISABELA STATE UNIVERSITY-Santiago Extension Unit.</u></b></div>
-        <div class="wr">with ID Number {{ substr($student->student_id, 0, 2) }}-{{ substr($student->student_id, 2) }} was seen and examined in this clinic on <span id="currentDatePlaceholder">____</span>.</div>
+        <div class="wr">civil status <u> {{ $student->civilStat }} </u> , a student/employee of <b><u>ISABELA STATE
+                    UNIVERSITY-Santiago Extension Unit.</u></b></div>
+        <div class="wr">with ID Number
+            {{ substr($student->student_id, 0, 2) }}-{{ substr($student->student_id, 2) }} was seen and examined in this
+            clinic on <span id="currentDatePlaceholder">____</span>.</div>
 
 
         <div class="wordleft">DIAGNOSIS: </div>
         <div class="wordleft">Remarks: </div>
 
-        <div class="wr">Given this <u><b>{{ date('jS') }} </b></u> day of <u><b> {{ date('F') }},{{ date('Y') }}.</b></u></div>
+        <div class="wr">Given this <u><b>{{ date('jS') }} </b></u> day of <u><b>
+                    {{ date('F') }},{{ date('Y') }}.</b></u></div>
         <div class="flex-container">
             <div class="left-text">DEBBIE-LYN P. DOLOJAN,RN,MSN</div>
             <div class="right-text">NICOLAS L. ILAGAN, M.D., FPMSI.</div>
@@ -224,7 +229,7 @@
         }
 
 
-        var age = getAge("{{$student->dateOfBirth}}");
+        var age = getAge("{{ $student->dateOfBirth }}");
         document.getElementById("agePlaceholder").innerHTML = age;
 
         function getAge(dateString) {

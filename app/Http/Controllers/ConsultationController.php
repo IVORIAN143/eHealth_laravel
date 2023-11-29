@@ -58,13 +58,16 @@ class ConsultationController extends Controller
             ]);
         }
 
-        foreach ($request->equipment as $value) {
-            EquipUsed::create([
-                'fk_equip_id' => $value,
-                'fk_consultation_id' => $consultation->id,
-                'equip_quantity' => $request->equip_quantity[$value]
-            ]);
+        if (!is_null($request->equipment)) {
+            foreach ($request->equipment as $value) {
+                EquipUsed::create([
+                    'fk_equip_id' => $value,
+                    'fk_consultation_id' => $consultation->id,
+                    'equip_quantity' => $request->equip_quantity[$value]
+                ]);
+            }
         }
+
 
         if (is_null($consultation)) {
             Alert::error("ERROR", 'Unsuccessful, please try again.');
@@ -189,6 +192,18 @@ class ConsultationController extends Controller
             } else {
                 return 'Pending';
             }
+        })->addColumn('prescrib_med_quantity', function ($query) {
+            $text = "";
+            foreach ($query->med_used as $med_use) {
+                $text .= $med_use->quantity . ", ";
+            }
+            return $text;
+        })->addColumn('prescrib_equip_quantity', function ($query) {
+            $text = "";
+            foreach ($query->equip_used as $equip_use) {
+                $text .= $equip_use->equip_quantity . ", ";
+            }
+            return $text;
         })->addColumn('prescrib_meds', function ($query) {
             $array = [];
             foreach ($query->med_used as $med_use) {

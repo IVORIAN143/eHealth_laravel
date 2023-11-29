@@ -76,9 +76,9 @@
         .logo {
             position: absolute;
             /* Position the image absolutely */
-            top: 50px;
+            top: 40px;
             /* Distance from top */
-            left: 300px;
+            left: 340px;
             /* Distance from left */
             max-width: 80px;
             /* Limit the width if necessary */
@@ -89,9 +89,9 @@
         .logos {
             position: absolute;
             /* Position the image absolutely */
-            top: 50px;
+            top: 40px;
             /* Distance from top */
-            right: 300px;
+            right: 340px;
             /* Distance from left */
             max-width: 80px;
             /* Limit the width if necessary */
@@ -181,8 +181,7 @@
                 <div class="paragraphs">Santiago Extension Unit</div>
                 <div class="paragraphs">Santiago City</div>
                 <div class="hs"><i>Health Services
-                        <br> MEDICINE CONSUMPTION
-                        <br> REPORT FOR MONTH OF
+                        <br> MEDICINE CONSUMPTION REPORT
                     </i></div>
             </div>
         </div>
@@ -210,18 +209,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($medicines as $medicine)
-                    <tr>
-                        @php($totalQuantity = $medicine->med_quantity + $medicine->SumMed())
-                        <td class="tg-0pky">{{$medicine->med_name}}</td>
-                        <td class="tg-0pky">{{$medicine->quantity}}</td>
-                        <td class="tg-0pky">{{$medicine->SumMed()}}</td>
-                        <td class="tg-0pky">{{$totalQuantity}}</td>
-                        <td class="tg-0pky">{{$medicine->countUsed()}}</td>
-                        <td class="tg-0pky">{{$medicine->countUsed() - $totalQuantity}}</td>
-                        <td class="tg-0pky">{{$medicine->countUsed() - $totalQuantity}}</td>
-                        <td class="tg-0pky">{{$medicine->expiration}}</td>
-                    </tr>
+                    @foreach ($medicines as $medicine)
+                        <tr>
+                            @php($totalQuantity = $medicine->med_quantity + $medicine->SumMed())
+                            <td class="tg-0pky">{{ $medicine->med_name }}</td>
+                            <td class="tg-0pky">{{ $medicine->quantity }}</td>
+                            <td class="tg-0pky">{{ $medicine->SumMed() }}</td>
+                            <td class="tg-0pky">{{ $totalQuantity }}</td>
+                            <td class="tg-0pky">{{ $medicine->countUsed() }}</td>
+                            <td class="tg-0pky">{{ $medicine->countUsed() - $totalQuantity }}</td>
+                            <td class="tg-0pky">{{ $medicine->countUsed() - $totalQuantity }}</td>
+                            <td class="tg-0pky">{{ $medicine->expiration }}</td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>

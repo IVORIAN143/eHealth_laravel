@@ -216,26 +216,31 @@
                         <th class="tg-cly1">1H</th>
                         <th class="tg-cly1">(&gt;)1HR</th>
                     </tr>
-                    <tr>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <!-- Display the record details -->
-                        <td class="tg-0lax">
-                            <img src="{{ asset('storage/signImage/' . $record->id . $student->studentid + '.png') }}"
-                                alt="Patient Signature">
-                        </td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
+                    @foreach ($consultations as $consultation)
+                        <tr>
+                            <td class="tg-0lax">{{ $consultation->created_at->format('Y-m-d') }}</td>
+                            <td class="tg-0lax">{{ $consultation->created_at->format('h:i:s A') }}</td>
+                            <td class="tg-0lax"> {{ $consultation->student->firstname }}
+                                {{ $consultation->student->middlename }}
+                                {{ $consultation->student->lastname }}</td>
+                            <td class="tg-0lax"> {{ $consultation->student->gender }}</td>
+                            <td class="tg-0lax"> {{ $consultation->student->course }} {{ $consultation->student->year }}
+                            </td>
+                            <td class="tg-0lax"> {{ $consultation->student->student_id }}</td>
+                            <td class="tg-0lax"> {{ $consultation->student->diagnosis }}</td>
+                            <td class="tg-0lax"></td>
+                            <td class="tg-0lax">{{ $consultation->student->instruction }}</td>
+                            <td class="tg-0lax">
+                                <img src="{{ asset('storage/signatures/' . $consultation->student_id . '.png') }}"
+                                    alt="Patient Signature" width="90" height="20">
+                            </td>
+                            <td class="tg-0lax"></td>
+                            <td class="tg-0lax"></td>
+                            <td class="tg-0lax"></td>
+                            <td class="tg-0lax"></td>
+                            <td class="tg-0lax"></td>
+                        </tr>
+                    @endforeach
                 </thead>
                 <tbody>
 
@@ -274,22 +279,4 @@
     </div>
 </body>
 <!-- Place this script before the closing body tag -->
-<script>
-    // When the window loads
-    window.onload = function() {
-        const signatureImg = document.getElementById('signatureImage');
-        const targetCell = document.querySelectorAll('.tg-0lax')[9]; // Selecting the 10th cell
-
-        // Create an image element
-        const imgElement = document.createElement('img');
-        imgElement.src = signatureImg.src;
-        imgElement.alt = 'Signature';
-        imgElement.style.maxWidth = '10%';
-        imgElement.style.height = '10%';
-
-        // Clear the content of the target cell
-        targetCell.innerHTML = '';
-        // Append the image to the table cell
-        targetCell.appendChild(imgElement);
-    };
-</script>
+<script></script>

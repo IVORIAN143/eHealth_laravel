@@ -76,9 +76,9 @@
         .logo {
             position: absolute;
             /* Position the image absolutely */
-            top: 50px;
+            top: 40px;
             /* Distance from top */
-            left: 300px;
+            left: 320px;
             /* Distance from left */
             max-width: 80px;
             /* Limit the width if necessary */
@@ -89,9 +89,9 @@
         .logos {
             position: absolute;
             /* Position the image absolutely */
-            top: 50px;
+            top: 40px;
             /* Distance from top */
-            right: 300px;
+            right: 320px;
             /* Distance from left */
             max-width: 80px;
             /* Limit the width if necessary */
@@ -181,8 +181,7 @@
                 <div class="paragraphs">Santiago Extension Unit</div>
                 <div class="paragraphs">Santiago City</div>
                 <div class="hs"><i>Health Services
-                        <br> SUPPLIE CONSUMPTION
-                        <br> REPORT FOR MONTH OF
+                        <br> SUPPLIE CONSUMPTION REPORT
                     </i></div>
             </div>
         </div>
@@ -210,17 +209,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($equipments as $equipment)
-                    <tr>
-                        @php($totalQuantity = $equipment->equip_quantity + $equipment->SumSupply())
-                        <td class="tg-0pky">{{$equipment->equipname}}</td>
-                        <td class="tg-0pky">{{$equipment->equip_quantity}}</td>
-                        <td class="tg-0pky">{{$equipment->SumSupply()}}</td>
-                        <td class="tg-0pky">{{$totalQuantity}}</td>
-                        <td class="tg-0pky">{{$equipment->countUsed()}}</td>
-                        <td class="tg-0pky">{{$equipment->countUsed() - $totalQuantity}}</td>
-                        <td class="tg-0pky">{{$equipment->expired}}</td>
-                    </tr>
+                    @foreach ($equipments as $equipment)
+                        <tr>
+                            @php($totalQuantity = $equipment->equip_quantity + $equipment->SumSupply())
+                            <td class="tg-0pky">{{ $equipment->equipname }}</td>
+                            <td class="tg-0pky">{{ $equipment->equip_quantity }}</td>
+                            <td class="tg-0pky">{{ $equipment->SumSupply() }}</td>
+                            <td class="tg-0pky">{{ $totalQuantity }}</td>
+                            <td class="tg-0pky">{{ $equipment->countUsed() }}</td>
+                            <td class="tg-0pky">{{ $totalQuantity - $equipment->countUsed() }}</td>
+                            <td class="tg-0pky">{{ $totalQuantity - $equipment->countUsed() }}</td>
+                            <td class="tg-0pky">{{ $equipment->equi_expiration }}</td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>

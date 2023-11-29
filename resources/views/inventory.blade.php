@@ -42,7 +42,7 @@
                                 Add Equipment
                             </a>
                         </div>
-                        <div class="col-auto">
+                        {{-- <div class="col-auto">
                             <a class="btn app-btn-secondary" type="button" data-toggle="modal" data-target="#importModal">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -53,7 +53,7 @@
                                 </svg>
                                 Import Data
                             </a>
-                        </div>
+                        </div> --}}
                     @endif
 
 
@@ -136,8 +136,7 @@
                         </div>
                         <div class="form-group">
                             <label for="name">Description</label>
-                            <input value="{{ old('description') }}" type="text" name="description"
-                                class="form-control">
+                            <input value="{{ old('description') }}" type="text" name="description" class="form-control">
                             @error('description')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -434,7 +433,7 @@
                         name: 'expiration'
                     },
                     {
-                        data: 'totalquantity',
+                        data: 'quantity',
                     },
                     {
                         data: 'Actions',

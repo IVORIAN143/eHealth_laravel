@@ -6,6 +6,7 @@ use App\Models\student;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\DataTables;
+use App\Models\consultation;
 
 
 
@@ -22,7 +23,7 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
-        //        dd($request);
+
         $validated = $request->validate([
             'fad_allergy' => 'required',
 
@@ -116,5 +117,26 @@ class StudentController extends Controller
     public function datatable(Request $request)
     {
         return DataTables::of(student::where('schoolYear', $request->schoolYear)->where('semester', $request->semester)->get())->addColumn('Actions', 'component.studenttableaction')->rawColumns(['Actions'])->make(true);
+    }
+
+    public function updateConsultationRemarks(Request $request)
+    {
+        // Validate the request
+        $request->validate([
+            'id' => 'required|integer',
+            'remark' => 'required|string',
+        ]);
+
+        // Update the consultation remarks in the database
+        $consultation = Consultation::find($request->id);
+        if (!$consultation) {
+            return response()->json(['error' => 'Consultation not found'], 404);
+        }
+
+        $consultation->remarks = $request->remark;
+        $consultation->save();
+
+        // Return a success response
+        return response()->json(['message' => 'Consultation remarks updated successfully']);
     }
 }

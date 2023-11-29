@@ -18,22 +18,32 @@ class StudentsImport implements ToModel, WithHeadingRow
         $firstName = $studentNameParts[1] ?? null;
         $middleName = $studentNameParts[2] ?? null;
         $formattedData = [
-            'student_id' => $row['student_id'],
             'lastname' => $lastName,
             'firstname' => $firstName,
             'middlename' => $middleName,
             'contact' => $row['contact'],
-            // 'section' => $row['section'],
             'course' => $row['course'],
             'year' => $row['year'],
             'semester' => $row['semester'],
             'schoolYear' => $row['schoolyear'],
-            // ... map other fields as needed
         ];
-        return new Student($formattedData);
+
+        // Check if the student_id already exists in the database
+        $existingStudent = Student::where('student_id', $row['student_id'])->first();
+
+        if ($existingStudent) {
+
+            return null;
+        }
+
+        // If the student_id doesn't exist, create a new Student instance and return it
+        $formattedData['student_id'] = $row['student_id'];
+        $newStudent = new Student($formattedData);
 
         // Store the processed data in an array
         $this->importedData[] = $formattedData;
+
+        return $newStudent;
     }
 
     public function getImportedData()

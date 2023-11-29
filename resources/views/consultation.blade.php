@@ -2,6 +2,14 @@
 
 @section('content')
     <style>
+        #signaturePad {
+            width: 100%;
+            max-width: 750px;
+            height: auto;
+
+            border: 1px solid #000;
+        }
+
         signature-container {
             position: relative;
             width: 100%;
@@ -61,7 +69,7 @@
                                 Add Consultation
                             </a>
                         </div>
-                        <div class="col-auto">
+                        {{-- <div class="col-auto">
                             <a class="btn app-btn-secondary" type="button" data-toggle="modal" data-target="#importModal">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -72,7 +80,7 @@
                                 </svg>
                                 Import Data
                             </a>
-                        </div>
+                        </div> --}}
                     @endif
 
 
@@ -128,7 +136,7 @@
                             <label for="student">Student</label>
                             <select id="student" name="student_id" class="form-control" style="width: 100%;">
                                 @foreach ($students as $student)
-                                    <option value="{{ $student->id }}">{{ $student->lastname }} {{ $student->fistname }}
+                                    <option value="{{ $student->id }}">{{ $student->lastname }} {{ $student->firstname }}
                                         {{ $student->middlename }}, {{ $student->student_id }},
                                         {{ $student->course }}-{{ $student->year }}</option>
                                 @endforeach
@@ -172,7 +180,6 @@
                             <select id="equipment" name="equipment[]" multiple class="form-control"
                                 style="width: 100%;">
                                 @foreach ($equipments as $equipment)
-                                    <option value="0">Empty</option>
                                     <option value="{{ $equipment->id }}">{{ $equipment->equipname }}</option>
                                 @endforeach
                             </select>
@@ -193,7 +200,7 @@
                         </div>
                         <div class="form-group">
                             <label for="remarks"></label>Remarks</label>
-                            <textarea name="remarks" id="instruction" class="form-control" rows="5" required></textarea>
+                            <textarea name="remarks" id="remarks" class="form-control" rows="5" required>{{ old('remarks') }}</textarea>
                             @error('remarks')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -233,7 +240,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="student">Student</label>
-                            <select id="editStudent" name="student_id" class="form-control">
+                            <select id="editStudent" name="student_id" class="form-control" disabled>
                                 @foreach ($students as $student)
                                     <option value="{{ $student->id }}">{{ $student->lastname }}
                                         {{ $student->fistname }} {{ $student->middlename }}, {{ $student->student_id }},
@@ -245,21 +252,24 @@
                             @enderror
                         </div>
 
+
                         <div class="form-group">
-                            <label for="complaints">Complaints</label>
+                            <label for="editComplaints">Complaints</label>
                             <textarea name="editComplaints" id="editComplaints" class="form-control" rows="5">{{ old('editComplaints') }}</textarea>
                             @error('editComplaints')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
+
                         <div class="form-group">
                             <label for="editDiagnosis">Diagnosis</label>
-                            <textarea name="editDiagnosis" id="editDiagnosis" class="form-control" rows="5">{{ old('diagnosis') }}</textarea>
+                            <textarea name="editDiagnosis" id="editDiagnosis" class="form-control" rows="5">{{ old('editDiagnosis') }}</textarea>
                             @error('editDiagnosis')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+
                         <div class="form-group">
                             <label for="editMedicine">Select Medicine</label>
                             <select id="editMedicine" name="Medicine[]" multiple class="form-control"
@@ -272,7 +282,7 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="form-group" id="medicine_used_quantity_folder">
+                        <div class="form-group" id="edit_medicine_used_quantity_folder">
                         </div>
 
                         <div class="form-group">
@@ -287,20 +297,21 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="form-group" id="equipment_used_quantity_folder">
+                        <div class="form-group" id="edit_equipment_used_quantity_folder">
                         </div>
 
                         <div class="form-group">
                             <label for="editInstruction">Instruction</label>
-                            <textarea name="editInstruction" id="editInstruction" class="form-control" rows="5">{{ old('instruction') }}</textarea>
+                            <textarea name="editInstruction" id="editInstruction" class="form-control" rows="5">{{ old('editInstruction') }}</textarea>
                             @error('editInstruction')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
+
                         <div class="form-group">
                             <label for="editRemarks">Remarks</label>
-                            <textarea name="editRemarks" id="editRemarks" class="form-control" rows="5">{{ old('remarks') }}</textarea>
+                            <textarea name="editRemarks" id="editRemarks" class="form-control" rows="5">{{ old('editRemarks') }}</textarea>
                             @error('editRemarks')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -415,11 +426,11 @@
                     $folder.append(
                         '<div><label>Quantity</label><input type="text" name="equip_quantity[' +
                         equipment +
-                        ']" class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,2)" maxlength="2" required></div>'
+                        ']" class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,2)" maxlength="2" value=""></div>'
                     );
                 });
-
             });
+
 
             // for editConsulModal
             $('#editStudent').select2({
@@ -434,50 +445,106 @@
 
             $("#editMedicine").change(function() {
                 var medicine_used = $("#editMedicine").val();
-                var $folder = $('#medicine_used_quantity_folder');
+                var $folder = $('#edit_medicine_used_quantity_folder');
 
 
                 $folder.empty();
 
                 medicine_used.forEach(function(medicine) {
                     $folder.append(
-                        '<div><label>Quantity</label><input type="text" name="editQuantity[' +
-                        medicine + ']" class="form-control" required></div>'
+                        '<div><label>Quantity</label><input id="MedQuantity_' + medicine +
+                        '" type="text" name="editQuantity[' +
+                        medicine +
+                        ']"  class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,2)" maxlength="2" required></div>'
                     );
                 });
             });
 
             $('#editEquipment').change(function() {
                 var equipment_used = $('#editEquipment').val();
-                var $folder = $('#equipment_used_quantity_folder');
+                var $folder = $('#edit_equipment_used_quantity_folder');
 
                 $folder.empty();
 
                 equipment_used.forEach(function(equipment) {
                     $folder.append(
-                        '<div><label>Quantity</label><input type="text" name="editEquipQuantity[' +
-                        equipment + ']" class="form-control"></input></div>'
+                        '<div><label>Quantity</label><input id="EquipQuantity_' + equipment +
+                        '" type="text" name="editEquipQuantity[' +
+                        equipment +
+                        ']" class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,2)" maxlength="2" value=""></div>'
                     );
                 });
             });
 
         });
 
-        function ShowModal(id, student_id, diagnosis, medicine, equipment, instruction) {
+        function ShowModal(id, student_id, complaints, diagnosis, remarks, instruction, medicine, equipment,
+            medQuantityUsed, equipQuantityUsed) {
             const arrMedicine = medicine.split(",");
+            const arrMedicineQuantity = medQuantityUsed.split(",");
+            const arrEquipmentQuantity = equipQuantityUsed.split(",");
             const arrEquipment = equipment.split(",");
+
+            console.log(arrMedicineQuantity);
+
 
             $('#consultID').val(id);
             $('#editStudent').val(student_id);
             $('#editStudent').trigger('change');
+            $('#editComplaints').val(complaints);
             $('#editDiagnosis').val(diagnosis);
             $('#editMedicine').val(arrMedicine);
             $('#editMedicine').trigger('change');
             $('#editEquipment').val(arrEquipment);
             $('#editEquipment').trigger('change');
             $('#editInstruction').val(instruction);
+            $('#editRemarks').val(remarks);
             $('#editConsultModal').modal('show');
+
+            arrMedicine.forEach(element => {
+                key = Object.keys(element);
+                $('#MedQuantity_' + element).val(arrMedicineQuantity[key]);
+            });
+            arrEquipment.forEach(element => {
+                key = Object.keys(element);
+                $('#EquipQuantity_' + element).val(arrEquipmentQuantity[key]);
+            });
+
+            console.log(id);
+            console.log(student_id);
+            console.log(complaints);
+            console.log(diagnosis);
+            console.log(medicine);
+            console.log(equipment);
+            console.log(instruction);
+            console.log(remarks);
+
         }
+
+        // function ShowModal(id, studentId, complaints, diagnosis, remarks, instruction) {
+        //     $('#consultID').val(id);
+        //     $('#editStudent').val(studentId);
+        //     $('#editStudent').trigger('change');
+        //     $('#editComplaints').val(complaints);
+        //     $('#editDiagnosis').val(diagnosis);
+        //     $('#editInstruction').val(instruction);
+        //     $('#editRemarks').val(remarks);
+        //     $('#editConsultModal').modal('show');
+
+        //     console.log(id);
+        //     console.log(studentId);
+        //     console.log(complaints);
+        //     console.log(diagnosis);
+        //     console.log(instruction);
+        //     console.log(remarks);
+
+        // }
+
+
+
+
+
+
 
 
 

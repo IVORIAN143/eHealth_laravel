@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\auth\LoginControler;
 use App\Providers\RouteServiceProvider;
 use Laravel\Fortify\Features;
+use Laravel\Fortify\Fortify;
 
 return [
 
@@ -153,7 +155,6 @@ return [
         Features::twoFactorAuthentication([
             'confirm' => true,
             'confirmPassword' => true,
-            // 'window' => 0,
         ]),
     ],
 

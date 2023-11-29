@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\auth\LoginControler;
 use App\Http\Controllers\HomeController;
 use App\Models\consultation;
 use App\Models\equipment;
@@ -8,9 +9,15 @@ use App\Models\student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CsvImportController;
+use App\Http\Controllers\medDailyContoller;
+use App\Http\Controllers\medicalMonitoringController;
+use App\Http\Controllers\MonthlyConsumptionController;
+use App\Http\Controllers\MonthlyEquipementController;
+use App\Http\Controllers\MonthlyMedicineController;
 use App\Http\Controllers\SignatureController;
-
-
+use App\Models\User;
+use Laravel\Fortify\Fortify;
+use PragmaRX\Google2FA\Google2FA;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +30,7 @@ use App\Http\Controllers\SignatureController;
 |
 */
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'otp'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
     Route::post('/import', [CsvImportController::class, 'import'])->name('import');
@@ -57,7 +64,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/consultation', [\App\Http\Controllers\ConsultationController::class, 'store'])->name('storeConsult');
     Route::delete('/consultation/delete', [\App\Http\Controllers\ConsultationController::class, 'delete'])->name('deleteConsultation');
     Route::post('/consultation/edit', [\App\Http\Controllers\ConsultationController::class, 'editConsultation'])->name('editConsultation');
-    Route::post('/upload/signature', [\App\Http\Controls\ConsultationController::class, 'upload'])->name('uploadSignature');
+    Route::post('/upload/signature', [\App\Http\Controllers\ConsultationController::class, 'upload'])->name('uploadSignature');
 
     Route::post('/save-signature', [SignatureController::class, 'saveSignature'])->name('saveSignature');
 
@@ -75,7 +82,25 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/med/addSupply', [\App\Http\Controllers\InventoryController::class, 'addSupplyMed'])->name('addsupplyMedicine');
 
     Route::post('/save-signature', [SignatureController::class, 'saveSignature'])->name('signature.save');
+
+
+
+    // report
+    Route::get('/medicineDaily', [medDailyContoller::class, 'index'])->name('medDaily');
+
+    Route::get('/equipMonthly', [MonthlyEquipementController::class, 'index'])->name('equipMonthly');
+    Route::get('/medMonthly', [MonthlyMedicineController::class, 'index'])->name('medMonthly');
+    Route::get('/medmonitor', [medicalMonitoringController::class, 'index'])->name('medMonitor');
+
+
+
+    //diagram
+    Route::get('/monthlyConsumption', [MonthlyConsumptionController::class, 'getMedicineUsedData'])->name('monthlyConsumption');
 });
+
+Route::post('/login', [LoginControler::class, 'login'])->name('loginuser');
+Route::get('/validate-otp', [LoginControler::class, 'otpView'])->middleware('auth')->name('otpView');
+Route::post('/validate-otp', [LoginControler::class, 'checkOTP'])->name('validate-otp');
 
 
 Route::get('/dailyMedTable', function () {
@@ -98,24 +123,3 @@ Route::get('/studentCert', function (Request $request) {
     $student = Student::find($request->id);
     return view('reporty.report_certificate', compact('student'));
 })->name('studentCert');
-
-Route::get('/equipMonthly', function () {
-    $equipments = equipment::whereMonth('created_at', date('m'))->with('used')->get();
-    return  view('reporty.report_equipment_monthly_consumption', compact(['equipments']));
-})->name('equipMonthly');
-
-Route::get('/medMonthly', function () {
-    $medicines = medicine::with('used')->get();
-    return  view('reporty.report_medicine_monthly_consumption', compact(['medicines']));
-})->name('medMonthly');
-
-Route::get('/medicineDaily', function () {
-    $consultations = consultation::with('student')->get();
-    $meds = medicine::all();
-    return  view('reporty.report_daily_issuance', compact(['consultations', 'meds']));
-})->name('medDaily');
-
-
-Route::get('/medicineMonitoring', function () {
-    return  view('reporty.report_medical_monitoring');
-})->name('medMonitor');

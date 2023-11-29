@@ -98,9 +98,7 @@
                 <th>Student Name</th>
                 <th>Course-Year</th>
                 <th>Diagnosis</th>
-                @foreach ($meds as $medicine)
-                    <th>{{ $medicine->name }} Quantity</th>
-                @endforeach
+
             </tr>
         </thead>
         <tbody>
@@ -120,7 +118,7 @@
         $(document).ready(function() {
             $('#medicineTable').DataTable({
                 ajax: {
-                    url: '{{ route('medDailyTable') }}', // Laravel route name
+                    url: '{{ route('medDaily') }}', // Laravel route name
                     type: 'GET',
                     dataSrc: '',
                 },
@@ -136,11 +134,7 @@
                     {
                         data: 'diagnosis'
                     },
-                    @foreach ($meds as $medicine)
-                        {
-                            data: 'med_used.{{ $medicine->id }}.quantity'
-                        },
-                    @endforeach
+
                 ],
             });
         });

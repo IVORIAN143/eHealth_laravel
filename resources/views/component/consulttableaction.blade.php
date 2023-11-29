@@ -1,9 +1,9 @@
 @if (Auth::user()->role == 'nurse' && $status == 2)
-    <button class="btn-sm app-btn-secondary" {{-- onclick="ShowModal('{{ $id }}', '{{ $student_id }}', '{{ $diagnosis }}', '{{ $prescrib_meds }}', '{{ $instruction }}')">Edit</button> --}} <button
-        onclick="ShowModal('{{ $consultation->id }}', '{{ $consultation->student_id }}', '{{ $consultation->complaints }}', '{{ $consultation->diagnosis }}', '{{ $consultation->medicines->pluck('med_name')->implode(',') }}', '{{ $consultation->equipments->pluck('equipname')->implode(',') }}', '{{ $consultation->instruction }}', '{{ $consultation->remarks }}')">Edit</button>
+    <button class="btn-sm app-btn-secondary" {{-- onclick="ShowModal('{{ $id }}', '{{ $student_id }}', '{{ $diagnosis }}', '{{ $prescrib_meds }}', '{{ $instruction }}')">Edit</button> --}}
+        onclick="ShowModal('{{ $id }}', '{{ $student_id }}', '{{ $complaints }}', '{{ $diagnosis }}', '{{ $instruction }}' ,'{{ $medicines->pluck('med_name')->implode(',') }}', '{{ $equipments->pluck('equipname')->implode(',') }}')">Edit</button>
 @elseif(Auth::user()->role == 'nurse' && $status == 0)
     <button class="btn-sm app-btn-secondary"
-        onclick="ShowModal ('{{ $id }}', '{{ $student_id }}', '{{ $diagnosis }}', '{{ $prescrib_meds }}','{{ $instruction }}' )">
+        onclick="ShowModal('{{ $id }}', '{{ $student_id }}', '{{ $complaints }}', '{{ $diagnosis }}','{{ $remarks }}','{{ $instruction }}' ,'{{ $prescrib_meds }}', '{{ $prescrib_equips }}', '{{ $prescrib_med_quantity }}', '{{ $prescrib_equip_quantity }}')">
         edit</button>
 @elseif(Auth::user()->role == 'doctor' && $status == 0)
     <button class="btn-sm app-btn-secondary"

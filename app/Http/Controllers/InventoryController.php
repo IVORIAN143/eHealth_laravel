@@ -108,22 +108,6 @@ class InventoryController extends Controller
     }
 
 
-    // public function deletemed(Request $request)
-    // {
-    //     $med = medicine::where('id', $request->id)->first();
-    //     if (is_null($med)) {
-    //         Alert::error('Delete Error', "Can't Delete equipment with id" . $request->id);;
-    //     }
-    //     $med->delete();
-    //     Alert::success('Success', 'Successfuly Deleted!.');
-    //     return redirect(route('inventory'));
-    // }
-    // public function datatablemed()
-    // {
-    //     return DataTables::of(medicine::all())->addColumn('Actions', 'component.medicinetableaction')->rawColumns(['Actions'])->make(true);
-    // }
-
-
 
 
 
@@ -229,13 +213,11 @@ class InventoryController extends Controller
 
 /////////////////////////////////////
 // In the controller method where you fetch data for DataTable
-$medicines = Medicine::all();
+// $medicines = Medicine::all();
 
-foreach ($medicines as $medicine) {
-    // Perform calculation for 'totalquantity'
-    $medicine->totalquantity = $medicine->quantity * $medicine->dosage; // Adjust this calculation based on your specific logic
-}
+// foreach ($medicines as $medicine) {
+//     $medicine->totalquantity = $medicine->quantity * $medicine->dosage;
 
-return response()->json([
-    'data' => $medicines
-]);
+// return response()->json([
+//     'data' => $medicines
+// ]);
