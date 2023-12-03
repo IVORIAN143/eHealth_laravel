@@ -10,6 +10,80 @@
             border-bottom-right-radius: 4px;
             background: transparent;
         }
+
+        /* Define styles for the tabs */
+        #tab1,
+        #tab2 {
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 10px;
+            margin: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Initial state */
+        #tab1 {
+            background-color: rgb(101, 151, 187);
+        }
+
+        #tab2 {
+            background-color: rgb(191, 214, 205);
+        }
+
+        /* Hover state */
+        #tab1:hover {
+            background-color: rgb(131, 181, 217);
+        }
+
+        #tab2:hover {
+            background-color: rgb(211, 234, 225);
+        }
+
+        /* Active state */
+        #tab1.active {
+            background-color: rgb(81, 131, 167);
+        }
+
+        #tab2.active {
+            background-color: rgb(171, 194, 185);
+        }
+
+        .ui-widget.ui-widget-content {
+            border: 1px solid #ffffff00;
+        }
+
+        .ui-tabs .ui-tabs-nav {
+            margin: 0;
+        }
+
+        .ui-widget-header {
+            border: none;
+            background: #cccccc00 url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x;
+            color: #22222200;
+            /* font-weight: bold; */
+        }
+
+        .ui-tabs .ui-tabs-nav li {
+            list-style: none;
+            position: relative;
+            top: 0;
+            margin: 1px 0.2em 0 0;
+            border-bottom-width: 0;
+            padding: 0;
+            white-space: nowrap;
+        }
+
+        .ui-state-default,
+        .ui-widget-content .ui-state-default,
+        .ui-widget-header .ui-state-default,
+        .ui-button,
+        html .ui-button.ui-state-disabled:hover,
+        html .ui-button.ui-state-disabled:active {
+            border: 1px solid #d3d3d300;
+            background: #e6e6e600 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+            font-weight: normal;
+            color: rgba(0, 0, 0, 0.125);
+        }
     </style>
     <h1>Inventory</h1>
 
@@ -74,8 +148,8 @@
 
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-med">Medicine</a></li>
-            <li><a href="#tabs-equip">Equipment</a></li>
+            <li><a href="#tabs-med" id="tab1">Medicine</a></li>
+            <li><a href="#tabs-equip" id="tab2">Equipment</a></li>
         </ul>
         <div id="tabs-med">
             <div class="tab-content" id="orders-table-tab-content">
