@@ -237,7 +237,7 @@
                 var newTab = window.open(reportUrl, '_blank');
 
                 // Focus on the new tab
-                newTab.focus();
+                newTab.print();
             });
         });
         // equipMonthly
@@ -255,7 +255,7 @@
                 var newTab = window.open(reportUrl, '_blank');
 
                 // Focus on the new tab
-                newTab.focus();
+                newTab.print();
             });
         });
         // medMonitor
@@ -273,7 +273,7 @@
                 var newTab = window.open(reportUrl, '_blank');
 
                 // Focus on the new tab
-                newTab.focus();
+                newTab.print();
             });
         });
         // medDaily
@@ -291,7 +291,7 @@
                 var newTab = window.open(reportUrl, '_blank');
 
                 // Focus on the new tab
-                newTab.focus();
+                newTab.print();
             });
         });
     </script>

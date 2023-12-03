@@ -1,9 +1,9 @@
-<a class="btn-sm app-btn-secondary" href="{{ route('studentView', ['id' => $id]) }}">View</a>
+<a class="btn-sm app-btn-info" href="{{ route('studentView', ['id' => $id]) }}">View</a>
 
 @if (Auth::user()->role == 'nurse')
-    <a class="btn-sm app-btn-secondary" href="#" onclick="confirmPrintCertificate({{ $id }})">Print
+    <a class="btn-sm app-btn-success" onclick="confirmPrintCertificate({{ $id }})">Print
         Certificate</a>
-    <a class="btn-sm app-btn-secondary" data-confirm-delete="true"
+    <a class="btn-sm app-btn-danger" data-confirm-delete="true"
         href="{{ route('deletestudent', ['id' => $id]) }}">Delete</a>
 @endif
 

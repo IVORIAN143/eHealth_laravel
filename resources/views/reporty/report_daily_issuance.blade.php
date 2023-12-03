@@ -192,7 +192,7 @@
 
     <div class="container">
         <div class="tg-wrap">
-            <table class="tg" style="margin-top: 150vh;">
+            <table class="tg">
                 <thead>
                     <th class="tg-0lax" colspan="4">
                         <div class="certificate">

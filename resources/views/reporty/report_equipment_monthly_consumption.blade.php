@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medicine Certificate</title>
+    <title>Equipment Consumption Report</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -218,7 +218,7 @@
                             <td class="tg-0pky">{{ $totalQuantity }}</td>
                             <td class="tg-0pky">{{ $equipment->countUsed() }}</td>
                             <td class="tg-0pky">{{ $totalQuantity - $equipment->countUsed() }}</td>
-                            <td class="tg-0pky">{{ $totalQuantity - $equipment->countUsed() }}</td>
+                            <td class="tg-0pky">{{ max(0, $totalQuantity - $equipment->countUsed()) }}</td>
                             <td class="tg-0pky">{{ $equipment->equi_expiration }}</td>
                         </tr>
                     @endforeach

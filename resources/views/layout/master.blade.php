@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="assets/css/yearpicker.css">
     <link rel="stylesheet" href="assets/css/MonthPicker.min.css">
 
+
     @stack('css')
 </head>
 <style>

@@ -211,14 +211,14 @@
                 <tbody>
                     @foreach ($medicines as $medicine)
                         <tr>
-                            @php($totalQuantity = $medicine->med_quantity + $medicine->SumMed())
+                            @php($totalQuantity = $medicine->quantity + $medicine->SumMed())
                             <td class="tg-0pky">{{ $medicine->med_name }}</td>
                             <td class="tg-0pky">{{ $medicine->quantity }}</td>
                             <td class="tg-0pky">{{ $medicine->SumMed() }}</td>
                             <td class="tg-0pky">{{ $totalQuantity }}</td>
                             <td class="tg-0pky">{{ $medicine->countUsed() }}</td>
-                            <td class="tg-0pky">{{ $medicine->countUsed() - $totalQuantity }}</td>
-                            <td class="tg-0pky">{{ $medicine->countUsed() - $totalQuantity }}</td>
+                            <td class="tg-0pky">{{ $totalQuantity - $medicine->countUsed() }}</td>
+                            <td class="tg-0pky">{{ max(0, $totalQuantity - $medicine->countUsed()) }}</td>
                             <td class="tg-0pky">{{ $medicine->expiration }}</td>
                         </tr>
                     @endforeach

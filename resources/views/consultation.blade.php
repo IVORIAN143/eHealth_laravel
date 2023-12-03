@@ -57,7 +57,7 @@
 
                     @if (Auth::user()->role == 'nurse')
                         <div class="col-auto">
-                            <a class="btn app-btn-secondary" type="button" data-bs-toggle="modal"
+                            <a class="btn app-btn-success" type="button" data-bs-toggle="modal"
                                 data-bs-target="#addConsultModal">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -520,33 +520,6 @@
             console.log(remarks);
 
         }
-
-        // function ShowModal(id, studentId, complaints, diagnosis, remarks, instruction) {
-        //     $('#consultID').val(id);
-        //     $('#editStudent').val(studentId);
-        //     $('#editStudent').trigger('change');
-        //     $('#editComplaints').val(complaints);
-        //     $('#editDiagnosis').val(diagnosis);
-        //     $('#editInstruction').val(instruction);
-        //     $('#editRemarks').val(remarks);
-        //     $('#editConsultModal').modal('show');
-
-        //     console.log(id);
-        //     console.log(studentId);
-        //     console.log(complaints);
-        //     console.log(diagnosis);
-        //     console.log(instruction);
-        //     console.log(remarks);
-
-        // }
-
-
-
-
-
-
-
-
 
 
         // for signature DONT TOUCH IT PLEASE!

@@ -1,6 +1,16 @@
 @extends('layout.master')
 
 @section('content')
+
+    <style>
+        .ui-corner-all,
+        .ui-corner-bottom,
+        .ui-corner-right,
+        .ui-corner-br {
+            border-bottom-right-radius: 4px;
+            background: transparent;
+        }
+    </style>
     <h1>Inventory</h1>
 
     <div class="row g-3 mb-4 align-items-center justify-content-between">
@@ -17,7 +27,7 @@
 
                     @if (Auth::user()->role == 'nurse')
                         <div class="col-auto">
-                            <a class="btn app-btn-secondary" type="button" data-bs-toggle="modal"
+                            <a class="btn app-btn-success" type="button" data-bs-toggle="modal"
                                 data-bs-target="#addmedicneModal">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -30,7 +40,7 @@
                             </a>
                         </div>
                         <div class="col-auto">
-                            <a class="btn app-btn-secondary" type="button" data-bs-toggle="modal"
+                            <a class="btn app-btn-success" type="button" data-bs-toggle="modal"
                                 data-bs-target="#addequipModal">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -62,56 +72,61 @@
         </div><!--//col-auto-->
     </div><!--//row-->
 
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-med">Medicine</a></li>
+            <li><a href="#tabs-equip">Equipment</a></li>
+        </ul>
+        <div id="tabs-med">
+            <div class="tab-content" id="orders-table-tab-content">
+                <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+                    <div class="app-card app-card-orders-table shadow-sm mb-5">
+                        <div class="app-card-body">
+                            <div class="table-responsive">
+                                <table id="medicineTable" class="table app-table-hover mb-0 text-left">
+                                    <thead>
+                                        <tr>
+                                            <th class="cell">ID</th>
+                                            <th class="cell">Medicine</th>
+                                            <th class="cell">Description</th>
+                                            <th class="cell">Expiration</th>
+                                            <th class="cell">Quantity</th>
+                                            <th class="cell">Actions</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <div class="tab-content" id="orders-table-tab-content">
-        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
-            <div class="app-card app-card-orders-table shadow-sm mb-5">
-                <div class="app-card-body">
-                    <div class="table-responsive">
-                        <table id="medicineTable" class="table app-table-hover mb-0 text-left">
-                            <thead>
-                                <tr>
-                                    <th class="cell">ID</th>
-                                    <th class="cell">Medicine</th>
-                                    <th class="cell">Description</th>
-                                    <th class="cell">Expiration</th>
-                                    <th class="cell"> Quantity</th>
-                                    <th class="cell">Actions</th>
-
-                                </tr>
-                            </thead>
-                        </table>
+        <div id="tabs-equip">
+            <div class="tab-content" id="orders-table-tab-content">
+                <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+                    <div class="app-card app-card-orders-table shadow-sm mb-5">
+                        <div class="app-card-body">
+                            <div class="table-responsive" style="width: 100%;">
+                                <table id="equipmentTable" class="table app-table-hover mb-0 text-left">
+                                    <thead>
+                                        <tr>
+                                            <th class="cell">ID</th>
+                                            <th class="cell">Equipment</th>
+                                            <th class="cell">Description</th>
+                                            <th class="cell">Expiration</th>
+                                            <th class="cell">Quantity</th>
+                                            <th class="cell">Actions</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-    <div class="tab-content" id="orders-table-tab-content">
-        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
-            <div class="app-card app-card-orders-table shadow-sm mb-5">
-                <div class="app-card-body">
-                    <div class="table-responsive">
-                        <table id="equipmentTable" class="table app-table-hover mb-0 text-left">
-                            <thead>
-                                <tr>
-                                    <th class="cell">ID</th>
-                                    <th class="cell">Eqiupment</th>
-                                    <th class="cell">Description</th>
-                                    <th class="cell">Expiration</th>
-                                    <th class="cell">Quantity</th>
-                                    <th class="cell">Actions</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
 
     <div class="modal fade" id="addmedicneModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel"
@@ -136,7 +151,8 @@
                         </div>
                         <div class="form-group">
                             <label for="name">Description</label>
-                            <input value="{{ old('description') }}" type="text" name="description" class="form-control">
+                            <input value="{{ old('description') }}" type="text" name="description"
+                                class="form-control">
                             @error('description')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -500,5 +516,11 @@
             $('#supply_id_equip').val(id);
             $('#addsupplyequipmentsModal').modal('show');
         }
+
+
+        //this is for tab-table medicine and equipment datatable
+        $(function() {
+            $("#tabs").tabs();
+        });
     </script>
 @endpush

@@ -11,21 +11,22 @@ class MedUsed extends Model
 
     protected $table = "medicine_used";
 
-    protected $fillable =[
-      'fk_med_id',
+    protected $fillable = [
+        'fk_med_id',
         'fk_consultation_id',
         'quantity',
     ];
 
-    public function medicine(){
+    public function medicine()
+    {
         return $this->hasOne(medicine::class, 'id', 'fk_med_id');
     }
-    public function deductQuantity(){
+
+    public function deductQuantity()
+    {
         $meduse = $this->medicine;
         $meduse->update([
             'quantity' =>  $meduse->quantity - $this->quantity,
         ]);
-
     }
-
 }

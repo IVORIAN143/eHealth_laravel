@@ -140,6 +140,7 @@
                             icon: 'error',
                             title: 'Oops...',
                             text: data.responseJSON.message,
+                            // text: 'Your Network is week please try again',
                         })
                     }
                 })

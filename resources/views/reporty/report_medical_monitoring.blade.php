@@ -227,9 +227,9 @@
                             <td class="tg-0lax"> {{ $consultation->student->course }} {{ $consultation->student->year }}
                             </td>
                             <td class="tg-0lax"> {{ $consultation->student->student_id }}</td>
-                            <td class="tg-0lax"> {{ $consultation->student->diagnosis }}</td>
+                            <td class="tg-0lax"> {{ $consultation->diagnosis }}</td>
                             <td class="tg-0lax"></td>
-                            <td class="tg-0lax">{{ $consultation->student->instruction }}</td>
+                            <td class="tg-0lax">{{ $consultation->instruction }}</td>
                             <td class="tg-0lax">
                                 <img src="{{ asset('storage/signatures/' . $consultation->student_id . '.png') }}"
                                     alt="Patient Signature" width="90" height="20">
