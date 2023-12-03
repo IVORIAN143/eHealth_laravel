@@ -84,6 +84,28 @@
             font-weight: normal;
             color: rgba(0, 0, 0, 0.125);
         }
+
+        @keyframes popUpEffect {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            animation: popUpEffect 1.5s ease-out;
+            /* 1.5s duration with ease-out timing function */
+        }
     </style>
     <h1>Inventory</h1>
 

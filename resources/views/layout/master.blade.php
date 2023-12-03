@@ -99,6 +99,52 @@
     .dropdown-menu a:hover {
         background-color: #f0f0f0;
     }
+
+
+    /* zoom in nav  */
+    .nav-link-text {
+        display: inline-block;
+        transition: transform 0.5s ease;
+        /* You can adjust the duration and timing function for zoom on hover */
+    }
+
+    .nav-link:hover .nav-link-text {
+        transform: scale(1.2);
+        /* Adjust the zoom on hover scale */
+    }
+
+    /* logo and logo text */
+    /* Add this to your CSS file or style section */
+    .app-logo {
+        display: inline-block;
+        animation: slideRight 2s ease-in-out;
+        /* You can adjust the duration and timing function for sliding */
+        transition: transform 0.5s ease;
+        /* You can adjust the duration and timing function for zoom on hover */
+    }
+
+    .logo-text {
+        display: inline-block;
+        transition: transform 0.5s ease;
+        /* You can adjust the duration and timing function for zoom on hover */
+    }
+
+    .app-branding:hover .app-logo,
+    .app-branding:hover .logo-text {
+        transform: scale(1.1);
+        /* Adjust the zoom on hover scale */
+    }
+
+
+    @keyframes slideRight {
+        0% {
+            transform: translateX(-100%);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
 </style>
 
 <body>

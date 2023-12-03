@@ -136,29 +136,30 @@
                 color: #aaa;
             }
         }
+
+        @keyframes popUpEffect {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            animation: popUpEffect 1.5s ease-out;
+            /* 1.5s duration with ease-out timing function */
+        }
     </style>
     <h1> Dashboard </h1>
-    {{-- NOTIFICATION --}}
-    <!-- Assume this code is within your Blade view file -->
-    {{-- <!-- Trigger button for consultation notifications -->
-    <div class="app-utility-item app-notifications-dropdown dropdown">
-        <a class="dropdown-toggle no-toggle-arrow" id="consultation-notifications-dropdown-toggle" data-bs-toggle="dropdown"
-            href="#" role="button" aria-expanded="false" title="Consultation Notifications">
-            <!-- Use a relevant icon for consultation notifications -->
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bell icon" fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg">
-                <!-- Icon path here -->
-            </svg>
-            <!-- Replace 'notificationCount' with the actual count of consultation notifications -->
-            <span class="icon-badge" id="notificationCount">3</span>
-        </a>
-        <div class="dropdown-menu p-0" aria-labelledby="consultation-notifications-dropdown-toggle">
-            <div class="dropdown-menu-header p-3">
-                <h5 class="dropdown-menu-title mb-0">Consultation Notifications</h5>
-            </div>
-            <div class="dropdown-menu-content">
-                <!-- Loop through your consultation notifications and display them -->
-                {{-- @foreach ($consultationNotifications as $notification) --}}
     <div class="item p-3">
         <!-- Individual notification content here -->
         <!-- Replace 'notificationImage', 'notificationMessage', and 'notificationTime' with actual data -->
