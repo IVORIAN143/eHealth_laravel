@@ -9,7 +9,7 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #f4f4f4;
+            background-color: #fff;
             margin: 0;
         }
 
@@ -35,11 +35,8 @@
 
         .certificate {
             max-width: 800px;
-            /* border: 2px solid #333; */
-            /* background-color: #fff; */
             box-sizing: border-box;
             padding: 20px;
-            /* Added padding for better spacing */
             position: relative;
             text-align: center;
         }
@@ -71,28 +68,18 @@
 
         .logo {
             position: absolute;
-            /* Position the image absolutely */
             top: 50px;
-            /* Distance from top */
             left: 50px;
-            /* Distance from left */
             max-width: 80px;
-            /* Limit the width if necessary */
             max-height: 80px;
-            /* Limit the width if necessary */
         }
 
         .logos {
             position: absolute;
-            /* Position the image absolutely */
             top: 50px;
-            /* Distance from top */
             right: 50px;
-            /* Distance from left */
             max-width: 80px;
-            /* Limit the width if necessary */
             max-height: 80px;
-            /* Limit the width if necessary */
         }
 
         .certificate img {
@@ -105,7 +92,6 @@
             font-weight: bold;
             font-family: Arial, Helvetica, sans-serif;
             margin: 10px 0 1px;
-            /* Simplified margin properties */
         }
 
         .hs {
@@ -177,13 +163,9 @@
 
         .vertical-text {
             writing-mode: tb-rl;
-            /* Vertical writing */
             transform: initial;
-            /* For cross-browser support */
             white-space: normal;
-            /* Prevent text wrapping */
             text-align: center;
-            /* Adjust the text alignment */
         }
     </style>
 </head>

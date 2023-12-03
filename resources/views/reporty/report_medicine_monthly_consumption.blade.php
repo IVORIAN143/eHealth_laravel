@@ -9,10 +9,8 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #f4f4f4;
-            /* Added a background color for better visibility */
+            background-color: #fff;
             margin: 0;
-            /* Remove default margin */
         }
 
         .paragraph {
