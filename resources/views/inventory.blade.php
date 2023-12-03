@@ -91,7 +91,9 @@
                                             <th class="cell">Description</th>
                                             <th class="cell">Expiration</th>
                                             <th class="cell">Quantity</th>
-                                            <th class="cell">Actions</th>
+                                            @if (Auth::user()->role == 'nurse')
+                                                <th class="cell">Actions</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                 </table>
@@ -116,7 +118,9 @@
                                             <th class="cell">Description</th>
                                             <th class="cell">Expiration</th>
                                             <th class="cell">Quantity</th>
-                                            <th class="cell">Actions</th>
+                                            @if (Auth::user()->role == 'nurse')
+                                                <th class="cell">Actions</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                 </table>
@@ -451,10 +455,12 @@
                     {
                         data: 'quantity',
                     },
-                    {
-                        data: 'Actions',
-                        name: 'Actions'
-                    },
+                    @if (Auth::user()->role == 'nurse')
+                        {
+                            data: 'Actions',
+                            name: 'Actions'
+                        },
+                    @endif
                 ]
             });
             $('#equipmentTable').DataTable({
@@ -481,10 +487,12 @@
                         data: 'equip_quantity',
                         name: 'equip_quantity'
                     },
-                    {
-                        data: 'Actions',
-                        name: 'Actions'
-                    },
+                    @if (Auth::user()->role == 'nurse')
+                        {
+                            data: 'Actions',
+                            name: 'Actions'
+                        },
+                    @endif
                 ]
             });
         });

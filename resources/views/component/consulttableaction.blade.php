@@ -18,9 +18,7 @@
 
 @if (Auth::user()->role == 'doctor')
     @if ($status == 0)
-        <button> <a class="btn-sm app-btn-secondary" href="{{ route('statusApprove', ['id' => $id]) }}">Aprrove</a>
-        </button>
-        <button><a class="btn-sm app-btn-secondary" href="{{ route('statusDisapprove', ['id' => $id]) }}">Reject</a>
-        </button>
+        <a class="btn-sm app-btn-success" href="{{ route('statusApprove', ['id' => $id]) }}">Aprrove</a>
+        <a class="btn-sm app-btn-danger" href="{{ route('statusDisapprove', ['id' => $id]) }}">Reject</a>
     @endif
 @endif
