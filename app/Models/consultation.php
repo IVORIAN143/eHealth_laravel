@@ -38,7 +38,7 @@ class consultation extends Model
 
     public function student()
     {
-        return $this->hasOne(Student::class, 'id', 'student_id');
+        return $this->hasOne(student::class, 'id', 'student_id');
     }
 
     public  function med_used()

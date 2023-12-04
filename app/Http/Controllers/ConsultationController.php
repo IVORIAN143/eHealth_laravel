@@ -7,7 +7,7 @@ use App\Models\equipment;
 use App\Models\EquipUsed;
 use App\Models\medicine;
 use App\Models\MedUsed;
-use App\Models\student;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\DataTables;
