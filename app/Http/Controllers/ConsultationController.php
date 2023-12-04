@@ -7,7 +7,7 @@ use App\Models\equipment;
 use App\Models\EquipUsed;
 use App\Models\medicine;
 use App\Models\MedUsed;
-use App\Models\Student;
+use App\Models\student;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\DataTables;
@@ -17,9 +17,9 @@ class ConsultationController extends Controller
     public function index()
     {
         $consultations = Consultation::all();
-        $students = Student::all();
-        $medicines = Medicine::all();
-        $equipments = Equipment::all();
+        $students = student::all();
+        $medicines = medicine::all();
+        $equipments = equipment::all();
         $title = 'Delete Consultation!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
