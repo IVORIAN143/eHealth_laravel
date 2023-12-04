@@ -161,7 +161,7 @@
                 <div class="paragraphs">Santiago Extension Unit</div>
                 <div class="paragraphs">Santiago City</div>
                 <div class="hs"><i>Health Services
-                        <br> SUPPLIE CONSUMPTION REPORT
+                        <br> SUPPLIES CONSUMPTION REPORT
                     </i></div>
             </div>
         </div>
@@ -171,14 +171,13 @@
                 <thead>
                     <tr>
                         <td class="tg-nrix" rowspan="2">EQUIPMENT</td>
-                        <td class="tg-nrix">BALANCE (Beggining)</td>
+                        <td class="tg-nrix">BALANCE (Beginning)</td>
                         <td class="tg-nrix">Purchase during Period</td>
                         <td class="tg-nrix" rowspan="2">TOTAL</td>
-                        <td class="tg-nrix">Issued&nbsp;&nbsp;durring Period</td>
-                        <td class="tg-nrix">BALANCE(end)</td>
+                        <td class="tg-nrix">Issued during Period</td>
+                        <td class="tg-nrix">BALANCE (end)</td>
                         <td class="tg-nrix" rowspan="2">TOTAL</td>
                         <td class="tg-nrix" rowspan="2">EXPIRY</td>
-
                     </tr>
                     <tr>
                         <td class="tg-nrix">QUANTITY</td>
