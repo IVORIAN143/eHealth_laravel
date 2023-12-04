@@ -2,10 +2,8 @@
     body {
         font-family: Arial, sans-serif;
         text-align: center;
-        background-color: #f4f4f4;
-        /* Added a background color for better visibility */
+        background-color: #fff;
         margin: 0;
-        /* Remove default margin */
     }
 
     .paragraph {
@@ -30,11 +28,8 @@
 
     .certificate {
         max-width: 800px;
-        /* border: 2px solid #333; */
-        /* background-color: #fff; */
         box-sizing: border-box;
         padding: 20px;
-        /* Added padding for better spacing */
         position: relative;
     }
 
@@ -42,19 +37,15 @@
         border-collapse: collapse;
         border-spacing: 0;
         width: 100%;
-        /* Added to make the table responsive */
     }
 
     .tg td,
     .tg th {
         border: 1px solid #333;
-        /* Changed border-color to #333 */
         padding: 10px;
-        /* Simplified padding */
         font-family: Arial, sans-serif;
         font-size: 14px;
         word-break: break-all;
-        /* Improved word break behavior */
     }
 
     .tg .tg-1wig {
@@ -68,28 +59,18 @@
 
     .logo {
         position: absolute;
-        /* Position the image absolutely */
         top: 50px;
-        /* Distance from top */
         left: 300px;
-        /* Distance from left */
         max-width: 80px;
-        /* Limit the width if necessary */
         max-height: 80px;
-        /* Limit the width if necessary */
     }
 
     .logos {
         position: absolute;
-        /* Position the image absolutely */
         top: 50px;
-        /* Distance from top */
         right: 300px;
-        /* Distance from left */
         max-width: 80px;
-        /* Limit the width if necessary */
         max-height: 80px;
-        /* Limit the width if necessary */
     }
 
     .certificate img {
@@ -102,7 +83,6 @@
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
         margin: 10px 0 1px;
-        /* Simplified margin properties */
     }
 
     .hs {
@@ -191,13 +171,11 @@
             </div>
         </div>
         <div class="tg-wrap">
-            <table class="tg">
-            </table>
+            <img id="signatureImage" src="path_to_your_signature_image.png" alt="Signature"
+                style="max-width: 100px; height: auto; display: none;" />
             <table class="tg">
                 <thead>
                     <tr>
-                        <th class="tg-cly1" rowspan="2">
-
                         </th>
                         <th class="tg-cly1" rowspan="2">DATE</th>
                         <th class="tg-cly1" rowspan="2">TIME OF <br>ARRIVAL</th>
@@ -218,22 +196,31 @@
                         <th class="tg-cly1">1H</th>
                         <th class="tg-cly1">(&gt;)1HR</th>
                     </tr>
-                    <tr>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
-                        <td class="tg-0lax"></td>
+                    @foreach ($consultations as $consultation)
+                        <tr>
+                            <td class="tg-0lax">{{ $consultation->created_at->format('Y-m-d') }}</td>
+                            <td class="tg-0lax">{{ $consultation->created_at->format('h:i:s A') }}</td>
+                            <td class="tg-0lax"> {{ $consultation->student->firstname }}
+                                {{ $consultation->student->middlename }}
+                                {{ $consultation->student->lastname }}</td>
+                            <td class="tg-0lax"> {{ $consultation->student->gender }}</td>
+                            <td class="tg-0lax"> {{ $consultation->student->course }} {{ $consultation->student->year }}
+                            </td>
+                            <td class="tg-0lax"> {{ $consultation->student->student_id }}</td>
+                            <td class="tg-0lax"> {{ $consultation->diagnosis }}</td>
+                            <td class="tg-0lax"></td>
+                            <td class="tg-0lax">{{ $consultation->instruction }}</td>
+                            <td class="tg-0lax">
+                                <img src="{{ asset('storage/signatures/' . $consultation->student_id . '.png') }}"
+                                    alt="Patient Signature" width="90" height="20">
+                            </td>
+                            <td class="tg-0lax"></td>
+                            <td class="tg-0lax"></td>
+                            <td class="tg-0lax"></td>
+                            <td class="tg-0lax"></td>
+                            <td class="tg-0lax"></td>
+                        </tr>
+                    @endforeach
                 </thead>
                 <tbody>
 

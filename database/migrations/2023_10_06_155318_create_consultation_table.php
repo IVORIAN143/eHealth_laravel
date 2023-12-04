@@ -12,14 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('consultation', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('student_id')->references('id')->on('students')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('diagnosis', 255);
-            $table->string('instruction', 255);
-            $table->json('signature')->nullable();
-            $table->integer('status');
-            $table->integer('semester');
-            $table->integer('schoolYear');
+            $table->id()->nullable();
+            $table->foreignId('student_id')->references('id')->on('students')->onDelete('cascade')->onUpdate('cascade')->nullable();
+            $table->string('complaints', 255)->nullable();
+            $table->string('diagnosis', 255)->nullable();
+            $table->string('instruction', 255)->nullable();
+            $table->string('remarks', 255)->nullable();
+            $table->integer('status')->nullable();
+            $table->integer('semester')->nullable();
+            $table->integer('schoolYear')->nullable();
             $table->timestamps();
         });
     }

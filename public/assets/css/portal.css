@@ -11589,7 +11589,7 @@ fieldset:disabled .btn {
     .d-print-none {
         display: none !important;
     }
-} /*!  
+} /*!
  * Portal - Bootstrap 5 Admin Dashboard Template for Developers
  * Version: 3.0
  * Author: Xiaoying Riley
@@ -11618,7 +11618,7 @@ h6,
     font-weight: 600;
 }
 a {
-    color: #15a362;
+    color: #fbfdfc;
     text-decoration: none;
 }
 a:hover {
@@ -11686,58 +11686,146 @@ a.app-link:hover {
     color: #15a362;
     text-decoration-color: rgba(21, 163, 98, 0.8);
 }
-button.close:focus {
-    outline: none;
-    box-shadow: none;
-}
+/* Reset styles for all buttons */
 .btn {
-    font-weight: 600;
+    font-weight: 600; /* Use the same font weight */
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
     border: none;
+    cursor: pointer; /* Add cursor pointer for buttons */
 }
+
+/* Remove text decoration on button hover, active, and focus states */
 .btn:hover,
 .btn:active,
 .btn:focus {
     text-decoration: none;
 }
+
+/* Remove relative positioning for bi icon */
 .btn .bi {
     position: relative;
     top: -2px;
 }
+
+/* Remove box shadow on button focus */
 .btn:focus,
 .btn.focus {
     box-shadow: none !important;
 }
+
+/* Primary button styles */
 .app-btn-primary {
-    background: #15a362;
     color: #fff;
-    border-color: #15a362;
+    background-color: #007bff;
+    border-color: #007bff;
 }
+
 .app-btn-primary:hover,
 .app-btn-primary:active {
     color: #fff;
-    background: #18ba70;
-    border-color: #18ba70;
+    background: #4da6ff; /* Lighter color for hover and active */
+    border-color: #4da6ff;
 }
+
+/* Secondary button styles */
 .app-btn-secondary {
-    background: #fff;
-    color: #5d6778;
-    border: 1px solid #bcc1cb;
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
 }
-.app-btn-secondary:hover {
-    color: #15a362;
-    border: 1px solid #15a362;
-    background: #fff;
+
+.app-btn-secondary:hover,
+.app-btn-secondary:active {
+    color: #fff;
+    background: #879096; /* Lighter color for hover and active */
+    border-color: #879096;
 }
-.btn-light {
-    background: #f5f6fe;
-    color: #15a362;
+
+/* Success button styles */
+.app-btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
 }
-.btn-light:hover {
-    background: #f5f6fe;
-    color: #15a362;
+
+.app-btn-success:hover,
+.app-btn-success:active {
+    color: #fff;
+    background: #4caf77; /* Lighter color for hover and active */
+    border-color: #4caf77;
 }
+
+/* Danger button styles */
+.app-btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.app-btn-danger:hover,
+.app-btn-danger:active {
+    color: #fff;
+    background: #e86a7a; /* Lighter color for hover and active */
+    border-color: #e86a7a;
+}
+
+/* Warning button styles */
+.app-btn-warning {
+    color: #212529;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.app-btn-warning:hover,
+.app-btn-warning:active {
+    color: #fff;
+    background: #ffcc52; /* Lighter color for hover and active */
+    border-color: #ffcc52;
+}
+
+/* Info button styles */
+.app-btn-info {
+    color: #fff;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.app-btn-info:hover,
+.app-btn-info:active {
+    color: #fff;
+    background: #33b5cc; /* Lighter color for hover and active */
+    border-color: #33b5cc;
+}
+
+/* Light button styles */
+.app-btn-light {
+    color: #212529;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+}
+
+.app-btn-light:hover,
+.app-btn-light:active {
+    color: #fff;
+    background: #f0f2f4; /* Lighter color for hover and active */
+    border-color: #f0f2f4;
+}
+
+/* Dark button styles */
+.app-btn-dark {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
+}
+
+.app-btn-dark:hover,
+.app-btn-dark:active {
+    color: #fff;
+    background: #2c3136; /* Lighter color for hover and active */
+    border-color: #2c3136;
+}
+
 .form-control {
     padding-top: 0.6rem;
     padding-bottom: 0.6rem;
@@ -12477,6 +12565,7 @@ button.close:focus {
 .app-card-orders-table .btn-group-sm > .btn {
     padding: 0.125rem 0.5rem;
     font-size: 0.75rem;
+    border-radius: 4px;
 }
 .app-card-orders-table .truncate {
     max-width: 250px;

@@ -4,15 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medicine Certificate</title>
+    <title>Equipment Consumption Report</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #f4f4f4;
-            /* Added a background color for better visibility */
+            background-color: #fff;
             margin: 0;
-            /* Remove default margin */
         }
 
         .paragraph {
@@ -37,11 +35,8 @@
 
         .certificate {
             max-width: 800px;
-            /* border: 2px solid #333; */
-            /* background-color: #fff; */
             box-sizing: border-box;
             padding: 20px;
-            /* Added padding for better spacing */
             position: relative;
         }
 
@@ -49,19 +44,15 @@
             border-collapse: collapse;
             border-spacing: 0;
             width: 100%;
-            /* Added to make the table responsive */
         }
 
         .tg td,
         .tg th {
             border: 1px solid #333;
-            /* Changed border-color to #333 */
             padding: 10px;
-            /* Simplified padding */
             font-family: Arial, sans-serif;
             font-size: 14px;
             word-break: break-all;
-            /* Improved word break behavior */
         }
 
         .tg .tg-1wig {
@@ -75,28 +66,18 @@
 
         .logo {
             position: absolute;
-            /* Position the image absolutely */
-            top: 50px;
-            /* Distance from top */
-            left: 300px;
-            /* Distance from left */
+            top: 40px;
+            left: 320px;
             max-width: 80px;
-            /* Limit the width if necessary */
             max-height: 80px;
-            /* Limit the width if necessary */
         }
 
         .logos {
             position: absolute;
-            /* Position the image absolutely */
-            top: 50px;
-            /* Distance from top */
-            right: 300px;
-            /* Distance from left */
+            top: 40px;
+            right: 320px;
             max-width: 80px;
-            /* Limit the width if necessary */
             max-height: 80px;
-            /* Limit the width if necessary */
         }
 
         .certificate img {
@@ -109,7 +90,6 @@
             font-weight: bold;
             font-family: Arial, Helvetica, sans-serif;
             margin: 10px 0 1px;
-            /* Simplified margin properties */
         }
 
         .hs {
@@ -181,8 +161,7 @@
                 <div class="paragraphs">Santiago Extension Unit</div>
                 <div class="paragraphs">Santiago City</div>
                 <div class="hs"><i>Health Services
-                        <br> SUPPLIE CONSUMPTION
-                        <br> REPORT FOR MONTH OF
+                        <br> SUPPLIE CONSUMPTION REPORT
                     </i></div>
             </div>
         </div>
@@ -210,17 +189,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($equipments as $equipment)
-                    <tr>
-                        @php($totalQuantity = $equipment->equip_quantity + $equipment->SumSupply())
-                        <td class="tg-0pky">{{$equipment->equipname}}</td>
-                        <td class="tg-0pky">{{$equipment->equip_quantity}}</td>
-                        <td class="tg-0pky">{{$equipment->SumSupply()}}</td>
-                        <td class="tg-0pky">{{$totalQuantity}}</td>
-                        <td class="tg-0pky">{{$equipment->countUsed()}}</td>
-                        <td class="tg-0pky">{{$equipment->countUsed() - $totalQuantity}}</td>
-                        <td class="tg-0pky">{{$equipment->expired}}</td>
-                    </tr>
+                    @foreach ($equipments as $equipment)
+                        <tr>
+                            @php($totalQuantity = $equipment->equip_quantity + $equipment->SumSupply())
+                            <td class="tg-0pky">{{ $equipment->equipname }}</td>
+                            <td class="tg-0pky">{{ $equipment->equip_quantity }}</td>
+                            <td class="tg-0pky">{{ $equipment->SumSupply() }}</td>
+                            <td class="tg-0pky">{{ $totalQuantity }}</td>
+                            <td class="tg-0pky">{{ $equipment->countUsed() }}</td>
+                            <td class="tg-0pky">{{ $totalQuantity - $equipment->countUsed() }}</td>
+                            <td class="tg-0pky">{{ max(0, $totalQuantity - $equipment->countUsed()) }}</td>
+                            <td class="tg-0pky">{{ $equipment->equi_expiration }}</td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>

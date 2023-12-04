@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\consultation;
-use App\Models\equipment;
+use App\Models\Consultation;
+use App\Models\Equipment;
 use App\Models\EquipUsed;
-use App\Models\medicine;
+use App\Models\Medicine;
 use App\Models\MedUsed;
-use App\Models\student;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\DataTables;
@@ -16,78 +16,80 @@ class ConsultationController extends Controller
 {
     public function index()
     {
-        $students = student::all();
-        $medicines = medicine::all();
-        $equipments = equipment::all();
+        $consultations = Consultation::all();
+        $students = Student::all();
+        $medicines = Medicine::all();
+        $equipments = Equipment::all();
         $title = 'Delete Consultation!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
-        return view('consultation', compact(['students', 'medicines', 'equipments']));
+        return view('consultation', compact('students', 'medicines', 'equipments', 'consultations'));
     }
 
     public function store(Request $request)
     {
-
         $validated = $request->validate([
-
             'student_id' => 'required',
+            'complaints' => 'required',
             'diagnosis' => 'required',
             'medicine' => 'required',
             'instruction' => 'required',
+            'remarks' => 'required',
             'semester' => 'required',
             'schoolYear' => 'required',
-
         ]);
 
-        $consultation = consultation::create([
+        $consultation = Consultation::create([
             'student_id' => $request->student_id,
+            'complaints' => $request->complaints,
             'diagnosis' => $request->diagnosis,
             'instruction' => $request->instruction,
+            'remarks' => $request->remarks,
             'semester' => $request->semester,
             'schoolYear' => $request->schoolYear,
             'status' => 0,
         ]);
 
-
         foreach ($request->medicine as $value) {
-            $medused = MedUsed::create([
+            MedUsed::create([
                 'fk_med_id' => $value,
                 'fk_consultation_id' => $consultation->id,
                 'quantity' => $request->quantity[$value]
             ]);
-
-            // $medused->deductQuantity();
-        }
-        foreach ($request->equipment as $value) {
-            $equipused = EquipUsed::create([
-                'fk_equip_id' => $value,
-                'fk_consultation_id' => $consultation->id,
-                'equip_quantity' => $request->equip_quantity[$value]
-            ]);
-
-            // $equipused->deductQuantity();
         }
 
-        if (is_null($consultation))
-            Alert::error("ERROR", 'Unsuccess please try again.');
-        else
+        if (!is_null($request->equipment)) {
+            foreach ($request->equipment as $value) {
+                EquipUsed::create([
+                    'fk_equip_id' => $value,
+                    'fk_consultation_id' => $consultation->id,
+                    'equip_quantity' => $request->equip_quantity[$value]
+                ]);
+            }
+        }
 
-            Alert::success('Success', 'Successfuly Added!.');
+
+        if (is_null($consultation)) {
+            Alert::error("ERROR", 'Unsuccessful, please try again.');
+        } else {
+            Alert::success('Success', 'Successfully Added!');
+        }
+
         return redirect(route('consultation'));
     }
 
     public function editConsultation(Request $request)
     {
-
         $validated = $request->validate([
 
             'student_id' => 'required',
+            'complaints' => 'required',
             'diagnosis' => 'required',
             'medicine' => 'required',
             'instruction' => 'required',
+            'remarks' => 'required',
             'quentity.*' => 'required',
         ]);
-
 
         $consultation = consultation::where('id', $request->id)->first();
         if (is_null($consultation))
@@ -100,8 +102,10 @@ class ConsultationController extends Controller
             }
             $consultation->update([
                 'student_id' => $request->student_id,
+                'complaints' => $request->complaints,
                 'diagnosis' => $request->diagnosis,
                 'instruction' => $request->instruction,
+                'remarks' => $request->remarks,
             ]);
             foreach ($request->medicine as $value) {
                 foreach ($consultation->med_used as $med) {
@@ -153,7 +157,6 @@ class ConsultationController extends Controller
 
 
 
-
     public function delete(Request $request)
     {
         $consultation = consultation::where('id', $request->id)->first();
@@ -164,11 +167,6 @@ class ConsultationController extends Controller
         Alert::success('Success', 'Successfuly Delete!.');
         return redirect(route('consultation'));
     }
-
-
-
-
-
 
     public function datatable(Request $request)
     {
@@ -194,6 +192,18 @@ class ConsultationController extends Controller
             } else {
                 return 'Pending';
             }
+        })->addColumn('prescrib_med_quantity', function ($query) {
+            $text = "";
+            foreach ($query->med_used as $med_use) {
+                $text .= $med_use->quantity . ", ";
+            }
+            return $text;
+        })->addColumn('prescrib_equip_quantity', function ($query) {
+            $text = "";
+            foreach ($query->equip_used as $equip_use) {
+                $text .= $equip_use->equip_quantity . ", ";
+            }
+            return $text;
         })->addColumn('prescrib_meds', function ($query) {
             $array = [];
             foreach ($query->med_used as $med_use) {

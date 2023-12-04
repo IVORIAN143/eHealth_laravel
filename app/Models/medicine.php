@@ -25,7 +25,7 @@ class medicine extends Model
 
     public function countUsed()
     {
-        return $this->used->sum('med_quantity');
+        return $this->used->sum('quantity');
     }
     public function addMed()
     {
