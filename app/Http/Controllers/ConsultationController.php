@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Consultation;
-use App\Models\Equipment;
+use App\Models\consultation;
+use App\Models\equipment;
 use App\Models\EquipUsed;
-use App\Models\Medicine;
+use App\Models\medicine;
 use App\Models\MedUsed;
-use App\Models\Student;
+use App\Models\student;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\DataTables;
