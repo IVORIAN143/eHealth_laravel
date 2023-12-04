@@ -179,7 +179,7 @@
                     <div class="app-card app-card-orders-table shadow-sm mb-5">
                         <div class="app-card-body">
                             <div class="table-responsive">
-                                <table style="min-width: 60%" id="medicineTable"
+                                <table style="min-width: 100%" id="medicineTable"
                                     class="table app-table-hover mb-0 text-left">
                                     <thead>
                                         <tr>
@@ -207,7 +207,7 @@
                     <div class="app-card app-card-orders-table shadow-sm mb-5">
                         <div class="app-card-body">
                             <div class="table-responsive" style="width: 100%;">
-                                <table style="min-width: 60%" id="equipmentTable"
+                                <table style="min-width: 100%" id="equipmentTable"
                                     class="table app-table-hover mb-0 text-left">
                                     <thead>
                                         <tr>
@@ -229,6 +229,9 @@
             </div>
         </div>
     </div>
+
+
+
 
 
     <div class="modal fade" id="addmedicneModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel"
@@ -625,8 +628,20 @@
 
 
         //this is for tab-table medicine and equipment datatable
+        // $(function() {
+        //     $("#tabs").tabs();
+        // });
+
         $(function() {
             $("#tabs").tabs();
+
+            $(".tab-content-container").each(function() {
+                var tableId = $(this).find(".tab-content").data("table-id");
+                $("#" + tableId).DataTable({
+                    responsive: true, // Enable responsiveness
+                    // Add other DataTables options as needed
+                });
+            });
         });
     </script>
 @endpush
