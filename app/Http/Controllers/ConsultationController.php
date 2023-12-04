@@ -16,7 +16,7 @@ class ConsultationController extends Controller
 {
     public function index()
     {
-        $consultations = Consultation::all();
+        $consultations = consultation::all();
         $students = student::all();
         $medicines = medicine::all();
         $equipments = equipment::all();
@@ -39,7 +39,7 @@ class ConsultationController extends Controller
             'schoolYear' => 'required',
         ]);
 
-        $consultation = Consultation::create([
+        $consultation = consultation::create([
             'student_id' => $request->student_id,
             'complaints' => $request->complaints,
             'diagnosis' => $request->diagnosis,

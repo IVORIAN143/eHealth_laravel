@@ -164,10 +164,13 @@
                 <div class="paragraph">ISABELA STATE UNIVERSITY</div>
                 <div class="paragraphs">Santiago Extension Unit</div>
                 <div class="paragraphs">Santiago City</div>
-                <div class="hs"><i>Health Services
+                <div class="hs">
+                    <i>Health Services
                         <div class="solid"></div>
                         <br> MEDICAL MONITORING SHEET
-                    </i></div>
+                    </i>
+                </div>
+
             </div>
         </div>
         <div class="tg-wrap">
@@ -176,17 +179,16 @@
             <table class="tg">
                 <thead>
                     <tr>
-                        </th>
                         <th class="tg-cly1" rowspan="2">DATE</th>
                         <th class="tg-cly1" rowspan="2">TIME OF <br>ARRIVAL</th>
                         <th class="tg-cly1" rowspan="2">NAME OF PATIENT</th>
-                        <th class="tg-cly1" rowspan="2">S<br>E<br>X</th>
+                        <th class="tg-cly1" rowspan="2">SEX</th>
                         <th class="tg-cly1" rowspan="2">COURSE/<br>YR</th>
                         <th class="tg-cly1" rowspan="2">STUDENT#<br>/ ID#</th>
                         <th class="tg-cly1" rowspan="2">SIGNS/SYMPTOMS/<br>DIAGNOSIS</th>
-                        <th class="tg-cly1" rowspan="2">A<br>C<br>T<br>I<br>O<br>N</th>
+                        <th class="tg-cly1" rowspan="2">ACTION</th>
                         <th class="tg-cly1" rowspan="2">MEDS/TREATMENT</th>
-                        <th class="tg-cly1" rowspan="2">SIGNTURE<br>OF <br>PATIENT</th>
+                        <th class="tg-cly1" rowspan="2">SIGNATURE<br>OF <br>PATIENT</th>
                         <th class="tg-cly1" rowspan="2">TIME <br>OF<br>EXIT</th>
                         <th class="tg-cly1" colspan="3">DURATION OF SERVICE</th>
                         <th class="tg-cly1" rowspan="2">ATTENDING<br>MEDICAL<br>PERSONNEL</th>

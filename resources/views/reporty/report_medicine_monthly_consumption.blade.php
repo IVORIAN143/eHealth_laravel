@@ -189,13 +189,14 @@
                 <thead>
                     <tr>
                         <td class="tg-nrix" rowspan="2">MEDICINE</td>
-                        <td class="tg-nrix">BALANCE (Beggining)</td>
+                        <td class="tg-nrix">BALANCE (Beginning)</td>
                         <td class="tg-nrix">Purchase during Period</td>
                         <td class="tg-nrix" rowspan="2">TOTAL</td>
-                        <td class="tg-nrix">Issued&nbsp;&nbsp;durring Period</td>
-                        <td class="tg-nrix">BALANCE(end)</td>
+                        <td class="tg-nrix">Issued during Period</td>
+                        <td class="tg-nrix">BALANCE (end)</td>
                         <td class="tg-nrix" rowspan="2">TOTAL</td>
                         <td class="tg-nrix" rowspan="2">EXPIRY</td>
+
 
                     </tr>
                     <tr>
