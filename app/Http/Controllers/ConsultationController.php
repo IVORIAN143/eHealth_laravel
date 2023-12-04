@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\consultation;
-use App\Models\Equipment;
+use App\Models\equipment;
 use App\Models\EquipUsed;
-use App\Models\Medicine;
+use App\Models\medicine;
 use App\Models\MedUsed;
 use App\Models\student;
 use Illuminate\Http\Request;
