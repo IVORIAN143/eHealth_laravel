@@ -179,7 +179,8 @@
                     <div class="app-card app-card-orders-table shadow-sm mb-5">
                         <div class="app-card-body">
                             <div class="table-responsive">
-                                <table id="medicineTable" class="table app-table-hover mb-0 text-left">
+                                <table style="min-width: 60%" id="medicineTable"
+                                    class="table app-table-hover mb-0 text-left">
                                     <thead>
                                         <tr>
                                             <th class="cell">ID</th>
@@ -206,7 +207,8 @@
                     <div class="app-card app-card-orders-table shadow-sm mb-5">
                         <div class="app-card-body">
                             <div class="table-responsive" style="width: 100%;">
-                                <table id="equipmentTable" class="table app-table-hover mb-0 text-left">
+                                <table style="min-width: 60%" id="equipmentTable"
+                                    class="table app-table-hover mb-0 text-left">
                                     <thead>
                                         <tr>
                                             <th class="cell">ID</th>
