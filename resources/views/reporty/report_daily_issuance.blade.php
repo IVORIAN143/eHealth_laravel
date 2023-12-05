@@ -238,7 +238,7 @@
 
                             <td>
                                 <img src="{{ asset('storage/signatures/' . $consultation->student_id . '.png') }}"
-                                    alt="Patient Signature" width="90" height="20">
+                                    alt="" width="90" height="20">
                             </td>
 
 
