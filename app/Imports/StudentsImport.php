@@ -26,6 +26,7 @@ class StudentsImport implements ToModel, WithHeadingRow
             'year' => $row['year'],
             'semester' => $row['semester'],
             'schoolYear' => $row['schoolyear'],
+            'dateOfBirth' => $row['dateOfBirth'],
         ];
 
         // Check if the student_id already exists in the database

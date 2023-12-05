@@ -139,8 +139,8 @@
                 </div>
                 <form action="{{ route('storeConsult') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <input id="Semester" type="text" name="semester" hidden></input>
-                    <input id="Schoolyear" type="text" name="schoolYear" hidden></input>
+                    <input id="Semester" type="text" name="semester" hidden>
+                    <input id="Schoolyear" type="text" name="schoolYear" hidden>
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="student">Student</label>
