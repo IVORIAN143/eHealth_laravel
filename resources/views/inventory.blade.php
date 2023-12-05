@@ -506,7 +506,7 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <input id="supply_id_med" type="text" name="id">
+                            <input id="supply_id_med" type="text" name="id" hidden>
                         </div>
                         <div class="form-group">
                             <label for="supply_med_quantity">Quantity</label>
