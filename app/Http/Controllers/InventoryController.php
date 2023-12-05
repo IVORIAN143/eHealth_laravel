@@ -78,7 +78,7 @@ class InventoryController extends Controller
     public function datatable()
     {
         return DataTables::of(medicine::all())
-            ->addColumn('totalquantity', function ($quantity) {
+            ->addColumn('totalQuantity', function ($quantity) {
                 return $quantity->totalMed();
             })
             ->addColumn('Actions', 'component.medicinetableaction')->rawColumns(['Actions'])->make(true);
