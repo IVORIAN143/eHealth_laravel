@@ -627,10 +627,6 @@
         }
 
 
-        //this is for tab-table medicine and equipment datatable
-        // $(function() {
-        //     $("#tabs").tabs();
-        // });
 
         $(function() {
             $("#tabs").tabs();

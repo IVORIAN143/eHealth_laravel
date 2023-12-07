@@ -12876,7 +12876,5 @@ a.app-link:hover {
 /* Apply the animation to the element with the specified class */
 .col-12.auth-main-col.text-center.p-5 {
     background-image: url("https://isu.edu.ph/wp-content/uploads/2019/07/SANTIAGO-BLDG.png");
-    background-size: cover; /* This will make the image cover the entire container */
-    animation: moveLeftToRight 10s linear infinite,
-        moveRightToLeft 10s linear infinite; /* Adjust the duration and animation type as needed */
+    background-size: 100% 100%;
 }

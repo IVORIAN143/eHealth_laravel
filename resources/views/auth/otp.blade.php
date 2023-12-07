@@ -30,7 +30,7 @@
                     <br>
                     <div class="app-auth-branding "><a class="app-logo" href="/"><img class="logo-icon me-2"
                                 src="/assets/images/isu-logo.png" alt="logo"></a></div>
-                    <h2 class="auth-heading text-center mb-5">OTP</h2>
+                    <h2 class="auth-heading text-center mb-5">One Time Password</h2>
                     <div class="auth-form-container text-start">
                         <form class="auth-form login-form" method="POST" id="otp"
                             action="{{ route('loginuser') }}">
@@ -47,7 +47,8 @@
                             <div class="password mb-3">
                                 <label class="sr-only" for="signin-password">OTP</label>
                                 <input id="signin-password" name="otp" type="number"
-                                    class="form-control signin-password" placeholder="otp" required="required">
+                                    class="form-control signin-password"
+                                    placeholder="Please input here your One Time Password" required="required">
                             </div><!--//form-group-->
                             <div class="text-center">
                                 <button id="otpBTN" type="button"
