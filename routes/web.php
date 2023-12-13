@@ -15,6 +15,7 @@ use App\Http\Controllers\MonthlyConsumptionController;
 use App\Http\Controllers\MonthlyEquipementController;
 use App\Http\Controllers\MonthlyMedicineController;
 use App\Http\Controllers\SignatureController;
+use App\Models\MedUsed;
 use App\Models\User;
 use Laravel\Fortify\Fortify;
 use PragmaRX\Google2FA\Google2FA;
@@ -95,8 +96,18 @@ Route::middleware(['auth', 'otp'])->group(function () {
 
 
 
+
+
     //diagram
     Route::get('/monthlyConsumption', [MonthlyConsumptionController::class, 'getMedicineUsedData'])->name('monthlyConsumption');
+
+    Route::get('/getMedUsed/{id}', function ($id) {
+        $medused = MedUsed::find($id);
+
+        return response()->json([
+            'data' => $medused
+        ]);
+    });
 });
 
 Route::post('/login', [LoginControler::class, 'login'])->name('loginuser');
