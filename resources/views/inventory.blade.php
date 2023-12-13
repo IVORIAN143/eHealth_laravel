@@ -249,7 +249,8 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="name">Medicine Name</label>
-                            <input value="{{ old('med_name') }}" type="text" name="med_name" class="form-control">
+                            <input value="{{ old('med_name') }}" type="text" name="med_name" class="form-control"
+                                style="text-align:left;">
                             @error('med_name')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -257,22 +258,23 @@
                         <div class="form-group">
                             <label for="name">Description</label>
                             <input value="{{ old('description') }}" type="text" name="description"
-                                class="form-control">
+                                class="form-control" style="text-align:left;">
                             @error('description')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="name">Quantity</label>
-                            <input value="{{ old('quantity') }}" type="number" name="quantity" class="form-control">
+                            <input value="{{ old('quantity') }}" type="number" name="quantity" class="form-control"
+                                style="text-align:left;">
                             @error('quantity')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="name">Expiration</label>
-                            <input value="{{ old('expiration') }}" type="date" name="expiration"
-                                class="form-control">
+                            <input value="{{ old('expiration') }}" type="date" name="expiration" class="form-control"
+                                style="text-align:left;">
                             @error('expiration')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -307,7 +309,7 @@
                         <div class="form-group">
                             <label for="Edit_med_name">Medicine Name</label>
                             <input id="Edit_med_name" value="{{ old('med_name') }}" type="text" name="med_name"
-                                class="form-control" required>
+                                class="form-control" style="text-align:left;" required>
                             @error('med_name')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -315,7 +317,7 @@
                         <div class="form-group">
                             <label for="Edit_description">Description</label>
                             <input id="Edit_description" value="{{ old('description') }}" type="text"
-                                name="description" class="form-control" required>
+                                name="description" class="form-control" style="text-align:left;" required>
                             @error('description')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -323,7 +325,7 @@
                         <div class="form-group">
                             <label for="Edit_quantity">Quantity</label>
                             <input id="Edit_quantity" value="{{ old('quantity') }}" type="number" name="quantity"
-                                class="form-control" required>
+                                class="form-control" style="text-align:left;" required>
                             @error('quantity')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -331,7 +333,7 @@
                         <div class="form-group">
                             <label for="Edit_expiration">Expiration</label>
                             <input id="Edit_expiration" value="{{ old('expiration') }}" type="date"
-                                name="expiration" class="form-control" required>
+                                name="expiration" class="form-control" style="text-align:left;" required>
                             @error('expiration')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -364,7 +366,8 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="equipname">Equipment Name</label>
-                            <input value="{{ old('equipname') }}" type="text" name="equipname" class="form-control">
+                            <input value="{{ old('equipname') }}" type="text" name="equipname" class="form-control"
+                                style="text-align:left;">
                             @error('equipname')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -372,7 +375,7 @@
                         <div class="form-group">
                             <label for="descriptio">Description</label>
                             <input value="{{ old('descriptio') }}" type="text" name="descriptio"
-                                class="form-control">
+                                class="form-control" style="text-align:left;">
                             @error('descriptio')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -380,7 +383,7 @@
                         <div class="form-group">
                             <label for="equip_quantity">Quantity</label>
                             <input value="{{ old('equip_quantity') }}" type="number" name="equip_quantity"
-                                class="form-control">
+                                class="form-control" style="text-align:left;">
                             @error('equip_quantity')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -388,7 +391,7 @@
                         <div class="form-group">
                             <label for="name">Expiration</label>
                             <input value="{{ old('equi_expiration') }}" type="date" name="equi_expiration"
-                                class="form-control">
+                                class="form-control" style="text-align:left;">
                             @error('equi_expiration')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -402,7 +405,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="editequipmentsModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel"
+    <div class="modal fade" id="editequipmentsModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel"z
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -421,7 +424,7 @@
                         <div class="form-group">
                             <label for="Edit_equipname">Equipment Name</label>
                             <input id="Edit_equipname" value="{{ old('equipname') }}" type="text" name="equipname"
-                                class="form-control" required>
+                                class="form-control" style="text-align:left;" required>
                             @error('equipname')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -429,7 +432,7 @@
                         <div class="form-group">
                             <label for="Edit_equip_quantity">Quantity</label>
                             <input id="Edit_equip_quantity" value="{{ old('equip_quantity') }}" type="number"
-                                name="equip_quantity" class="form-control" required>
+                                name="equip_quantity" class="form-control" style="text-align:left;" required>
                             @error('equip_quantity')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -437,7 +440,7 @@
                         <div class="form-group">
                             <label for="Edit_equipdescription">Description</label>
                             <input id="Edit_equipdescription" value="{{ old('descriptio') }}" type="text"
-                                name="descriptio" class="form-control" required>
+                                name="descriptio" class="form-control" style="text-align:left;" required>
                             @error('descriptio')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -445,7 +448,7 @@
                         <div class="form-group">
                             <label for="Edit_equip_expiration">Expiration</label>
                             <input id="Edit_equip_expiration" value="{{ old('equi_expiration') }}" type="date"
-                                name="equi_expiration" class="form-control" required>
+                                name="equi_expiration" class="form-control" style="text-align:left;" required>
                             @error('equi_expiration')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -478,7 +481,7 @@
                         <div class="form-group">
                             <label for="supply_equip_quantity">Quantity</label>
                             <input value="{{ old('Edit_quantity') }}" type="text" name="equip_quantity"
-                                class="form-control">
+                                class="form-control" style="text-align:left;">
                             @error('Edit_equip_quantity')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -511,7 +514,7 @@
                         <div class="form-group">
                             <label for="supply_med_quantity">Quantity</label>
                             <input value="{{ old('Edit_med_quantity') }}" type="text" name="med_quantity"
-                                class="form-control">
+                                class="form-control" style="text-align:left;">
                             @error('Edit_med_quantity')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -554,7 +557,8 @@
                         name: 'expiration'
                     },
                     {
-                        data: 'quantity',
+                        data: 'totalQuantity',
+                        name: 'quantity'
                     },
                     @if (Auth::user()->role == 'nurse')
                         {
@@ -585,7 +589,7 @@
                         name: 'equi_expiration'
                     },
                     {
-                        data: 'equip_quantity',
+                        data: 'equip_total_quantity',
                         name: 'equip_quantity'
                     },
                     @if (Auth::user()->role == 'nurse')

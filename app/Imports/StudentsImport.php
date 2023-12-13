@@ -26,11 +26,11 @@ class StudentsImport implements ToModel, WithHeadingRow
             'year' => $row['year'],
             'semester' => $row['semester'],
             'schoolYear' => $row['schoolyear'],
-            'dateOfBirth' => $row['dateOfBirth'],
+            'dateOfBirth' => $row['dateofbirth'],
         ];
 
         // Check if the student_id already exists in the database
-        $existingStudent = Student::where('student_id', $row['student_id'])->first();
+        $existingStudent = Student::where('student_id', $row['studentid'])->first();
 
         if ($existingStudent) {
 
@@ -38,7 +38,7 @@ class StudentsImport implements ToModel, WithHeadingRow
         }
 
         // If the student_id doesn't exist, create a new Student instance and return it
-        $formattedData['student_id'] = $row['student_id'];
+        $formattedData['student_id'] = $row['studentid'];
         $newStudent = new Student($formattedData);
 
         // Store the processed data in an array

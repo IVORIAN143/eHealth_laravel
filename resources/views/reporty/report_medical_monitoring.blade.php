@@ -1,9 +1,15 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Monitoring Sheet</title>
+</head>
 <style type="text/css">
     body {
         font-family: Arial, sans-serif;
         text-align: center;
         background-color: #fff;
         margin: 0;
+        padding: 10px
     }
 
     .paragraph {
@@ -150,7 +156,19 @@
         text-align: left;
         padding-right: 290px;
         padding-bottom: 5px;
-    }
+
+        @media only screen and (max-width: 768px) {
+            .container {
+                padding: 5px;
+                /* Adjust padding for smaller screens */
+            }
+
+            .left-text,
+            .right-text {
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
 </style>
 
 <body>
@@ -200,7 +218,7 @@
                     </tr>
                     @foreach ($consultations as $consultation)
                         <tr>
-                            <td class="tg-0lax">{{ $consultation->created_at->format('Y-m-d') }}</td>
+                            <td class="tg-0lax">{{ $consultation->created_at->format('m-d-Y') }}</td>
                             <td class="tg-0lax">{{ $consultation->created_at->format('h:i:s A') }}</td>
                             <td class="tg-0lax"> {{ $consultation->student->firstname }}
                                 {{ $consultation->student->middlename }}
@@ -230,11 +248,16 @@
                 </tbody>
             </table>
         </div>
+
         <div class="flex-container">
             <div class="left-text">
                 <div class="left-text">
                     <div class="left">Prepared by:</div>
-                    <br>DEBBIE-LYN P. DOLOJAN,RN,MSN
+                    @foreach ($users as $user)
+                        @if ($user->role == 'nurse')
+                            <br>{{ $user->name }}
+                        @endif
+                    @endforeach
                     <div class="sn">Nurse Attednant</div>
                 </div>
             </div>
@@ -242,7 +265,12 @@
             <div class="right-text">
                 <div class="right-text">
                     <div class="right">Noted by:</div>
-                    <br>ENGR. EDWARD B. PANGANIBAN, Ph,D.
+                    <br>
+                    @foreach ($users as $user)
+                        @if ($user->role == 'coordinator')
+                            <br>{{ $user->name }}
+                        @endif
+                    @endforeach
                     <div class="phy">Campus Coordinator</div>
                 </div>
             </div>

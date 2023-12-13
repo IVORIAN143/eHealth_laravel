@@ -58,4 +58,8 @@ class student extends Model
     {
         return $this->hasMany(Consultation::class);
     }
+
+    protected $casts = [
+        'dateOfBirth' => 'datetime',
+    ];
 }

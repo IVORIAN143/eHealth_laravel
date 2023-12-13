@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\consultation;
 use App\Models\medicine;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class medicalMonitoringController extends Controller
@@ -16,6 +17,7 @@ class medicalMonitoringController extends Controller
 
         $consultations = consultation::whereDate('created_at', $request->date)->with('student')->get();
         $meds = medicine::all();
-        return  view('reporty.report_medical_monitoring', compact(['consultations', 'meds']));
+        $users = user::all();
+        return  view('reporty.report_medical_monitoring', compact(['consultations', 'meds', 'users']));
     }
 }

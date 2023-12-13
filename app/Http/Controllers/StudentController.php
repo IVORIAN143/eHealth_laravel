@@ -84,9 +84,16 @@ class StudentController extends Controller
             'dateDose2' => $request->dataDose2,
             'dateBoostDose1' => $request->dataBoostDose1,
             'dateBoostDose2' => $request->dataBoostDose2,
+
             'vaccineBrand' => $request->vaccineBrand,
+
             'dose1' => $request->dose1,
             'dose2' => $request->dose2,
+            'Booster1' => $request->booster1,
+            'Booster2' => $request->booster2,
+
+            'location1' => $request->location1,
+            'location2' => $request->location2,
             'boostLocation1' => $request->boosterLocation1,
             'boostLocation2' => $request->boosterLocation2,
 
@@ -101,6 +108,67 @@ class StudentController extends Controller
         else
             Alert::success('Success', 'Successfuly Added!.');
         return redirect(route('students'));
+    }
+
+
+    // NOT FUNCTIONING NEXT THIS IS NEXT LIFE LMAO
+    public function editstudent(Request $request, $id)
+    {
+        $target = student::where('id', $id);
+
+        if (is_null($target)) {
+            Alert::error("Edit Error", "Can't find the Student");
+        } else {
+            $target->update([
+                'fad_Allergy' => $request->fed_Allergy,
+                'fad_indicate' => $request->fed_indicate,
+
+                'student_id' => $request->student_id,
+                'contact' => $request->contact,
+                'lastname' => $request->lastname,
+                'firstname' => $request->firstname,
+                'middlename' => $request->middlename,
+                'gender' => $request->gender,
+                'civilStat' => $request->civilStat,
+                'dateOfBirth' => $request->dateOfBirth,
+                'course' => $request->course,
+                'year' => $request->year,
+                'homeAddress' => $request->homeAddress,
+
+                'parentName' => $request->parentName,
+                'parentAddress' => $request->parentAddress,
+                'relationship' => $request->relationship,
+                'parentNumber' => $request->parentNumber,
+                'height' => $request->height,
+                'weight' => $request->weight,
+
+                'infectedCovid' => $request->infectedCovid,
+                'inferctedWhere' => $request->infectedWhere,
+                'recieveVaccine' => $request->recieveVaccine,
+
+                'dateDose1' => $request->dataDose1,
+                'dateDose2' => $request->dataDose2,
+                'dateBoostDose1' => $request->dataBoostDose1,
+                'dateBoostDose2' => $request->dataBoostDose2,
+
+                'vaccineBrand' => $request->vaccineBrand,
+
+                'dose1' => $request->dose1,
+                'dose2' => $request->dose2,
+                'Booster1' => $request->booster1,
+                'Booster2' => $request->booster2,
+
+                'location1' => $request->location1,
+                'location2' => $request->location2,
+                'boostLocation1' => $request->boosterLocation1,
+                'boostLocation2' => $request->boosterLocation2,
+
+                'semester' => $request->semester,
+                'schoolYear' => $request->schoolYear,
+            ]);
+            Alert::success('Success', 'Successfully updated!.');
+            return redirect(route('students'));
+        }
     }
 
     public function delete(Request $request)

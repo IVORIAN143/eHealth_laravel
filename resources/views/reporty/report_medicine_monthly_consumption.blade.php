@@ -4,25 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medicine Certificate</title>
+    <title>Medicine Monthly Consumption Report</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             background-color: #fff;
             margin: 0;
-        }
-
-        .paragraph {
-            font-size: 15px;
-            font-weight: bold;
-
-        }
-
-        .paragraphs {
-            font-size: 15px;
-
-            font-family: Arial, Helvetica, sans-serif;
         }
 
         .container {
@@ -35,66 +23,32 @@
 
         .certificate {
             max-width: 800px;
-            /* border: 2px solid #333; */
-            /* background-color: #fff; */
             box-sizing: border-box;
             padding: 20px;
-            /* Added padding for better spacing */
             position: relative;
+            margin: 20px;
+            /* Add margin for better spacing */
         }
 
         .tg {
             border-collapse: collapse;
             border-spacing: 0;
             width: 100%;
-            /* Added to make the table responsive */
         }
 
         .tg td,
         .tg th {
             border: 1px solid #333;
-            /* Changed border-color to #333 */
             padding: 10px;
-            /* Simplified padding */
             font-family: Arial, sans-serif;
             font-size: 14px;
             word-break: break-all;
-            /* Improved word break behavior */
         }
 
-        .tg .tg-1wig {
-            font-weight: bold;
-            text-align: left;
-        }
-
-        .tg .tg-0lax {
-            text-align: left;
-        }
-
-        .logo {
-            position: absolute;
-            /* Position the image absolutely */
-            top: 40px;
-            /* Distance from top */
-            left: 340px;
-            /* Distance from left */
-            max-width: 80px;
-            /* Limit the width if necessary */
-            max-height: 80px;
-            /* Limit the width if necessary */
-        }
-
+        .logo,
         .logos {
-            position: absolute;
-            /* Position the image absolutely */
-            top: 40px;
-            /* Distance from top */
-            right: 340px;
-            /* Distance from left */
             max-width: 80px;
-            /* Limit the width if necessary */
             max-height: 80px;
-            /* Limit the width if necessary */
         }
 
         .certificate img {
@@ -107,19 +61,12 @@
             font-weight: bold;
             font-family: Arial, Helvetica, sans-serif;
             margin: 10px 0 1px;
-            /* Simplified margin properties */
-        }
-
-        .hs {
-            font-size: 24px;
-            margin-top: 10px;
-            margin-bottom: 1px;
-            font-weight: bold;
-            font-family: Arial, Helvetica, sans-serif;
         }
 
         .flex-container {
             display: flex;
+            flex-wrap: wrap;
+            /* Allow items to wrap onto the next line */
             justify-content: space-between;
         }
 
@@ -155,6 +102,12 @@
 
         .left {
             text-align: center;
+            margin-left: -400px;
+            padding-bottom: 8px;
+        }
+
+        .lefty {
+            text-align: left;
             margin-left: -400px;
             padding-bottom: 8px;
         }
@@ -218,7 +171,7 @@
                             <td class="tg-0pky">{{ $medicine->countUsed() }}</td>
                             <td class="tg-0pky">{{ $totalQuantity - $medicine->countUsed() }}</td>
                             <td class="tg-0pky">{{ max(0, $totalQuantity - $medicine->countUsed()) }}</td>
-                            <td class="tg-0pky">{{ $medicine->expiration }}</td>
+                            <td class="tg-0pky">{{ $medicine->expiration->format('m-d-Y') }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -231,7 +184,11 @@
             <div class="left-text">
                 <div class="left-text">
                     <div class="left">Prepared by:</div>
-                    <br>DEBBIE-LYN P. DOLOJAN,RN,MSN
+                    @foreach ($users as $user)
+                        @if ($user->role == 'nurse')
+                            <br>{{ $user->name }}
+                        @endif
+                    @endforeach
                     <div class="sn">Nurse Attednant</div>
                 </div>
             </div>
@@ -239,7 +196,11 @@
             <div class="right-text">
                 <div class="right-text">
                     <div class="right">Noted by:</div>
-                    <br>ENGR. EDWARD B. PANGANIBAN, Ph,D.
+                    @foreach ($users as $user)
+                        @if ($user->role == 'coordinator')
+                            <br>{{ $user->name }}
+                        @endif
+                    @endforeach
                     <div class="phy">Campus Coordinator</div>
                 </div>
             </div>

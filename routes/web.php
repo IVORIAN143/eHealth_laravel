@@ -45,8 +45,9 @@ Route::middleware(['auth', 'otp'])->group(function () {
 
 
     Route::post('/students', [\App\Http\Controllers\StudentController::class, 'store'])->name('storestudent');
-    Route::delete('/students/delete', [\App\Http\Controllers\StudentController::class, 'delete'])->name('deletestudent');
+    // Route::delete('/students/delete', [\App\Http\Controllers\StudentController::class, 'delete'])->name('deletestudent');
     Route::get('/students/api/datatable', [\App\Http\Controllers\StudentController::class, 'datatable'])->name('datatablestudent');
+    Route::post('/student/update/{id}', [\App\Http\Controllers\StudentController::class, 'editstudent'])->name('editstudent');
 
     Route::post('/inventory', [\App\Http\Controllers\InventoryController::class, 'store'])->name('storemedicine');
     Route::delete('/medicine/delete', [\App\Http\Controllers\InventoryController::class, 'delete'])->name('deletemedicine');
@@ -116,6 +117,14 @@ Route::get('/studentView', function (Request $request) {
     $student = Student::find($request->id);
     return view('student_view.studentView', compact(['student', 'medicines', 'consultations']));
 })->name('studentView');
+
+
+// for student edit
+Route::get('/studentUpdate', function (Request $request) {
+    $student = Student::find($request->id);
+    return view('student_view.updateStudent', compact('student'));
+})->name('studentUpdate');
+
 
 
 // print

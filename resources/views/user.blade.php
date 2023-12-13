@@ -24,7 +24,7 @@
             /* 1.5s duration with ease-out timing function */
         }
     </style>
-    <h1>User</h1>
+    <h1>User & Signatories</h1>
 
     <div class="row g-3 mb-4 align-items-center justify-content-between">
 
@@ -143,16 +143,32 @@
                         <div class="form-group">
                             <label for="Edit_username">Username</label>
                             <input id="Edit_username" value="{{ old('username') }}" type="text" name="username"
-                                class="form-control">
+                                class="form-control" style="text-align: left;">
                             @error('username')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="form-group"> <!-- Corrected from "from-group" to "form-group" -->
+                            <label for="Edit_name">Name</label>
+                            <input id="Edit_name" value="{{ old('name') }}" type="text" name="name"
+                                class="form-control" style="text-align: left;">
+                            @error('name')
+                                <span class="error-message">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        {{-- <div class="form-group">
+                            <label for="Edit_contact">Contact</label>
+                            <input id="Edit_contact" value="{{ old('contact') }}" type="text" name="contact"
+                                class="form-control" style="text-align: left;">
+                            @error('contact')
+                                <span class="error-message">{{ $message }}</span>
+                            @enderror
+                        </div> --}}
                         <div class="form-group">
                             <label for="Edit_role">Role</label>
-                            <select id="Edit_role" name="role" class="form-control">
-                                <option value="nurse">Nurse</option>
-                                <option value="doctor">Doctor</option>
+                            <select id="Edit_role" name="role" class="form-control" style="text-align: left;">
+                                <option value="nurse" {{ old('role') == 'nurse' ? 'selected' : '' }}>Nurse</option>
+                                <option value="doctor" {{ old('role') == 'doctor' ? 'selected' : '' }}>Doctor</option>
                             </select>
                             @error('role')
                                 <span class="error-message">{{ $message }}</span>
@@ -161,7 +177,7 @@
                         <div class="form-group">
                             <label for="Edit_email">Email</label>
                             <input id="Edit_email" value="{{ old('email') }}" type="text" name="email"
-                                class="form-control">
+                                class="form-control" style="text-align: left;">
                             @error('email')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -175,6 +191,7 @@
             </div>
         </div>
     </div>
+
 
 @stop
 
@@ -209,10 +226,12 @@
             });
         });
 
-        function ShowModal(id, username, role, email) {
+        function ShowModal(id, username, name, contact, role, email) {
 
             $('#Edit_id').val(id);
             $('#Edit_username').val(username);
+            $('#Edit_name').val(name);
+            $('Edit_contact').val(contact);
             $('#Edit_role').val(role);
             $('#Edit_email').val(email);
             $('#editUserModal').modal('show');
