@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medicine Certificate</title>
+    <title>Medicine Daily</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -238,7 +238,7 @@
 
                             <td>
                                 <img src="{{ asset('storage/signatures/' . $consultation->student_id . '.png') }}"
-                                    alt="" width="90" height="20">
+                                    alt="Patient Signature" width="90" height="20">
                             </td>
 
 
@@ -253,7 +253,12 @@
             <div class="left-text">
                 <div class="left-text">
                     <div class="left">Prepared by:</div>
-                    <br>DEBBIE-LYN P. DOLOJAN,RN,MSN
+                    <br>
+                    @foreach ($users as $user)
+                        @if ($user->role == 'nurse')
+                            <br>{{ $user->name }}
+                        @endif
+                    @endforeach
                     <div class="sn">Nurse Attednant</div>
                 </div>
             </div>
@@ -261,7 +266,12 @@
             <div class="right-text">
                 <div class="right-text">
                     <div class="right">Noted by:</div>
-                    <br>ENGR. EDWARD B. PANGANIBAN, Ph,D.
+                    <br>
+                    @foreach ($users as $user)
+                        @if ($user->role == 'coordinator')
+                            <br>{{ $user->name }}
+                        @endif
+                    @endforeach
                     <div class="phy">Campus Coordinator</div>
                 </div>
             </div>

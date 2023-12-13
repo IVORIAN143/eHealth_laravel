@@ -23,6 +23,7 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'username' => 'required',
+            'name' => 'required',
             'role' => 'required',
             'email' => 'required',
             'password' => 'required',
@@ -30,6 +31,7 @@ class UserController extends Controller
 
         $user = User::create([
             'username' => $request->username,
+            'name' => $request->name,
             'role' => $request->role,
             'email' => $request->email,
             'password' => $request->password,
@@ -63,6 +65,7 @@ class UserController extends Controller
         if ($user) {
             $user->update([
                 'username' => $request->username,
+                'name' => $request->name,
                 'email' => $request->email,
                 'role' => $request->role,
             ]);

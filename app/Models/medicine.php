@@ -41,8 +41,12 @@ class medicine extends Model
     }
     public function totalMed()
     {
-        $Medicines = $this->addMed;
+        try {
+            $medicines = $this->addMed;
 
-        return $Medicines->sum('medicine_quantity');
+            return $medicines->sum('medicine_quantity');
+        } catch (\Exception $e) {
+            return 0;
+        }
     }
 }

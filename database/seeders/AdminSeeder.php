@@ -15,16 +15,25 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'username' => 'Nurse',
+            'role' => 'nurse',
+            'name' => 'DEBBIE-LYN P. DOLOJAN,RN,MSN',
+            'username' => 'School Nurse',
             'email' => 'glennalvareziv@gmail.com',
             'password' => Hash::make('ccqwe123!'),
-            'role' => 'nurse'
         ]);
         User::create([
-            'username' => 'Doctor',
+            'role' => 'doctor',
+            'name' => 'NICOLAS L. ILAGAN, M.D., FPMSI.',
+            'username' => 'University Physician & Director for Health Services',
             'email' => 'ehealthmate086@gmail.com',
             'password' => Hash::make('ccqwe123!'),
-            'role' => 'doctor'
+        ]);
+        User::create([
+            'role' => 'coordinator',
+            'name' => 'ENGR. EDWARD B. PANGANIBAN, Ph,D.',
+            'username' => 'Campus Coordinator',
+            'email' => 'pigilito.official@gmail.com',
+            'password' => Hash::make('ccqwe123!'),
         ]);
     }
 }

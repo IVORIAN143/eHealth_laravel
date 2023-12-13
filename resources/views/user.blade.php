@@ -24,7 +24,7 @@
             /* 1.5s duration with ease-out timing function */
         }
     </style>
-    <h1>User</h1>
+    <h1>User & Signatories</h1>
 
     <div class="row g-3 mb-4 align-items-center justify-content-between">
 
@@ -39,7 +39,7 @@
 
 
                     <div class="col-auto">
-                        <a class="btn app-btn-success" type="button" data-bs-toggle="modal" data-bs-target="#addUsertModal">
+                        {{-- <a class="btn app-btn-success" type="button" data-bs-toggle="modal" data-bs-target="#addUsertModal">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1"
                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -48,7 +48,7 @@
                                     d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
                             </svg>
                             Add Users
-                        </a>
+                        </a> --}}
                     </div>
                 </div><!--//row-->
             </div><!--//table-utilities-->
@@ -143,16 +143,32 @@
                         <div class="form-group">
                             <label for="Edit_username">Username</label>
                             <input id="Edit_username" value="{{ old('username') }}" type="text" name="username"
-                                class="form-control">
+                                class="form-control" style="text-align: left;">
                             @error('username')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="form-group"> <!-- Corrected from "from-group" to "form-group" -->
+                            <label for="Edit_name">Name</label>
+                            <input id="Edit_name" value="{{ old('name') }}" type="text" name="name"
+                                class="form-control" style="text-align: left;">
+                            @error('name')
+                                <span class="error-message">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        {{-- <div class="form-group">
+                            <label for="Edit_contact">Contact</label>
+                            <input id="Edit_contact" value="{{ old('contact') }}" type="text" name="contact"
+                                class="form-control" style="text-align: left;">
+                            @error('contact')
+                                <span class="error-message">{{ $message }}</span>
+                            @enderror
+                        </div> --}}
                         <div class="form-group">
                             <label for="Edit_role">Role</label>
-                            <select id="Edit_role" name="role" class="form-control">
-                                <option value="nurse">Nurse</option>
-                                <option value="doctor">Doctor</option>
+                            <select id="Edit_role" name="role" class="form-control" style="text-align: left;">
+                                <option value="nurse" {{ old('role') == 'nurse' ? 'selected' : '' }}>Nurse</option>
+                                <option value="doctor" {{ old('role') == 'doctor' ? 'selected' : '' }}>Doctor</option>
                             </select>
                             @error('role')
                                 <span class="error-message">{{ $message }}</span>
@@ -161,7 +177,7 @@
                         <div class="form-group">
                             <label for="Edit_email">Email</label>
                             <input id="Edit_email" value="{{ old('email') }}" type="text" name="email"
-                                class="form-control">
+                                class="form-control" style="text-align: left;">
                             @error('email')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -175,6 +191,7 @@
             </div>
         </div>
     </div>
+
 
 @stop
 
@@ -209,10 +226,12 @@
             });
         });
 
-        function ShowModal(id, username, role, email) {
+        function ShowModal(id, username, name, contact, role, email) {
 
             $('#Edit_id').val(id);
             $('#Edit_username').val(username);
+            $('#Edit_name').val(name);
+            $('Edit_contact').val(contact);
             $('#Edit_role').val(role);
             $('#Edit_email').val(email);
             $('#editUserModal').modal('show');

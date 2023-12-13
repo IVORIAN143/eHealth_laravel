@@ -211,8 +211,21 @@
         <div class="wr">Given this <u><b>{{ date('jS') }} </b></u> day of <u><b>
                     {{ date('F') }},{{ date('Y') }}.</b></u></div>
         <div class="flex-container">
-            <div class="left-text">DEBBIE-LYN P. DOLOJAN,RN,MSN</div>
-            <div class="right-text">NICOLAS L. ILAGAN, M.D., FPMSI.</div>
+            <div class="left-text">
+                @foreach ($users as $user)
+                    @if ($user->role == 'nurse')
+                        <br>{{ $user->name }}
+                    @endif
+                @endforeach
+            </div>
+
+            <div class="right-text">
+                @foreach ($users as $user)
+                    @if ($user->role == 'doctor')
+                        <br>{{ $user->name }}
+                    @endif
+                @endforeach
+            </div>
         </div>
         <div class="flex-container">
             <div class="sn">School Nurse</div>

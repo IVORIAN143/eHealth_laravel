@@ -11,6 +11,7 @@
             text-align: center;
             background-color: #fff;
             margin: 0;
+            padding: 10px;
         }
 
         .paragraph {
@@ -198,7 +199,7 @@
                             <td class="tg-0pky">{{ $equipment->countUsed() }}</td>
                             <td class="tg-0pky">{{ $totalQuantity - $equipment->countUsed() }}</td>
                             <td class="tg-0pky">{{ max(0, $totalQuantity - $equipment->countUsed()) }}</td>
-                            <td class="tg-0pky">{{ $equipment->equi_expiration }}</td>
+                            <td class="tg-0pky">{{ $equipment->equi_expiration->format('m-d-Y') }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -211,7 +212,11 @@
             <div class="left-text">
                 <div class="left-text">
                     <div class="left">Prepared by:</div>
-                    <br>DEBBIE-LYN P. DOLOJAN,RN,MSN
+                    @foreach ($users as $user)
+                        @if ($user->role == 'nurse')
+                            <br>{{ $user->name }}
+                        @endif
+                    @endforeach
                     <div class="sn">Nurse Attednant</div>
                 </div>
             </div>
@@ -219,7 +224,11 @@
             <div class="right-text">
                 <div class="right-text">
                     <div class="right">Noted by:</div>
-                    <br>ENGR. EDWARD B. PANGANIBAN, Ph,D.
+                    @foreach ($users as $user)
+                        @if ($user->role == 'coordinator')
+                            <br>{{ $user->name }}
+                        @endif
+                    @endforeach
                     <div class="phy">Campus Coordinator</div>
                 </div>
             </div>

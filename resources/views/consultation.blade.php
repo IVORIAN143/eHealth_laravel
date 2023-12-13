@@ -175,7 +175,9 @@
                             <select id="medicine" name="medicine[]" multiple class="form-control" style="width: 100%;"
                                 required size="3">
                                 @foreach ($medicines as $medicine)
-                                    <option value="{{ $medicine->id }}">{{ $medicine->med_name }}</option>
+                                    <option
+                                        {{ $medicine->totalMed() === 0 ? 'disabled ' : '' }}value="{{ $medicine->id }}">
+                                        {{ $medicine->med_name . '(' . $medicine->totalMed() . ')' }}</option>
                                 @endforeach
                             </select>
                             @error('medicine')
@@ -190,7 +192,9 @@
                             <select id="equipment" name="equipment[]" multiple class="form-control"
                                 style="width: 100%;">
                                 @foreach ($equipments as $equipment)
-                                    <option value="{{ $equipment->id }}">{{ $equipment->equipname }}</option>
+                                    <option {{ $equipment->TotalSupply() === 0 ? 'disabled' : '' }}
+                                        value="{{ $equipment->id }}">
+                                        {{ $equipment->equipname . '(' . $equipment->TotalSupply() . ')' }}</option>
                                 @endforeach
                             </select>
                             @error('equipment')
@@ -285,7 +289,9 @@
                             <select id="editMedicine" name="Medicine[]" multiple class="form-control"
                                 style="width: 100%;">
                                 @foreach ($medicines as $medicine)
-                                    <option value="{{ $medicine->id }}">{{ $medicine->med_name }}</option>
+                                    <option
+                                        {{ $medicine->totalMed() === 0 ? 'diabled' : '' }}value="{{ $medicine->id }}">
+                                        {{ $medicine->med_name . '(' . $medicine->totalMed() . ')' }}</option>
                                 @endforeach
                             </select>
                             @error('medicine')
@@ -300,7 +306,9 @@
                             <select id="editEquipment" name="editEquipment[]" multiple class="form-control"
                                 style="width: 100%;">
                                 @foreach ($equipments as $equipment)
-                                    <option value="{{ $equipment->id }}">{{ $equipment->equipname }}</option>
+                                    <option
+                                        {{ $equipment->TotalSupply() === 0 ? 'disable' : '' }}value="{{ $equipment->id }}">
+                                        {{ $equipment->equipname . '(' . $equipment->TotalSupply() . ')' }}</option>
                                 @endforeach
                             </select>
                             @error('editEquipment')
@@ -418,7 +426,7 @@
 
                 medicine_used.forEach(function(medicine) {
                     $folder.append(
-                        '<div><label>Quantity</label><input type="text" name="quantity[' +
+                        '<div><label>Quantity</label><input style="text-align:left;" type="text" name="quantity[' +
                         medicine +
                         ']" class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,2)" maxlength="2" required></div>'
                     );
@@ -434,7 +442,7 @@
 
                 equipment_used.forEach(function(equipment) {
                     $folder.append(
-                        '<div><label>Quantity</label><input type="text" name="equip_quantity[' +
+                        '<div><label>Quantity</label><input style="text-align:left;" type="text" name="equip_quantity[' +
                         equipment +
                         ']" class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,2)" maxlength="2" value=""></div>'
                     );
@@ -462,7 +470,8 @@
 
                 medicine_used.forEach(function(medicine) {
                     $folder.append(
-                        '<div><label>Quantity</label><input id="MedQuantity_' + medicine +
+                        '<div><label>Quantity</label><input style="text-align:left;" id="MedQuantity_' +
+                        medicine +
                         '" type="text" name="editQuantity[' +
                         medicine +
                         ']"  class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,2)" maxlength="2" required></div>'
@@ -478,7 +487,8 @@
 
                 equipment_used.forEach(function(equipment) {
                     $folder.append(
-                        '<div><label>Quantity</label><input id="EquipQuantity_' + equipment +
+                        '<div><label>Quantity</label><input style="text-align:left;" id="EquipQuantity_' +
+                        equipment +
                         '" type="text" name="editEquipQuantity[' +
                         equipment +
                         ']" class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,2)" maxlength="2" value=""></div>'
@@ -520,14 +530,6 @@
                 $('#EquipQuantity_' + element).val(arrEquipmentQuantity[key]);
             });
 
-            console.log(id);
-            console.log(student_id);
-            console.log(complaints);
-            console.log(diagnosis);
-            console.log(medicine);
-            console.log(equipment);
-            console.log(instruction);
-            console.log(remarks);
 
         }
 
