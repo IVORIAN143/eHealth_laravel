@@ -88,7 +88,7 @@
                         <label for="gender">Gender</label>
                         <select name="gender" class="form-control">
                             <option value="" hidden></option>
-                            <option {{ $student->gebder === 'Male' ? 'selected' : '' }} value="Male">Male</option>
+                            <option {{ $student->gender === 'Male' ? 'selected' : '' }} value="Male">Male</option>
                             <option {{ $student->gender === 'Female' ? 'selected' : '' }} value="Female">Female</option>
                         </select>
                         @error('gender')
@@ -124,8 +124,8 @@
                         <label for="course">Course</label>
                         <select name="course" class="form-control">
                             <option value="" hidden></option>
-                            <option {{ $student->course === 'BSA' ? 'selected' : '' }} value="BSA">BSA</option>
-                            <option {{ $student->course === 'BSIT' ? 'selected' : '' }} value="BSIT">BSIT</option>
+                            <option {{ $student->course === 'bsa' ? 'selected' : '' }} value="bsa">BSA</option>
+                            <option {{ $student->course === 'bsit' ? 'selected' : '' }} value="bsit">BSIT</option>
                         </select>
                         @error('course')
                             <div class="text-danger">{{ $message }}</div>
@@ -136,10 +136,10 @@
                         <label for="year">Year</label>
                         <select name="year" class="form-control">
                             <option value="" hidden></option>
-                            <option {{ $student->year === '1' ? 'selected' : '' }} value="1">First Year</option>
-                            <option {{ $student->year === '2' ? 'selected' : '' }} value="2">Second Year</option>
-                            <option {{ $student->year === '3' ? 'selected' : '' }} value="3">Third Year</option>
-                            <option {{ $student->year === '4' ? 'selected' : '' }} value="4">Fourth Year</option>
+                            <option {{ $student->year === 1 ? 'selected' : '' }} value="1">First Year</option>
+                            <option {{ $student->year === 2 ? 'selected' : '' }} value="2">Second Year</option>
+                            <option {{ $student->year === 3 ? 'selected' : '' }} value="3">Third Year</option>
+                            <option {{ $student->year === 4 ? 'selected' : '' }} value="4">Fourth Year</option>
                         </select>
                         @error('year')
                             <div class="text-danger">{{ $message }}</div>
@@ -351,6 +351,9 @@
                     $("#fad_indicate_container").hide();
                 }
             });
+
+            $('#Semester').val($('#semester').val());
+            $('#Schoolyear').val($('#schoolYear').val());
         });
 
 
