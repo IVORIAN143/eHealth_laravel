@@ -83,15 +83,15 @@ class ConsultationController extends Controller
         $validated = $request->validate([
 
             'student_id' => 'required',
-            'complaints' => 'required',
-            'diagnosis' => 'required',
+            'editComplaints' => 'required',
+            'editDiagnosis' => 'required',
             'medicine' => 'required',
-            'instruction' => 'required',
-            'remarks' => 'required',
-            'quentity.*' => 'required',
+            'editInstruction' => 'required',
+            'editRemarks' => 'required',
+            'editQuantity.*' => 'required',
         ]);
 
-        $consultation = consultation::where('id', $request->id)->first();
+        $consultation = consultation::where('id', $request->consultID)->first();
         if (is_null($consultation))
             Alert::error("ERROR", 'Unsuccess please try again.');
         else {
@@ -102,10 +102,10 @@ class ConsultationController extends Controller
             }
             $consultation->update([
                 'student_id' => $request->student_id,
-                'complaints' => $request->complaints,
-                'diagnosis' => $request->diagnosis,
-                'instruction' => $request->instruction,
-                'remarks' => $request->remarks,
+                'complaints' => $request->editComplaints,
+                'diagnosis' => $request->editDiagnosis,
+                'instruction' => $request->editInstruction,
+                'remarks' => $request->editRemarks,
             ]);
             foreach ($request->medicine as $value) {
                 foreach ($consultation->med_used as $med) {
@@ -116,31 +116,38 @@ class ConsultationController extends Controller
                     }
                 }
 
-                $target = MedUsed::where('fk_med_id', $value)->where('fk_consultation_id', $request->id)->first();
+                $target = MedUsed::where('fk_med_id', $value)->where('fk_consultation_id', $request->consultID)->first();
                 if (is_null($target)) {
                     MedUsed::create([
                         'fk_med_id' => $value,
                         'fk_consultation_id' => $consultation->id,
                     ]);
-                }
-            }
-            foreach ($request->equipment as $value) {
-                foreach ($consultation->equip_used as $equip) {
-                    if ($equip->fk_equip_id != $value) {
-                        $target = EquipUsed::where('fk_equip_id', $equip->equipment->id)->where('fk_consultation_id', $request->id)->first();
-                        if ($target)
-                            $target->delete();
-                    }
-                }
-
-                $target = EquipUsed::where('fk_equip_id', $value)->where('fk_consultation_id', $request->id)->first();
-                if (is_null($target)) {
-                    EquipUsed::create([
-                        'fk_equip_id' => $value,
-                        'fk_consultation_id' => $consultation->id,
+                } else {
+                    $target->update([
+                        'quantity' => $request->editQuantity[$value]
                     ]);
                 }
             }
+            if ($request->editEquipment !== null) {
+                foreach ($request->editEquipment as $value) {
+                    foreach ($consultation->equip_used as $equip) {
+                        if ($equip->fk_equip_id != $value) {
+                            $target = EquipUsed::where('fk_equip_id', $equip->equipment->id)->where('fk_consultation_id', $request->id)->first();
+                            if ($target)
+                                $target->delete();
+                        }
+                    }
+
+                    $target = EquipUsed::where('fk_equip_id', $value)->where('fk_consultation_id', $request->id)->first();
+                    if (is_null($target)) {
+                        EquipUsed::create([
+                            'fk_equip_id' => $value,
+                            'fk_consultation_id' => $consultation->id,
+                        ]);
+                    }
+                }
+            }
+
 
             Alert::success('Success', 'Successfuly Edited!.');
             return redirect(route('consultation'));

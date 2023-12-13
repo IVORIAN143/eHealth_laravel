@@ -44,7 +44,9 @@ class medicine extends Model
         try {
             $medicines = $this->addMed;
 
-            return $medicines->sum('medicine_quantity');
+            $test = $this->SumMed() - $this->countUsed();
+
+            return $test;
         } catch (\Exception $e) {
             return 0;
         }

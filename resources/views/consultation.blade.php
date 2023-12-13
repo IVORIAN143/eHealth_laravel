@@ -249,12 +249,13 @@
                 </div>
                 <form action="{{ route('editConsultation') }}" method="post" enctype="multipart/form-data">
                     @csrf
+                    <input id="consultID" type="text" name="consultID" hidden></input>
                     <input id="Semester" type="text" name="semester" hidden></input>
                     <input id="Schoolyear" type="text" name="schoolYear" hidden></input>
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="student">Student</label>
-                            <select id="editStudent" name="student_id" class="form-control" disabled>
+                            <select id="editStudent" name="student_id" class="form-control">
                                 @foreach ($students as $student)
                                     <option value="{{ $student->id }}">{{ $student->lastname }}
                                         {{ $student->fistname }} {{ $student->middlename }}, {{ $student->student_id }},
@@ -286,11 +287,11 @@
 
                         <div class="form-group">
                             <label for="editMedicine">Select Medicine</label>
-                            <select id="editMedicine" name="Medicine[]" multiple class="form-control"
+                            <select id="editMedicine" name="medicine[]" multiple class="form-control"
                                 style="width: 100%;">
                                 @foreach ($medicines as $medicine)
-                                    <option
-                                        {{ $medicine->totalMed() === 0 ? 'diabled' : '' }}value="{{ $medicine->id }}">
+                                    <option {{ $medicine->totalMed() === 0 ? 'disabled' : '' }}
+                                        value="{{ $medicine->id }}">
                                         {{ $medicine->med_name . '(' . $medicine->totalMed() . ')' }}</option>
                                 @endforeach
                             </select>
@@ -306,8 +307,8 @@
                             <select id="editEquipment" name="editEquipment[]" multiple class="form-control"
                                 style="width: 100%;">
                                 @foreach ($equipments as $equipment)
-                                    <option
-                                        {{ $equipment->TotalSupply() === 0 ? 'disable' : '' }}value="{{ $equipment->id }}">
+                                    <option {{ $equipment->TotalSupply() === 0 ? 'disabled' : '' }}
+                                        value="{{ $equipment->id }}">
                                         {{ $equipment->equipname . '(' . $equipment->TotalSupply() . ')' }}</option>
                                 @endforeach
                             </select>
@@ -450,15 +451,49 @@
             });
 
 
-            // for editConsulModal
-            $('#editStudent').select2({
-                dropdownParent: $('#editConsultModal')
-            });
-            $('#editMedicine').select2({
-                dropdownParent: $('#editConsultModal')
-            });
-            $('#editEquipment').select2({
-                dropdownParent: $('#editConsultModal')
+
+
+            $('#editConsultModal').on('shown.bs.modal', function() {
+                // for editConsulModal
+                $('#editStudent').select2({
+                    dropdownParent: $('#editConsultModal')
+                });
+                $('#editMedicine').select2({
+                    dropdownParent: $('#editConsultModal')
+                });
+                $('#editEquipment').select2({
+                    dropdownParent: $('#editConsultModal')
+                });
+
+                var medicine_used = $("#editMedicine").val();
+                var $folder = $('#edit_medicine_used_quantity_folder');
+
+
+                $folder.empty();
+
+                medicine_used.forEach(function(medicine) {
+
+                    $.ajax({
+                        url: '/getMedUsed/' + medicine,
+                        method: 'get',
+                        success: function(data) {
+                            console.log(data.data.quantity)
+                            $folder.append(
+                                '<div><label>Quantity</label><input style="text-align:left;" id="MedQuantity_' +
+                                medicine +
+                                '" type="text" value="' + data.data.quantity +
+                                '" name="editQuantity[' +
+                                medicine +
+                                ']"  class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,2)" maxlength="2" required></div>'
+                            );
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    })
+                });
+
+
             });
 
             $("#editMedicine").change(function() {
