@@ -162,9 +162,6 @@ class StudentController extends Controller
                 'location2' => $request->location2,
                 'boostLocation1' => $request->boosterLocation1,
                 'boostLocation2' => $request->boosterLocation2,
-
-                'semester' => $request->semester,
-                'schoolYear' => $request->schoolYear,
             ]);
             Alert::success('Success', 'Successfully updated!.');
             return redirect(route('students'));
