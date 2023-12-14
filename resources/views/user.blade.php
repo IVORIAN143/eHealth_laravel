@@ -167,17 +167,18 @@
                         <div class="form-group">
                             <label for="Edit_role">Role</label>
                             <select id="Edit_role" name="role" class="form-control" style="text-align: left;">
-                                <option value="nurse" {{ old('role') == 'nurse' ? 'selected' : '' }}>Nurse</option>
-                                <option value="doctor" {{ old('role') == 'doctor' ? 'selected' : '' }}>Doctor</option>
+                                <option value="nurse" {{ old('role') === 'nurse' ? 'selected' : '' }}>Nurse</option>
+                                <option value="doctor" {{ old('role') === 'doctor' ? 'selected' : '' }}>Doctor</option>
                             </select>
                             @error('role')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
+
                         <div class="form-group">
                             <label for="Edit_email">Email</label>
-                            <input id="Edit_email" value="{{ old('email') }}" type="text" name="email"
-                                class="form-control" style="text-align: left;">
+                            <input id="Edit_email" value="{{ old('email') === 'email' ?: '' }}" type="text"
+                                name="email" class="form-control" style="text-align: left;">
                             @error('email')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
