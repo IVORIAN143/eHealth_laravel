@@ -51,13 +51,13 @@ Route::middleware(['auth', 'otp'])->group(function () {
     Route::post('/student/update/{id}', [\App\Http\Controllers\StudentController::class, 'editstudent'])->name('editstudent');
 
     Route::post('/inventory', [\App\Http\Controllers\InventoryController::class, 'store'])->name('storemedicine');
-    Route::delete('/medicine/delete', [\App\Http\Controllers\InventoryController::class, 'delete'])->name('deletemedicine');
+    Route::delete('/medicine/delete/{id}', [\App\Http\Controllers\InventoryController::class, 'delete'])->name('deletemedicine');
     Route::get('/medicine/api/datatable', [\App\Http\Controllers\InventoryController::class, 'datatable'])->name('datatablemedicine');
     Route::post('medicine/edit', [\App\Http\Controllers\InventoryController::class, 'edit'])->name('editmedicine');
 
 
     Route::get('/equip/api/datatable', [\App\Http\Controllers\InventoryController::class, 'datatableequip'])->name('datatableequip');
-    Route::delete('/equip.delete', [\App\Http\Controllers\InventoryController::class, 'deleteequip'])->name('deleteequip');
+    Route::delete('/equip/delete', [\App\Http\Controllers\InventoryController::class, 'deleteequip'])->name('deleteequip');
     Route::post('/equip', [\App\Http\Controllers\InventoryController::class, 'storeequipment'])->name('storeequipment');
     Route::post('/equip/edit', [\App\Http\Controllers\InventoryController::class, 'editequip'])->name('editequipments');
 

@@ -64,15 +64,17 @@ class InventoryController extends Controller
         }
     }
 
-    public function delete(Request $request)
+    public function delete(Request $request, $id)
     {
-        $medicine = medicine::where('id', $request->id)->first();
+        $medicine = medicine::where('id', $id)->first();
         if (is_null($medicine)) {
             Alert::error('Delete Error', "Can't Delete studend with id" . $request->id);;
         }
         $medicine->delete();
         Alert::success('Success', 'Successfuly Deleted!.');
-        return redirect(route('inventory'));
+        return response()->json([
+            'status' => true
+        ]);
     }
 
     public function datatable()
@@ -163,7 +165,9 @@ class InventoryController extends Controller
         }
         $equip->delete();
         Alert::success('Success', 'Successfuly Deleted!.');
-        return redirect(route('inventory'));
+        return response()->json([
+            'status' => true
+        ]);
     }
 
     public function datatableequip()
