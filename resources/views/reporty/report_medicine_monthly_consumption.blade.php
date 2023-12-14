@@ -171,7 +171,7 @@
                             <td class="tg-0pky">{{ $medicine->countUsed() }}</td>
                             <td class="tg-0pky">{{ $totalQuantity - $medicine->countUsed() }}</td>
                             <td class="tg-0pky">{{ max(0, $totalQuantity - $medicine->countUsed()) }}</td>
-                            <td class="tg-0pky">{{ $medicine->expiration->format('m-d-Y') }}</td>
+                            <td class="tg-0pky">{{ \Carbon\Carbon::parse($medicine->expiration)->format('m-d-Y') }}</td>
                         </tr>
                     @endforeach
                 </tbody>

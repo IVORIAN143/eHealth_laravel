@@ -199,7 +199,8 @@
                             <td class="tg-0pky">{{ $equipment->countUsed() }}</td>
                             <td class="tg-0pky">{{ $totalQuantity - $equipment->countUsed() }}</td>
                             <td class="tg-0pky">{{ max(0, $totalQuantity - $equipment->countUsed()) }}</td>
-                            <td class="tg-0pky">{{ $equipment->equi_expiration->format('m-d-Y') }}</td>
+                            <td class="tg-0pky">
+                                {{ \Carbon\Carbon::parse($equipment->equi_expiration)->format('m-d-Y') }}</td>
                         </tr>
                     @endforeach
                 </tbody>
