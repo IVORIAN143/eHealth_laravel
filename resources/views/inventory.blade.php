@@ -631,6 +631,37 @@
         }
 
 
+        function deleteItem(type, id) {
+            Swal.fire({
+                title: `Are you sure you want to delete this item?`,
+                text: "It will gone forevert",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((result) => {
+                $.ajax({
+                    url: "/" + type + "/delete/" + id,
+                    method: 'delete',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(data) {
+                        Swal.fire({
+                            title: "Success!",
+                            text: "Item has been deleted",
+                            icon: "success",
+                            button: "OK",
+                        }).then((result) => {
+                            if (data === status) {
+                                location.reload();
+                            }
+                        });
+                    },
+                })
+            })
+
+        }
+
 
         $(function() {
             $("#tabs").tabs();

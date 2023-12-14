@@ -569,6 +569,7 @@
         }
 
 
+
         // for signature DONT TOUCH IT PLEASE!
         document.addEventListener('DOMContentLoaded', function() {
             var canvas = document.getElementById('signaturePad');
