@@ -42,6 +42,8 @@ class equipment extends Model
     {
         $supplies = $this->addSupply();
 
-        return $supplies->sum('equip_quantity');
+        $total = $this->quantity + $this->SumSupply() - $this->countUsed();
+
+        return  $total;
     }
 }

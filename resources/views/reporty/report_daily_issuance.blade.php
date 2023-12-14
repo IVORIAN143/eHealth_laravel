@@ -215,7 +215,7 @@
                 <tbody>
                     @foreach ($consultations as $consultation)
                         <tr>
-                            <td class="tg-0pky">{{ $consultation->created_at->format('Y-m-d') }}</td>
+                            <td class="tg-0pky">{{ $consultation->created_at->format('m-d-Y') }}</td>
                             <td class="tg-0pky">
                                 {{ $consultation->student->firstname }}
                                 {{ $consultation->student->middlename }}

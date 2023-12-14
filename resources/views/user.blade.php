@@ -65,6 +65,7 @@
                                 <tr>
                                     <th class="cell">Id</th>
                                     <th class="cell">Username</th>
+                                    <th class="cell">Name</th>
                                     <th class="cell">Role</th>
                                     <th class="cell">Email</th>
                                     <th class="cell">Actions</th>
@@ -210,6 +211,10 @@
                     {
                         data: 'username',
                         name: 'username'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
                     },
                     {
                         data: 'role',

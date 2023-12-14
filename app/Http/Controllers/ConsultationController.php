@@ -8,9 +8,13 @@ use App\Models\EquipUsed;
 use App\Models\medicine;
 use App\Models\MedUsed;
 use App\Models\student;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\DataTables;
+
+use function PHPUnit\Framework\isNull;
 
 class ConsultationController extends Controller
 {
@@ -39,43 +43,68 @@ class ConsultationController extends Controller
             'schoolYear' => 'required',
         ]);
 
-        $consultation = consultation::create([
-            'student_id' => $request->student_id,
-            'complaints' => $request->complaints,
-            'diagnosis' => $request->diagnosis,
-            'instruction' => $request->instruction,
-            'remarks' => $request->remarks,
-            'semester' => $request->semester,
-            'schoolYear' => $request->schoolYear,
-            'status' => 0,
-        ]);
+        try {
+            DB::beginTransaction();
 
-        foreach ($request->medicine as $value) {
-            MedUsed::create([
-                'fk_med_id' => $value,
-                'fk_consultation_id' => $consultation->id,
-                'quantity' => $request->quantity[$value]
+            $consultation = consultation::create([
+                'student_id' => $request->student_id,
+                'complaints' => $request->complaints,
+                'diagnosis' => $request->diagnosis,
+                'instruction' => $request->instruction,
+                'remarks' => $request->remarks,
+                'semester' => $request->semester,
+                'schoolYear' => $request->schoolYear,
+                'status' => 0,
             ]);
-        }
 
-        if (!is_null($request->equipment)) {
-            foreach ($request->equipment as $value) {
-                EquipUsed::create([
-                    'fk_equip_id' => $value,
+            foreach ($request->medicine as $value) {
+
+                $med = medicine::where('id', $value)->first();
+                if (is_null($med))
+                    throw new \Exception("Medicine not found");
+
+                if ($request->quantity[$value] > $med->totalMed())
+                    throw new \Exception("Medicine not enough");
+
+                MedUsed::create([
+                    'fk_med_id' => $value,
                     'fk_consultation_id' => $consultation->id,
-                    'equip_quantity' => $request->equip_quantity[$value]
+                    'quantity' => $request->quantity[$value]
                 ]);
             }
+
+            if (!is_null($request->equipment)) {
+                foreach ($request->equipment as $value) {
+
+                    $equip = equipment::where('id', $value)->first();
+                    if (is_null($equip))
+                        throw new \Exception("Equipment not found");
+
+                    if ($request->equip_quantity[$value] > $equip->TotalSupply())
+                        throw new \Exception("Equipment not enough");
+
+                    EquipUsed::create([
+                        'fk_equip_id' => $value,
+                        'fk_consultation_id' => $consultation->id,
+                        'equip_quantity' => $request->equip_quantity[$value]
+                    ]);
+                }
+            }
+
+
+            if (is_null($consultation)) {
+                Alert::error("ERROR", 'Unsuccessful, please try again.');
+            } else {
+                Alert::success('Success', 'Successfully Added!');
+            }
+
+            return redirect(route('consultation'));
+        } catch (Exception $e) {
+            DB::rollBack();
+            Alert::error("ERROR", $e->getMessage());
+
+            return redirect(route('consultation'));
         }
-
-
-        if (is_null($consultation)) {
-            Alert::error("ERROR", 'Unsuccessful, please try again.');
-        } else {
-            Alert::success('Success', 'Successfully Added!');
-        }
-
-        return redirect(route('consultation'));
     }
 
     public function editConsultation(Request $request)
