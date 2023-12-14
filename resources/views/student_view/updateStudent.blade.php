@@ -1,6 +1,115 @@
 @extends('layout.master')
 
 @section('content')
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .student-info {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .student-info form>div {
+            margin-bottom: 10px;
+        }
+
+
+
+        .student-info form>div:last-child {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        select,
+        input[type="text"],
+        input[type="date"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .text-danger {
+            color: #dc3545;
+            font-size: 80%;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            /* Ensure the button takes the full width */
+            margin: 0;
+            /* Remove default margin */
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        h1 {
+            text-align: left;
+            margin-bottom: 20px;
+            animation: slideInLeft 0.5s ease-out;
+            /* You can adjust the animation duration and timing function */
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
 
     <body>
 
@@ -306,7 +415,6 @@
                 </div>
 
                 <div>
-
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>
