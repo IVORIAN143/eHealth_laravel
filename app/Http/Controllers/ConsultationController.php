@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
+use Termwind\Components\Dd;
 use Yajra\DataTables\DataTables;
 
 use function PHPUnit\Framework\isNull;
@@ -95,6 +96,7 @@ class ConsultationController extends Controller
             if (is_null($consultation)) {
                 Alert::error("ERROR", 'Unsuccessful, please try again.');
             } else {
+                DB::commit();
                 Alert::success('Success', 'Successfully Added!');
             }
 
@@ -182,17 +184,6 @@ class ConsultationController extends Controller
             return redirect(route('consultation'));
         }
     }
-
-
-
-
-
-
-
-
-
-
-
     public function delete(Request $request)
     {
         $consultation = consultation::where('id', $request->id)->first();

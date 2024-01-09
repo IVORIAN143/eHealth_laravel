@@ -14,6 +14,9 @@ use App\Http\Controllers\medicalMonitoringController;
 use App\Http\Controllers\MonthlyConsumptionController;
 use App\Http\Controllers\MonthlyEquipementController;
 use App\Http\Controllers\MonthlyMedicineController;
+
+use App\Http\Controllers\studentCertController;
+
 use App\Http\Controllers\SignatureController;
 use App\Models\MedUsed;
 use App\Models\User;
@@ -89,7 +92,7 @@ Route::middleware(['auth', 'otp'])->group(function () {
 
     // report
     Route::get('/medicineDaily', [medDailyContoller::class, 'index'])->name('medDaily');
-
+    // Route::get('/studentCert', [studentCertController::class, 'index'])->name('studentCert');
     Route::get('/equipMonthly', [MonthlyEquipementController::class, 'index'])->name('equipMonthly');
     Route::get('/medMonthly', [MonthlyMedicineController::class, 'index'])->name('medMonthly');
     Route::get('/medmonitor', [medicalMonitoringController::class, 'index'])->name('medMonitor');
@@ -141,5 +144,6 @@ Route::get('/studentUpdate', function (Request $request) {
 // print
 Route::get('/studentCert', function (Request $request) {
     $student = Student::find($request->id);
-    return view('reporty.report_certificate', compact('student'));
+    $users = user::all();
+    return view('reporty.report_certificate', compact('student', 'users'));
 })->name('studentCert');
