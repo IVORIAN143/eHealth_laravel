@@ -104,8 +104,8 @@ Route::middleware(['auth', 'otp'])->group(function () {
     //diagram
     Route::get('/monthlyConsumption', [MonthlyConsumptionController::class, 'getMedicineUsedData'])->name('monthlyConsumption');
 
-    Route::get('/getMedUsed/{id}', function ($id) {
-        $medused = MedUsed::find($id);
+    Route::get('/getMedUsed/{id}/{med}', function ($id, $med) {
+        $medused = MedUsed::where('fk_consultation_id', $id)->where('fk_med_id', $med)->first();
 
         return response()->json([
             'data' => $medused

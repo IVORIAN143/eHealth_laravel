@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('instruction', 255)->nullable();
             $table->string('remarks', 255)->nullable();
             $table->integer('status')->nullable();
+            $table->integer('caseStatus')->nullable();
             $table->integer('semester')->nullable();
             $table->integer('schoolYear')->nullable();
             $table->timestamps();
