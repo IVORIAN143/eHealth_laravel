@@ -14,6 +14,9 @@ use App\Http\Controllers\medicalMonitoringController;
 use App\Http\Controllers\MonthlyConsumptionController;
 use App\Http\Controllers\MonthlyEquipementController;
 use App\Http\Controllers\MonthlyMedicineController;
+
+use App\Http\Controllers\studentCertController;
+
 use App\Http\Controllers\SignatureController;
 use App\Models\MedUsed;
 use App\Models\User;
@@ -89,7 +92,7 @@ Route::middleware(['auth', 'otp'])->group(function () {
 
     // report
     Route::get('/medicineDaily', [medDailyContoller::class, 'index'])->name('medDaily');
-
+    // Route::get('/studentCert', [studentCertController::class, 'index'])->name('studentCert');
     Route::get('/equipMonthly', [MonthlyEquipementController::class, 'index'])->name('equipMonthly');
     Route::get('/medMonthly', [MonthlyMedicineController::class, 'index'])->name('medMonthly');
     Route::get('/medmonitor', [medicalMonitoringController::class, 'index'])->name('medMonitor');
@@ -101,8 +104,8 @@ Route::middleware(['auth', 'otp'])->group(function () {
     //diagram
     Route::get('/monthlyConsumption', [MonthlyConsumptionController::class, 'getMedicineUsedData'])->name('monthlyConsumption');
 
-    Route::get('/getMedUsed/{id}', function ($id) {
-        $medused = MedUsed::find($id);
+    Route::get('/getMedUsed/{id}/{med}', function ($id, $med) {
+        $medused = MedUsed::where('fk_consultation_id', $id)->where('fk_med_id', $med)->first();
 
         return response()->json([
             'data' => $medused
@@ -141,5 +144,6 @@ Route::get('/studentUpdate', function (Request $request) {
 // print
 Route::get('/studentCert', function (Request $request) {
     $student = Student::find($request->id);
-    return view('reporty.report_certificate', compact('student'));
+    $users = user::all();
+    return view('reporty.report_certificate', compact('student', 'users'));
 })->name('studentCert');

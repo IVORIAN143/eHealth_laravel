@@ -11,8 +11,12 @@ use App\Models\student;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
+use Termwind\Components\Dd;
 use Yajra\DataTables\DataTables;
+use App\Mail\CaseStatus;
+use App\Models\User;
 
 use function PHPUnit\Framework\isNull;
 
@@ -20,6 +24,7 @@ class ConsultationController extends Controller
 {
     public function index()
     {
+        $users = user::all();
         $consultations = consultation::all();
         $students = student::all();
         $medicines = medicine::all();
@@ -27,7 +32,7 @@ class ConsultationController extends Controller
         $title = 'Delete Consultation!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
-        return view('consultation', compact('students', 'medicines', 'equipments', 'consultations'));
+        return view('consultation', compact('users', 'students', 'medicines', 'equipments', 'consultations'));
     }
 
     public function store(Request $request)
@@ -55,6 +60,7 @@ class ConsultationController extends Controller
                 'semester' => $request->semester,
                 'schoolYear' => $request->schoolYear,
                 'status' => 0,
+                'caseStatus' => $request->caseStatus === "on" ? 1 : 0,
             ]);
 
             foreach ($request->medicine as $value) {
@@ -95,9 +101,16 @@ class ConsultationController extends Controller
             if (is_null($consultation)) {
                 Alert::error("ERROR", 'Unsuccessful, please try again.');
             } else {
+                DB::commit();
+                if ($consultation->caseStatus == 1) {
+                    $users = User::where('role', 'doctor')->get();
+                    foreach ($users as $doctor) {
+                        Mail::to($doctor->email)->send(new caseStatus($consultation));
+                    }
+                }
+
                 Alert::success('Success', 'Successfully Added!');
             }
-
             return redirect(route('consultation'));
         } catch (Exception $e) {
             DB::rollBack();
@@ -118,6 +131,7 @@ class ConsultationController extends Controller
             'editInstruction' => 'required',
             'editRemarks' => 'required',
             'editQuantity.*' => 'required',
+
         ]);
 
         $consultation = consultation::where('id', $request->consultID)->first();
@@ -135,6 +149,7 @@ class ConsultationController extends Controller
                 'diagnosis' => $request->editDiagnosis,
                 'instruction' => $request->editInstruction,
                 'remarks' => $request->editRemarks,
+                'caseStatus' => $request->editcaseStatus === "on" ? 1 : 0,
             ]);
             foreach ($request->medicine as $value) {
                 foreach ($consultation->med_used as $med) {
@@ -182,17 +197,6 @@ class ConsultationController extends Controller
             return redirect(route('consultation'));
         }
     }
-
-
-
-
-
-
-
-
-
-
-
     public function delete(Request $request)
     {
         $consultation = consultation::where('id', $request->id)->first();
@@ -220,6 +224,8 @@ class ConsultationController extends Controller
                 $text .= $equip_use->equipment->equipname . ", ";
             }
             return $text;
+        })->addColumn('caseStatus', function ($query) {
+            return ($query->caseStatus == 1) ? 'Urgent' : '';
         })->addColumn('status_string', function ($query) {
             if ($query->status == 1) {
                 return 'Approved';
@@ -252,7 +258,15 @@ class ConsultationController extends Controller
                 array_push($array, (int)$equip_use->equipment->id);
             }
             return implode(",", $array);
-        })->addColumn('Actions', 'component.consulttableaction')->rawColumns(['Actions'])->make(true);
+        })->addColumn('Actions', 'component.consulttableaction')
+            ->rawColumns(['Actions'])
+            ->setRowAttr([
+                'style' => function ($item) {
+                    $style = $item->caseStatus == '1' ? 'color: red; font-weight: bold;' : '';
+                    return $style;
+                }
+            ])
+            ->make(true);
     }
 
 

@@ -24,6 +24,7 @@ class consultation extends Model
         'status',
         'schoolYear',
         'semester',
+        'caseStatus'
     ];
 
     public function countUsed()

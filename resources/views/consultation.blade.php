@@ -57,6 +57,25 @@
             animation: popUpEffect 1.5s ease-out;
             /* 1.5s duration with ease-out timing function */
         }
+
+
+
+        .status-indicator::before {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            /* Adjust the width as needed */
+            height: 10px;
+            /* Adjust the height as needed */
+        }
+
+        .urgent::before {
+            background-color: red;
+        }
+
+        .normal::before {
+            background-color: black;
+        }
     </style>
 
 
@@ -116,6 +135,7 @@
                                     <th class="cell">Prescribe Medicine</th>
                                     <th class="cell">Used Equipment</th>
                                     <th class="cell"> Instruction</th>
+                                    <th class="cell">Emergency</th>
                                     <th class="cell"> Status</th>
                                     <th class="cell">Actions</th>
                                 </tr>
@@ -155,7 +175,13 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-
+                        <div class="form-group">
+                            <label for="caseStatus">Is this an Emergency?</label>
+                            <input type="checkbox" name="caseStatus" id="caseStatus" class="form-check-input">
+                            @error('caseStatus')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <div class="form-group">
                             <label for="complaints">Complaints</label>
                             <textarea name="complaints" id="complaints" class="form-control" rows="5" required></textarea>
@@ -266,7 +292,15 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="editcaseStatus">Is this an Emergency?</label>
+                            <input type="checkbox" name="editcaseStatus" id="editcaseStatus" class="form-check-input"
+                                {{ old('editcaseStatus') ? 'checked' : '' }}>
 
+                            @error('editcaseStatus')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
 
                         <div class="form-group">
                             <label for="editComplaints">Complaints</label>
@@ -353,6 +387,7 @@
             var consulttable = $('#consulttable').DataTable({
                 processing: true,
                 serverSide: false,
+
                 ajax: {
                     "url": '{{ route('datatableconsultation') }}',
                     "data": function(d) {
@@ -383,6 +418,11 @@
                     {
                         data: 'instruction',
                         name: 'instruction'
+                    },
+                    {
+                        data: 'caseStatus',
+                        name: 'caseStatus'
+
                     },
                     {
                         data: 'status_string',
@@ -472,12 +512,12 @@
                 $folder.empty();
 
                 medicine_used.forEach(function(medicine) {
-
+                    console.log(medicine)
                     $.ajax({
-                        url: '/getMedUsed/' + medicine,
+                        url: '/getMedUsed/' + $('#consultID').val() + '/' + medicine,
                         method: 'get',
                         success: function(data) {
-                            console.log(data.data.quantity)
+                            console.log(data)
                             $folder.append(
                                 '<div><label>Quantity</label><input style="text-align:left;" id="MedQuantity_' +
                                 medicine +
@@ -533,7 +573,7 @@
 
         });
 
-        function ShowModal(id, student_id, complaints, diagnosis, remarks, instruction, medicine, equipment,
+        function ShowModal(id, student_id, caseStatus, complaints, diagnosis, remarks, instruction, medicine, equipment,
             medQuantityUsed, equipQuantityUsed) {
             const arrMedicine = medicine.split(",");
             const arrMedicineQuantity = medQuantityUsed.split(",");
@@ -546,6 +586,7 @@
             $('#consultID').val(id);
             $('#editStudent').val(student_id);
             $('#editStudent').trigger('change');
+            $('#editcaseStatus').prop('checked', caseStatus);
             $('#editComplaints').val(complaints);
             $('#editDiagnosis').val(diagnosis);
             $('#editMedicine').val(arrMedicine);
@@ -558,6 +599,7 @@
 
             arrMedicine.forEach(element => {
                 key = Object.keys(element);
+                console.log(element);
                 $('#MedQuantity_' + element).val(arrMedicineQuantity[key]);
             });
             arrEquipment.forEach(element => {
@@ -567,6 +609,44 @@
 
 
         }
+
+
+        // $(document).ready(function() {
+        //     // Add change event listener to the checkbox
+        //     $('#editcaseStatus').change(function() {
+        //         // Check if the checkbox is checked
+        //         if ($(this).prop('checked')) {
+        //             // If checked, set the background color of the specific column cell in the first row to red
+        //             $('#consulttable tr:nth-child(2) td').css('background-color', 'red');
+        //             // Change '2' to the specific column index you want to target
+        //         } else {
+        //             // If not checked, reset the background color of the specific column cell in the first row
+        //             $('#consulttable tr:nth-child(2) td').css('background-color', '');
+        //             // Change '2' to the specific column index you want to target
+        //         }
+        //     });
+        // });
+        // $(document).ready(function() {
+        //     // Add change event listener to the checkbox
+        //     $('#editcaseStatus').change(function() {
+        //         // Get the value of caseStatus
+        //         var caseStatus = $('#consulttable tbody tr:first').data('casestatus');
+
+        //         // Check if caseStatus is equal to 1
+        //         if (caseStatus == 1) {
+        //             // If true, set the background color of the specific row and cells to red
+        //             $('#consulttable tbody tr:first').css('background-color', 'red');
+        //             $('#consulttable tbody tr:first td').css('background-color', 'red');
+        //         } else {
+        //             // If not true, reset the background color of the specific row and cells
+        //             $('#consulttable tbody tr:first').css('background-color', '');
+        //             $('#consulttable tbody tr:first td').css('background-color', '');
+        //         }
+        //     });
+        // });
+
+
+
 
 
 
