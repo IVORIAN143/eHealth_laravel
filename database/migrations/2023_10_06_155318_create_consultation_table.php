@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+
         Schema::create('consultation', function (Blueprint $table) {
-            $table->id()->nullable();
+            $table->id();
             $table->foreignId('student_id')->references('id')->on('students')->onDelete('cascade')->onUpdate('cascade')->nullable();
             $table->string('complaints', 255)->nullable();
             $table->string('diagnosis', 255)->nullable();

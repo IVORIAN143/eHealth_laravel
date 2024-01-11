@@ -11,5 +11,8 @@
     </a> --}}
 
 
-    <a class="btn-sm app-btn-primary" href="{{ route('studentUpdate', ['id' => $id]) }}">UPDATE</a>
+
+
+    <a class="btn-sm app-btn-info" href="{{ route('studentUpdate', ['id' => $id]) }}">UPDATE</a>
+
 @endif
