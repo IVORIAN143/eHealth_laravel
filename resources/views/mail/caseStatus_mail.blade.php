@@ -15,7 +15,6 @@
     <p>Patient Name: {{ $caseStatus->student->firstname }} {{ $caseStatus->student->middlename }}
         {{ $caseStatus->student->lastname }}</p>
     <p>Patient Course: {{ $caseStatus->student->course }}</p>
-    <p>Patient Year Level: {{ $caseStatus->student->year_level }}</p>
 
 
     <hr />

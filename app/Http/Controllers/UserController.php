@@ -67,7 +67,6 @@ class UserController extends Controller
                 'username' => $request->username,
                 'name' => $request->name,
                 'email' => $request->email,
-                'role' => $request->role,
             ]);
             Alert::success('Success', 'Successfully Edited!');
         } else {
