@@ -485,32 +485,58 @@
                     dropdownParent: $('#editConsultModal')
                 });
 
-                var medicine_used = $("#editMedicine").val();
-                var $folder = $('#edit_medicine_used_quantity_folder');
+                // var medicine_used = $("#editMedicine").val();
+                // var $folder = $('#edit_medicine_used_quantity_folder');
 
-                $folder.empty();
+                // $folder.empty();
 
-                medicine_used.forEach(function(medicine) {
-                    console.log(medicine)
-                    $.ajax({
-                        url: '/getMedUsed/' + $('#consultID').val() + '/' + medicine,
-                        method: 'get',
-                        success: function(data) {
-                            console.log(data)
-                            $folder.append(
-                                '<div><label>Quantity</label><input style="text-align:left;" id="MedQuantity_' +
-                                medicine +
-                                '" type="text" value="' + data.data.quantity +
-                                '" name="editQuantity[' +
-                                medicine +
-                                ']"  class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,2)" maxlength="2" required></div>'
-                            );
-                        },
-                        error: function(error) {
-                            console.log(error);
-                        }
-                    })
-                });
+                // medicine_used.forEach(function(medicine) {
+                //     console.log(medicine)
+                //     $.ajax({
+                //         url: '/getMedUsed/' + $('#consultID').val() + '/' + medicine,
+                //         method: 'get',
+                //         success: function(data) {
+                //             console.log(data)
+                //             $folder.append(
+                //                 '<div><label>Quantity</label><input style="text-align:left;" id="MedQuantity_' +
+                //                 medicine +
+                //                 '" type="text" value="' + data.data.quantity +
+                //                 '" name="editQuantity[' +
+                //                 medicine +
+                //                 ']"  class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,2)" maxlength="2" required></div>'
+                //             );
+                //         },
+                //         error: function(error) {
+                //             console.log(error);
+                //         }
+                //     })
+                // });
+
+                // var equipment_used = $('#editEquipment').val();
+                // var $folder = $('#edit_equipment_used_quantity_folder');
+                // $folder.empty();
+
+                // equipment_used.forEach(function(equipment) {
+                //     console.log(equipment)
+                //     $.ajax({
+                //         url: 'getEquipUsed' + $('#consultID').val() + '/' + equipment,
+                //         method: 'get',
+                //         success: function(data) {
+                //             console.log(data)
+                //             $folder.append(
+                //                 '<div><label><input style="text-align:left;" id="EquipQuantity_' +
+                //                 equipment +
+                //                 '" type="text value="' + data.data.equipquantity +
+                //                 '" name="editQuantity[' +
+                //                 equipment +
+                //                 ']" class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,2)" maxlength="2" required></div>'
+                //             );
+                //         },
+                //         error: function(error) {
+                //             console.log(error);
+                //         }
+                //     })
+                // });
 
 
             });
