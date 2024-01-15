@@ -157,25 +157,19 @@
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
-                        {{-- <div class="form-group">
-                            <label for="Edit_contact">Contact</label>
-                            <input id="Edit_contact" value="{{ old('contact') }}" type="text" name="contact"
-                                class="form-control" style="text-align: left;">
-                            @error('contact')
-                                <span class="error-message">{{ $message }}</span>
-                            @enderror
-                        </div> --}}
                         <div class="form-group">
                             <label for="Edit_role">Role</label>
-                            <select id="Edit_role" name="role" class="form-control" style="text-align: left;">
+                            <select id="Edit_role" name="role" class="form-control" style="text-align: left;"
+                                disabled>
                                 <option value="nurse" {{ old('role') === 'nurse' ? 'selected' : '' }}>Nurse</option>
                                 <option value="doctor" {{ old('role') === 'doctor' ? 'selected' : '' }}>Doctor</option>
+                                <option value="coordinator" {{ old('role') === 'coordinator' ? 'selected' : '' }}>
+                                    Coordinator</option>
                             </select>
                             @error('role')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
-
                         <div class="form-group">
                             <label for="Edit_email">Email</label>
                             <input id="Edit_email" value="{{ old('email') === 'email' ?: '' }}" type="text"
@@ -232,12 +226,11 @@
             });
         });
 
-        function ShowModal(id, username, name, contact, role, email) {
+        function ShowModal(id, username, name, role, email) {
 
             $('#Edit_id').val(id);
             $('#Edit_username').val(username);
             $('#Edit_name').val(name);
-            $('Edit_contact').val(contact);
             $('#Edit_role').val(role);
             $('#Edit_email').val(email);
             $('#editUserModal').modal('show');

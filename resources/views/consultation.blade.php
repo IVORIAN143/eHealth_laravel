@@ -57,27 +57,7 @@
             animation: popUpEffect 1.5s ease-out;
             /* 1.5s duration with ease-out timing function */
         }
-
-
-
-        .status-indicator::before {
-            content: '';
-            display: inline-block;
-            width: 10px;
-            /* Adjust the width as needed */
-            height: 10px;
-            /* Adjust the height as needed */
-        }
-
-        .urgent::before {
-            background-color: red;
-        }
-
-        .normal::before {
-            background-color: black;
-        }
     </style>
-
 
 
 
@@ -505,33 +485,58 @@
                     dropdownParent: $('#editConsultModal')
                 });
 
-                var medicine_used = $("#editMedicine").val();
-                var $folder = $('#edit_medicine_used_quantity_folder');
+                // var medicine_used = $("#editMedicine").val();
+                // var $folder = $('#edit_medicine_used_quantity_folder');
 
+                // $folder.empty();
 
-                $folder.empty();
+                // medicine_used.forEach(function(medicine) {
+                //     console.log(medicine)
+                //     $.ajax({
+                //         url: '/getMedUsed/' + $('#consultID').val() + '/' + medicine,
+                //         method: 'get',
+                //         success: function(data) {
+                //             console.log(data)
+                //             $folder.append(
+                //                 '<div><label>Quantity</label><input style="text-align:left;" id="MedQuantity_' +
+                //                 medicine +
+                //                 '" type="text" value="' + data.data.quantity +
+                //                 '" name="editQuantity[' +
+                //                 medicine +
+                //                 ']"  class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,2)" maxlength="2" required></div>'
+                //             );
+                //         },
+                //         error: function(error) {
+                //             console.log(error);
+                //         }
+                //     })
+                // });
 
-                medicine_used.forEach(function(medicine) {
-                    console.log(medicine)
-                    $.ajax({
-                        url: '/getMedUsed/' + $('#consultID').val() + '/' + medicine,
-                        method: 'get',
-                        success: function(data) {
-                            console.log(data)
-                            $folder.append(
-                                '<div><label>Quantity</label><input style="text-align:left;" id="MedQuantity_' +
-                                medicine +
-                                '" type="text" value="' + data.data.quantity +
-                                '" name="editQuantity[' +
-                                medicine +
-                                ']"  class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,2)" maxlength="2" required></div>'
-                            );
-                        },
-                        error: function(error) {
-                            console.log(error);
-                        }
-                    })
-                });
+                // var equipment_used = $('#editEquipment').val();
+                // var $folder = $('#edit_equipment_used_quantity_folder');
+                // $folder.empty();
+
+                // equipment_used.forEach(function(equipment) {
+                //     console.log(equipment)
+                //     $.ajax({
+                //         url: 'getEquipUsed' + $('#consultID').val() + '/' + equipment,
+                //         method: 'get',
+                //         success: function(data) {
+                //             console.log(data)
+                //             $folder.append(
+                //                 '<div><label><input style="text-align:left;" id="EquipQuantity_' +
+                //                 equipment +
+                //                 '" type="text value="' + data.data.equipquantity +
+                //                 '" name="editQuantity[' +
+                //                 equipment +
+                //                 ']" class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,2)" maxlength="2" required></div>'
+                //             );
+                //         },
+                //         error: function(error) {
+                //             console.log(error);
+                //         }
+                //     })
+                // });
 
 
             });
@@ -610,40 +615,6 @@
 
         }
 
-
-        // $(document).ready(function() {
-        //     // Add change event listener to the checkbox
-        //     $('#editcaseStatus').change(function() {
-        //         // Check if the checkbox is checked
-        //         if ($(this).prop('checked')) {
-        //             // If checked, set the background color of the specific column cell in the first row to red
-        //             $('#consulttable tr:nth-child(2) td').css('background-color', 'red');
-        //             // Change '2' to the specific column index you want to target
-        //         } else {
-        //             // If not checked, reset the background color of the specific column cell in the first row
-        //             $('#consulttable tr:nth-child(2) td').css('background-color', '');
-        //             // Change '2' to the specific column index you want to target
-        //         }
-        //     });
-        // });
-        // $(document).ready(function() {
-        //     // Add change event listener to the checkbox
-        //     $('#editcaseStatus').change(function() {
-        //         // Get the value of caseStatus
-        //         var caseStatus = $('#consulttable tbody tr:first').data('casestatus');
-
-        //         // Check if caseStatus is equal to 1
-        //         if (caseStatus == 1) {
-        //             // If true, set the background color of the specific row and cells to red
-        //             $('#consulttable tbody tr:first').css('background-color', 'red');
-        //             $('#consulttable tbody tr:first td').css('background-color', 'red');
-        //         } else {
-        //             // If not true, reset the background color of the specific row and cells
-        //             $('#consulttable tbody tr:first').css('background-color', '');
-        //             $('#consulttable tbody tr:first td').css('background-color', '');
-        //         }
-        //     });
-        // });
 
 
 

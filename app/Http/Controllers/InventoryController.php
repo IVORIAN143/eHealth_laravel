@@ -134,7 +134,7 @@ class InventoryController extends Controller
         ]);
 
         if (is_null($equip))
-            Alert::error("Creation Error", "Can't Add Medicine");
+            Alert::error("Creation Error", "Can't Add Equipment");
         else
             Alert::success('Success', 'Successfuly Added!.');
         return redirect(route('inventory'));
@@ -187,7 +187,7 @@ class InventoryController extends Controller
             'equip_quantity' => 'required',
         ]);
 
-        $targetEquipe = equipment::where($request->id);
+        $targetEquipe = equipment::find($request->id);
 
         if (is_null($targetEquipe)) {
             Alert::error("Edit Error", "Can't find Equipment");

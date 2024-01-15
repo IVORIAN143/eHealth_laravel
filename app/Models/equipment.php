@@ -40,10 +40,14 @@ class equipment extends Model
     }
     public function TotalSupply()
     {
-        $supplies = $this->addSupply();
+        try {
+            $supplies = $this->addSupply();
 
-        $total = $this->equip_quantity + $this->SumSupply() - $this->countUsed();
+            $total = $this->equip_quantity + $this->SumSupply() - $this->countUsed();
 
-        return  $total;
+            return  $total;
+        } catch (\Exception $e) {
+            return 0;
+        }
     }
 }
