@@ -142,9 +142,9 @@
                     <div class="modal-body">
                         <input type="hidden" id="Edit_id" name="id">
                         <div class="form-group">
-                            <label for="Edit_username">Username</label>
+                            <label for="Edit_username">User & Signatories</label>
                             <input id="Edit_username" value="{{ old('username') }}" type="text" name="username"
-                                class="form-control" style="text-align: left;">
+                                class="form-control" style="text-align: left;" disabled>
                             @error('username')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror

@@ -30,12 +30,12 @@ class StudentsImport implements ToModel, WithHeadingRow
         ];
 
         // Check if the student_id already exists in the database
-        $existingStudent = Student::where('student_id', $row['studentid'])->first();
+        // $existingStudent = Student::where('student_id', $row['studentid'])->first();
 
-        if ($existingStudent) {
+        // if ($existingStudent) {
 
-            return null;
-        }
+        //     return null;
+        // }
 
         // If the student_id doesn't exist, create a new Student instance and return it
         $formattedData['student_id'] = $row['studentid'];

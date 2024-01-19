@@ -145,6 +145,35 @@
             transform: translateX(0);
         }
     }
+
+    /* for mobile */
+
+
+    /* Responsive styles for mobile screens */
+    @media screen and (max-width: 600px) {
+
+        /* Common styles for input[type="text"] and select */
+        input[type="text"],
+        select {
+            width: calc(100% - -12px);
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* Common styles for .app-utility-item */
+        .app-utility-item {
+            margin-bottom: 4px;
+            position: relative;
+            text-align: left;
+            width: 95px;
+            margin: 0;
+            margin-left: 13px;
+            font-size: 13px;
+        }
+
+    }
 </style>
 
 <body>

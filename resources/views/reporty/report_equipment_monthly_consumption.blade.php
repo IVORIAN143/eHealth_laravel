@@ -191,21 +191,26 @@
                 <tbody>
                     @foreach ($equipments as $equipment)
                         <tr>
-                            @php($totalQuantity = $equipment->equip_quantity + $equipment->SumSupply())
+                            @php
+                                $totalQuantity = $equipment->equip_quantity + $equipment->SumSupply();
+                                $countUsed = $equipment->countUsed();
+                                $remainingQuantity = max(0, $totalQuantity - $countUsed);
+                                $formattedExpiration = \Carbon\Carbon::parse($equipment->equi_expiration)->format('m-d-Y');
+                            @endphp
+
                             <td class="tg-0pky">{{ $equipment->equipname }}</td>
                             <td class="tg-0pky">{{ $equipment->equip_quantity }}</td>
                             <td class="tg-0pky">{{ $equipment->SumSupply() }}</td>
                             <td class="tg-0pky">{{ $totalQuantity }}</td>
-                            <td class="tg-0pky">{{ $equipment->countUsed() }}</td>
-                            <td class="tg-0pky">{{ $totalQuantity - $equipment->countUsed() }}</td>
-                            <td class="tg-0pky">{{ max(0, $totalQuantity - $equipment->countUsed()) }}</td>
-                            <td class="tg-0pky">
-                                {{ \Carbon\Carbon::parse($equipment->equi_expiration)->format('m-d-Y') }}</td>
+                            <td class="tg-0pky">{{ $countUsed }}</td>
+                            <td class="tg-0pky">{{ $totalQuantity - $countUsed }}</td>
+                            <td class="tg-0pky">{{ $remainingQuantity }}</td>
+                            <td class="tg-0pky">{{ $formattedExpiration }}</td>
                         </tr>
                     @endforeach
+
                 </tbody>
             </table>
-
         </div>
 
 

@@ -137,7 +137,7 @@
     .left {
         text-align: center;
         margin-left: -400px;
-        padding-bottom: 8px;
+        padding-bottom: 30px;
     }
 
     .lefty {
