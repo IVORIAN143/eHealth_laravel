@@ -176,17 +176,20 @@ class ConsultationController extends Controller
                 foreach ($request->editEquipment as $value) {
                     foreach ($consultation->equip_used as $equip) {
                         if ($equip->fk_equip_id != $value) {
-                            $target = EquipUsed::where('fk_equip_id', $equip->equipment->id)->where('fk_consultation_id', $request->id)->first();
+                            $target = EquipUsed::where('fk_equip_id', $equip->equipment->id)->where('fk_consultation_id', $request->consultID)->first();
                             if ($target)
                                 $target->delete();
                         }
                     }
-
-                    $target = EquipUsed::where('fk_equip_id', $value)->where('fk_consultation_id', $request->id)->first();
+                    $target = EquipUsed::where('fk_equip_id', $value)->where('fk_consultation_id', $request->consultID)->first();
                     if (is_null($target)) {
                         EquipUsed::create([
                             'fk_equip_id' => $value,
                             'fk_consultation_id' => $consultation->id,
+                        ]);
+                    } else {
+                        $target->update([
+                            'equip_quantity' => $request->editEquipQuantity[$value]
                         ]);
                     }
                 }
