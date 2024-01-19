@@ -163,17 +163,24 @@
                 <tbody>
                     @foreach ($medicines as $medicine)
                         <tr>
-                            @php($totalQuantity = $medicine->quantity + $medicine->SumMed())
+                            @php
+                                $totalQuantity = $medicine->quantity + $medicine->SumMed();
+                                $countUsed = $medicine->countUsed();
+                                $remainingQuantity = max(0, $totalQuantity - $countUsed);
+                                $formattedExpiration = \Carbon\Carbon::parse($medicine->expiration)->format('m-d-Y');
+                            @endphp
+
                             <td class="tg-0pky">{{ $medicine->med_name }}</td>
                             <td class="tg-0pky">{{ $medicine->quantity }}</td>
                             <td class="tg-0pky">{{ $medicine->SumMed() }}</td>
                             <td class="tg-0pky">{{ $totalQuantity }}</td>
-                            <td class="tg-0pky">{{ $medicine->countUsed() }}</td>
-                            <td class="tg-0pky">{{ $totalQuantity - $medicine->countUsed() }}</td>
-                            <td class="tg-0pky">{{ max(0, $totalQuantity - $medicine->countUsed()) }}</td>
-                            <td class="tg-0pky">{{ \Carbon\Carbon::parse($medicine->expiration)->format('m-d-Y') }}</td>
+                            <td class="tg-0pky">{{ $countUsed }}</td>
+                            <td class="tg-0pky">{{ $totalQuantity - $countUsed }}</td>
+                            <td class="tg-0pky">{{ $remainingQuantity }}</td>
+                            <td class="tg-0pky">{{ $formattedExpiration }}</td>
                         </tr>
                     @endforeach
+
                 </tbody>
             </table>
         </div>

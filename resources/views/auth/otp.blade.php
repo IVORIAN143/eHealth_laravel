@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<style>
+    .mb-3 {
+        margin-bottom: 1rem !important;
+        margin-left: 16px;
+        margin-right: auto;
+        display: block;
+        text-align: center;
+        width: 95%;
+    }
+
+    .w-95 {
+        width: 95% !important;
+    }
+</style>
+
 <head>
     <title>ISU-eHealthmate</title>
 
@@ -52,7 +67,7 @@
                             </div><!--//form-group-->
                             <div class="text-center">
                                 <button id="otpBTN" type="button"
-                                    class="btn app-btn-primary w-100 theme-btn mx-auto">Log In</button>
+                                    class="btn app-btn-primary w-95 theme-btn mx-auto">Log In</button>
                             </div>
                         </form>
                     </div><!--//auth-form-container-->

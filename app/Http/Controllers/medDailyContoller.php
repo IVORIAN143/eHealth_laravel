@@ -14,9 +14,13 @@ class medDailyContoller extends Controller
         $validated = $request->validate([
             'date' => 'required'
         ]);
-        $consultations = consultation::whereDate('created_at', $request->date)->with('student')->get();
+        $consultations = consultation::whereDate('created_at', $request->date)
+            ->with('student')
+            ->get();
+
         $meds = medicine::all();
         $users = user::all();
+
         return  view('reporty.report_daily_issuance', compact(['consultations', 'meds', 'users']));
     }
 }

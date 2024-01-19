@@ -147,3 +147,15 @@ Route::get('/studentCert', function (Request $request) {
     $users = user::all();
     return view('reporty.report_certificate', compact('student', 'users'));
 })->name('studentCert');
+
+
+// Route::get('/medMonthly', function (Request $request) {
+//     $meds = Medicine::whereMonth('created_at', $request->month)
+//         ->whereYear('created_at', now()->year)
+//         ->with('used')
+//         ->get();
+
+//     $users = User::all();
+
+//     return view('reporty.report_medicine_monthly_consumption', compact('meds', 'users'));
+// })->name('medMonthly');

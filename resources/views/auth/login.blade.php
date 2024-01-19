@@ -1,5 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    .mb-3 {
+        margin-bottom: 1rem !important;
+        margin-left: 16px;
+        margin-right: auto;
+        display: block;
+        text-align: center;
+        width: 95%;
+    }
+
+    .w-95 {
+        width: 95% !important;
+    }
+</style>
 
 <head>
     <title>ISU-eHealthmate</title>
@@ -36,9 +50,11 @@
                             @csrf
                             <div class="email mb-3">
                                 <label class="sr-only" for="signin-email">Email</label>
-                                <input id="signin-email" name="email" type="email" class="form-control signin-email"
-                                    placeholder="Email address" required="required">
-
+                                <center>
+                                    <input id="signin-email" name="email" type="email"
+                                        class="form-control signin-email" placeholder="Email address"
+                                        required="required">
+                                </center>
                                 @error('email')
                                     No Email Found.
                                 @enderror
@@ -66,7 +82,7 @@
                             </div><!--//extra-->
                     </div><!--//form-group-->
                     <div class="text-center">
-                        <button id="loginBTN" type="button" class="btn app-btn-primary w-100 theme-btn mx-auto">Log
+                        <button id="loginBTN" type="button" class="btn app-btn-primary w-95 theme-btn mx-auto">Log
                             In</button>
                     </div>
                     </form>
