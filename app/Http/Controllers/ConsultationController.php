@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 use Termwind\Components\Dd;
 use Yajra\DataTables\DataTables;
-use App\Mail\CaseStatus;
+use App\Mail\caseStatus;
 use App\Models\User;
 
 use function PHPUnit\Framework\isNull;
