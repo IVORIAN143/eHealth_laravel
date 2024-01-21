@@ -154,7 +154,7 @@ class ConsultationController extends Controller
             foreach ($request->medicine as $value) {
                 foreach ($consultation->med_used as $med) {
                     if ($med->fk_med_id != $value) {
-                        $target = MedUsed::where('fk_med_id', $med->medicine->id)->where('fk_consultation_id', $request->id)->first();
+                        $target = MedUsed::where('fk_med_id', $med->medicine->id)->where('fk_consultation_id', $request->consultID)->first();
                         if ($target)
                             $target->delete();
                     }
