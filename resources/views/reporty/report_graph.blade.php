@@ -1,6 +1,214 @@
-@extends('layout.master')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
+<head>
+    <title>Graph Report</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {{-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> --}}
+
+    <meta name="description" content="ISU-eHealthmate">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+    <link rel="shortcut icon" href="assets/images/isu-logo.png">
+
+    <!-- FontAwesome JS-->
+    <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
+
+    <!-- App CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/portal.css">
+
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="assets/css/yearpicker.css">
+    <link rel="stylesheet" href="assets/css/MonthPicker.min.css">
+</head>
+
+
+<body>
+    <style>
+        .app-header {
+            box-shadow: #fff;
+            /* border-bottom: 1px solid #e7e9ed; */
+            height: 0px;
+            background-color: white;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #fff;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .paragraph {
+            font-size: 15px;
+            font-weight: bold;
+
+        }
+
+        .paragraphs {
+            font-size: 15px;
+
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .certificate {
+            max-width: 800px;
+            box-sizing: border-box;
+            padding: 20px;
+            position: relative;
+        }
+
+        .tg {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+        }
+
+        .tg td,
+        .tg th {
+            border: 1px solid #333;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            word-break: break-all;
+        }
+
+        .tg .tg-1wig {
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .tg .tg-0lax {
+            text-align: left;
+        }
+
+        .logo {
+            position: absolute;
+            top: 40px;
+            left: 206px;
+            max-width: 80px;
+            max-height: 80px;
+        }
+
+        .logos {
+            position: absolute;
+            top: 40px;
+            right: 204px;
+            max-width: 80px;
+            max-height: 80px;
+        }
+
+        .certificate img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .hs {
+            font-size: 24px;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 10px 0 1px;
+        }
+
+        .hs {
+            font-size: 24px;
+            margin-top: 10px;
+            margin-bottom: 1px;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .left-text {
+            font-size: 15px;
+            margin-top: 15px;
+            margin-left: -180px;
+            text-indent: 15px;
+            text-decoration: underline;
+            font-weight: bold;
+            padding-left: 10PX;
+            padding-top: 15px;
+        }
+
+        .right-text {
+            font-size: 15px;
+            margin-top: 15px;
+            margin-right: -220px;
+            text-indent: 15px;
+            text-decoration: underline;
+            font-weight: bold;
+            padding-right: 10PX;
+            padding-top: 15px;
+        }
+
+        .sn {
+            text-align: center;
+        }
+
+        .phy {
+            text-align: center;
+        }
+
+        .left {
+            text-align: center;
+            margin-left: -400px;
+            padding-bottom: 8px;
+        }
+
+        .right {
+            text-align: center;
+            margin-left: -400px;
+            padding-bottom: 8px;
+        }
+    </style>
+
+
+    <div class="col-auto">
+        <a id="sidepanel-toggler" class="sidepanel-toggler d-inline-block d-xl-none" href="#">
+        </a>
+
+    </div><!--//col-->
+
+    <div class="app-utilities col-auto" hidden>
+
+        <div class="app-utility-item">
+            <button onclick="printPage()">Print</button>
+            <input id="schoolYear" type="text" />
+        </div>
+
+        <div class="app-utility-item">
+            <select id="semester">
+                <option value="1" selected>First Semester</option>
+                <option value="2">Second Semester</option>
+                <option value="3">Mid Year</option>
+            </select>
+        </div>
+
+    </div><!--//app-header-inner-->
+    {{-- <div id="app-sidepanel" class="app-sidepanel"> --}}
+    <div id="sidepanel-drop" class="sidepanel-drop"></div>
+    {{-- <div class="sidepanel-inner d-flex flex-column"> --}}
+    <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
+
+
 
     <style>
         /* Update the styling */
@@ -11,198 +219,187 @@
             /* background-color: #f1f1f1;    */
             padding: 10px;
             height: auto;
-            /* Set height to fill the viewport */
-        }
 
-        .flex-item {
-            /* flex: 1; */
-            margin: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+            /* Set height to fill the viewport
+                        }
 
-        .card {
-            background: #fff;
-            padding: 10px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            max-width: 600px;
-            /* Set max width for better readability */
-        }
-
-        .card:hover {
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        canvas {
-            width: 100%;
-            height: 180px;
-            display: block;
-            margin: 20px auto;
-            /* Adjust margin for better centering */
-        }
-
-        .card a {
-            text-decoration: none;
-            color: #333;
-            /* Set text color for readability */
-            font-size: 22px;
-            font-weight: bold;
-        }
-
-        .card-link {
-            display: block;
-            padding: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .flex-container {
-                flex-direction: column;
-            }
-
+                        */
             .flex-item {
-                margin: 10px 0;
-            }
-
-            .card {
-                max-width: 100%;
-                /* Adjust width for smaller screens */
-            }
-
-            canvas {
-                width: 90%;
-                height: 200px;
-                /* Adjust height for smaller screens */
-            }
-
-            .card a {
-                font-size: 20px;
-                /* Adjust font size for smaller screens */
-            }
-
-
-            #notificationContainer {
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                max-width: 300px;
-                background-color: #fff;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                border-radius: 5px;
-                padding: 10px;
-                display: none;
-                /* Initially hidden */
-                z-index: 1000;
-            }
-
-            #notificationBox {
-                /* Add styling for the notification box as needed */
-                border: 1px solid #ddd;
-                padding: 15px;
-                background-color: #f9f9f9;
-                border-radius: 5px;
-            }
-
-            #notificationContent {
+                /* flex: 1; */
+                margin: 10px;
                 display: flex;
+                justify-content: center;
                 align-items: center;
             }
 
-            #notificationIcon {
-                font-size: 30px;
-                margin-right: 10px;
-                color: #1877f2;
-                /* Facebook blue */
+            .card {
+                background: #fff;
+                padding: 10px;
+                text-align: center;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+                transition: all 0.3s ease;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                max-width: 600px;
+                /* Set max width for better readability */
             }
 
-            #notificationMessage {
-                flex-grow: 1;
+            /*
+                        .card:hover {
+                            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+                        }
+
+                        */
+            canvas {
+                width: 100%;
+                height: 180px;
+                display: block;
+                margin: 20px auto;
+                /* Adjust margin for better centering */
+            }
+
+            .card a {
+                text-decoration: none;
                 color: #333;
+                /* Set text color for readability */
+                font-size: 22px;
+                font-weight: bold;
             }
 
-            /* Close button styling */
-            .closeButton {
-                cursor: pointer;
-                position: absolute;
-                top: 5px;
-                right: 10px;
-                font-size: 18px;
-                color: #aaa;
-            }
-        }
-
-        @keyframes popUpEffect {
-            0% {
-                transform: scale(0.8);
-                opacity: 0;
+            .card-link {
+                display: block;
+                padding: 20px;
             }
 
-            50% {
-                transform: scale(1);
-                opacity: 1;
+            @media (max-width: 768px) {
+                .flex-container {
+                    flex-direction: column;
+                }
+
+                .flex-item {
+                    margin: 10px 0;
+                }
+
+                .card {
+                    max-width: 100%;
+                    /* Adjust width for smaller screens */
+                }
+
+                canvas {
+                    width: 90%;
+                    height: 200px;
+                    /* Adjust height for smaller screens */
+                }
+
+                .card a {
+                    font-size: 20px;
+                    /* Adjust font size for smaller screens */
+                }
+
+
+                #notificationContainer {
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    max-width: 300px;
+                    background-color: #fff;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    border-radius: 5px;
+                    padding: 10px;
+                    display: none;
+                    /* Initially hidden */
+                    z-index: 1000;
+                }
+
+                #notificationBox {
+                    /* Add styling for the notification box as needed */
+                    border: 1px solid #ddd;
+                    padding: 15px;
+                    background-color: #f9f9f9;
+                    border-radius: 5px;
+                }
+
+                #notificationContent {
+                    display: flex;
+                    align-items: center;
+                }
+
+                #notificationIcon {
+                    font-size: 30px;
+                    margin-right: 10px;
+                    color: #1877f2;
+                    /* Facebook blue */
+                }
+
+                #notificationMessage {
+                    flex-grow: 1;
+                    color: #333;
+                }
+
+                /* Close button styling */
+                .closeButton {
+                    cursor: pointer;
+                    position: absolute;
+                    top: 5px;
+                    right: 10px;
+                    font-size: 18px;
+                    color: #aaa;
+                }
             }
 
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
+            @keyframes popUpEffect {
+                0% {
+                    transform: scale(0.8);
+                    opacity: 0;
+                }
 
-        h1 {
-            animation: popUpEffect 1.5s ease-out;
-            /* 1.5s duration with ease-out timing function */
-        }
+                50% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+
+                100% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+
+            h1 {
+                animation: popUpEffect 1.5s ease-out;
+                /* 1.5s duration with ease-out timing function */
+            }
     </style>
-    <h1> Dashboard </h1>
-    <div class="item p-3">
-        <!-- Individual notification content here -->
-        <!-- Replace 'notificationImage', 'notificationMessage', and 'notificationTime' with actual data -->
-        <div class="row gx-2 justify-content-between align-items-center">
-            <div class="col-auto">
-                {{-- <img class="profile-image" src="{{ $notification->image }}" alt="" /> --}}
-            </div>
-            <div class="col">
-                <div class="info">
-                    <div class="desc">
-                        {{-- {{ $notification->message }} --}}
-                    </div>
-                    {{-- <div class="meta">{{ $notification->time }}</div> --}}
+
+    <center>
+        <th class="tg-0lax" colspan="4">
+            <div class="certificate">
+                <!-- START OF HEADER -->
+                <img src="assets/images/isu-logo.png" alt="Logo" class="logo">
+                <!-- Added logo image -->
+                <img src="assets/images/isu-logo-med.png" alt="Logo" class="logos">
+                <!-- Added logo image -->
+                <div class="header">
+                    <div class="paragraphs">Republic of The Philippines</div>
+                    <div class="paragraph">ISABELA STATE UNIVERSITY</div>
+                    <div class="paragraphs">Santiago Extension Unit</div>
+                    <div class="paragraphs">Santiago City</div>
+                    <div class="hs"><i>Health Services
+                            <div class="solid"></div>
+                            Graph Report
+                        </i></div>
                 </div>
             </div>
-        </div>
-        {{-- <a class="link-mask" href="{{ $notification->link }}"></a> --}}
-    </div>
-    {{-- @endforeach --}}
-    </div>
-    <div class="dropdown-menu-footer p-2 text-center">
-        {{-- <a href="{{ route('consultation.notifications') }}">View all</a> --}}
-    </div>
-    </div>
-    </div>
+        </th>
 
-
-
-
-
-
+    </center>
     <div class="app-utilities col-auto">
 
 
         <div class="flex-container">
 
-            {{-- <div class="flex-item">
-                <div class="card">
-                    <a href="{{ route('report') }}">Daily Medicine
-                        <canvas id="medicineChart"></canvas>
-                    </a>
-                </div>
-            </div> --}}
+
             <div class="flex-item">
                 <div class="card">
                     <a href="{{ route('report') }}">Monthly Consumption
@@ -217,45 +414,77 @@
                     </a>
                 </div>
             </div>
-        </div>
+            {{-- </div> --}}
 
-        <div class="flex-container">
-            <div class="flex-item">
-                <div class="card">
-                    <a href="{{ route('students') }}"><small>Total Student</small> <small id="studentsLabelCount">
-                        </small>
-                        <canvas id="myDonutChart"></canvas>
-                    </a>
-                </div>
-            </div>
-
-
-            <div class="flex-item">
-                <div class="card">
-                    <a href="{{ route('consultation') }}">
-                        <h3>Diagnosed Consultations</h3>
-                        <canvas id="diagnosedCountChart"></canvas>
-                    </a>
-                </div>
-            </div>
-            @if (Auth::user()->role == 'nurse')
+            <div class="flex-container">
                 <div class="flex-item">
                     <div class="card">
-                        <a href="{{ route('user') }}">
-                            <h3>User Roles</h3>
-                            <canvas id="userRoleChart"></canvas>
+                        <a href="{{ route('students') }}"><small>Total Student</small> <small id="studentsLabelCount">
+                            </small>
+                            <canvas id="myDonutChart"></canvas>
                         </a>
                     </div>
                 </div>
-            @endif
 
+
+                <div class="flex-item">
+                    <div class="card">
+                        <a href="{{ route('consultation') }}">
+                            <h3>Diagnosed Consultations</h3>
+                            <canvas id="diagnosedCountChart"></canvas>
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
         </div>
-    </div>
-@stop
 
-@push('js')
+        <footer class="app-footer">
+            <div class="container text-center py-3">
+            </div>
+        </footer><!--//app-footer-->
+    </div>
+
+    @include('sweetalert::alert')
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
+
+    <script src="assets/js/yearpicker.js"></script>
+
+
+    <script src="https://momentjs.com/downloads/moment.js"></script>
+    <script src="assets/plugins/popper.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+    <!-- Charts JS -->
+    <script src="assets/plugins/chart.js/chart.min.js"></script>
+    <script src="assets/js/index-charts.js"></script>
+
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/MonthPicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        function printPage() {
+            window.print();
+        }
+
+
+
+
+
         function toggleNotification() {
             var notificationContainer = document.getElementById('notificationContainer');
             notificationContainer.style.display = 'block';
@@ -592,4 +821,10 @@
             }
         });
     </script>
-@endpush
+
+
+
+</body>
+
+
+</html>

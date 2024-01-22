@@ -15,8 +15,10 @@ use App\Http\Controllers\MonthlyConsumptionController;
 use App\Http\Controllers\MonthlyEquipementController;
 use App\Http\Controllers\MonthlyMedicineController;
 
-use App\Http\Controllers\studentCertController;
+use App\Http\Controllers\ReportGraphController;
 
+
+use App\Http\Controllers\studentCertController;
 use App\Http\Controllers\SignatureController;
 use App\Models\MedUsed;
 use App\Models\User;
@@ -96,6 +98,8 @@ Route::middleware(['auth', 'otp'])->group(function () {
     Route::get('/equipMonthly', [MonthlyEquipementController::class, 'index'])->name('equipMonthly');
     Route::get('/medMonthly', [MonthlyMedicineController::class, 'index'])->name('medMonthly');
     Route::get('/medmonitor', [medicalMonitoringController::class, 'index'])->name('medMonitor');
+    Route::get('/report-graph', [ReportGraphController::class, 'index'])->name('reportGraph');
+
 
 
 
@@ -132,6 +136,13 @@ Route::get('/studentView', function (Request $request) {
     return view('student_view.studentView', compact(['student', 'medicines', 'consultations']));
 })->name('studentView');
 
+// student view print
+Route::get('/studentViewprint', function (Request $request) {
+    $consultations = consultation::find($request->id);
+    $medicines = medicine::find($request->id);
+    $student = Student::find($request->id);
+    return view('reporty.report_student_view_print', compact(['student', 'medicines', 'consultations']));
+})->name('studentViewprint');
 
 // for student edit
 Route::get('/studentUpdate', function (Request $request) {

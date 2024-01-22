@@ -238,12 +238,50 @@
             </div>
         </div>
 
+        <!-- Graph report-->
+
+        <div class="col-6 col-md-4 col-xl-3 col-xxl-2">
+            <div class="app-card app-card-doc shadow-sm h-100">
+                <div class="app-card-thumb-holder p-3">
+                    <div class="app-card-thumb">
+                        <img class="thumb-image"
+                            src="https://media.istockphoto.com/id/627993994/vector/analytics-data-research-icon-vector-analysis-paper-sheet-document-statistics.jpg?s=612x612&w=0&k=20&c=qRQiwDjb3vRltY3zJNIEefc6jASHnWn3k3VXGhNgbr8="
+                            alt="" />
+                    </div>
+                    <a class="app-card-link-mask" href="javascript:void(0);"
+                        onclick="openPrintTab('{{ route('reportGraph') }}')" target="_blank"></a>
+                </div>
+                <div class="app-card-body p-3 has-card-actions">
+                    <h4 class="app-doc-title truncate mb-0">
+                        <a href="{{ route('reportGraph') }}" target="_blank">ISU <br> Santiago <br> Extension graph <br>
+                            Report</a>
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
 @stop
 
 @push('js')
     <script>
+        function openPrintTab(url) {
+            var printWindow = window.open(url, '_blank');
+            printWindow.onload = function() {
+                setTimeout(function() {
+                    printWindow.print();
+                    printWindow.onafterprint = function() {
+                        printWindow.close();
+                    };
+                }, 6000); // 5000 milliseconds = 5 seconds
+            };
+        }
+
+
+
+
         // medMonthly
         document.addEventListener('DOMContentLoaded', function() {
             var form = document.getElementById('medMonthly');

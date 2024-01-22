@@ -28,155 +28,6 @@
 
 
     @stack('css')
-</head>
-<style>
-    .app-utility-item {
-        margin-bottom: 15px;
-        position: relative;
-        text-align: center;
-    }
-
-    input[type="text"],
-    select {
-        width: calc(100% - 6px);
-        padding: 4px;
-        /* border: 2px solid #ccc; */
-        border-radius: 4px;
-        /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-        font-size: 16px;
-        text-align: center;
-    }
-
-    select {
-        background: white;
-        appearance: none;
-    }
-
-    select option:checked {
-        background: #f0f0f0;
-    }
-
-    .dropdown-toggle {
-        display: inline-block;
-        padding: 4px;
-        background-color: #f5f5f5;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        color: #333;
-        text-decoration: none;
-    }
-
-    .dropdown-menu {
-        display: none;
-        position: absolute;
-        background-color: #fff;
-        box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
-        padding: 2px;
-        border-radius: 1px;
-        z-index: 1;
-        min-width: 120px;
-    }
-
-    .dropdown-menu li {
-        list-style: none;
-        padding: 1px 0;
-        cursor: pointer;
-    }
-
-    .dropdown-divider {
-        border-top: 1px solid #ccc;
-        margin: 6px 0;
-    }
-
-    .dropdown-menu a {
-        text-decoration: none;
-        color: #333;
-        display: block;
-        padding: 8px 0;
-        transition: background-color 0.3s;
-    }
-
-    .dropdown-menu a:hover {
-        background-color: #f0f0f0;
-    }
-
-
-    /* zoom in nav  */
-    .nav-link-text {
-        display: inline-block;
-        transition: transform 0.5s ease;
-        /* You can adjust the duration and timing function for zoom on hover */
-    }
-
-    .nav-link:hover .nav-link-text {
-        transform: scale(1.2);
-        /* Adjust the zoom on hover scale */
-    }
-
-    /* logo and logo text */
-    /* Add this to your CSS file or style section */
-    .app-logo {
-        display: inline-block;
-        animation: slideRight 2s ease-in-out;
-        /* You can adjust the duration and timing function for sliding */
-        transition: transform 0.5s ease;
-        /* You can adjust the duration and timing function for zoom on hover */
-    }
-
-    .logo-text {
-        display: inline-block;
-        transition: transform 0.5s ease;
-        /* You can adjust the duration and timing function for zoom on hover */
-    }
-
-    .app-branding:hover .app-logo,
-    .app-branding:hover .logo-text {
-        transform: scale(1.1);
-        /* Adjust the zoom on hover scale */
-    }
-
-
-    @keyframes slideRight {
-        0% {
-            transform: translateX(-100%);
-        }
-
-        100% {
-            transform: translateX(0);
-        }
-    }
-
-    /* for mobile */
-
-
-    /* Responsive styles for mobile screens */
-    @media screen and (max-width: 600px) {
-
-        /* Common styles for input[type="text"] and select */
-        input[type="text"],
-        select {
-            width: calc(100% - -12px);
-            padding: 5px;
-            border-radius: 5px;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        /* Common styles for .app-utility-item */
-        .app-utility-item {
-            margin-bottom: 4px;
-            position: relative;
-            text-align: left;
-            width: 95px;
-            margin: 0;
-            margin-left: 13px;
-            font-size: 13px;
-        }
-
-    }
-</style>
-
-<body>
     <header class="app-header fixed-top">
         <div class="app-header-inner">
             <div class="container-fluid py-2">
@@ -341,52 +192,205 @@
         </div><!--//app-sidepanel-->
     </header><!--//app-header-->
 
-    <div class="app-wrapper">
-        <div class="app-content pt-3 p-md-3 p-lg-4">
-            <div class="container-xl">
-                <div class="mt-5">
-                    @yield('content')
-                </div>
 
+
+</head>
+<style>
+    .app-utility-item {
+        margin-bottom: 15px;
+        position: relative;
+        text-align: center;
+    }
+
+    input[type="text"],
+    select {
+        width: calc(100% - 6px);
+        padding: 4px;
+        /* border: 2px solid #ccc; */
+        border-radius: 4px;
+        /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+        font-size: 16px;
+        text-align: center;
+    }
+
+    select {
+        background: white;
+        appearance: none;
+    }
+
+    select option:checked {
+        background: #f0f0f0;
+    }
+
+    .dropdown-toggle {
+        display: inline-block;
+        padding: 4px;
+        background-color: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        color: #333;
+        text-decoration: none;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 2px;
+        border-radius: 1px;
+        z-index: 1;
+        min-width: 120px;
+    }
+
+    .dropdown-menu li {
+        list-style: none;
+        padding: 1px 0;
+        cursor: pointer;
+    }
+
+    .dropdown-divider {
+        border-top: 1px solid #ccc;
+        margin: 6px 0;
+    }
+
+    .dropdown-menu a {
+        text-decoration: none;
+        color: #333;
+        display: block;
+        padding: 8px 0;
+        transition: background-color 0.3s;
+    }
+
+    .dropdown-menu a:hover {
+        background-color: #f0f0f0;
+    }
+
+
+    /* zoom in nav  */
+    .nav-link-text {
+        display: inline-block;
+        transition: transform 0.5s ease;
+        /* You can adjust the duration and timing function for zoom on hover */
+    }
+
+    .nav-link:hover .nav-link-text {
+        transform: scale(1.2);
+        /* Adjust the zoom on hover scale */
+    }
+
+    /* logo and logo text */
+    /* Add this to your CSS file or style section */
+    .app-logo {
+        display: inline-block;
+        animation: slideRight 2s ease-in-out;
+        /* You can adjust the duration and timing function for sliding */
+        transition: transform 0.5s ease;
+        /* You can adjust the duration and timing function for zoom on hover */
+    }
+
+    .logo-text {
+        display: inline-block;
+        transition: transform 0.5s ease;
+        /* You can adjust the duration and timing function for zoom on hover */
+    }
+
+    .app-branding:hover .app-logo,
+    .app-branding:hover .logo-text {
+        transform: scale(1.1);
+        /* Adjust the zoom on hover scale */
+    }
+
+
+    @keyframes slideRight {
+        0% {
+            transform: translateX(-100%);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    /* for mobile */
+
+
+    /* Responsive styles for mobile screens */
+    @media screen and (max-width: 600px) {
+
+        /* Common styles for input[type="text"] and select */
+        input[type="text"],
+        select {
+            width: calc(100% - -12px);
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* Common styles for .app-utility-item */
+        .app-utility-item {
+            margin-bottom: 4px;
+            position: relative;
+            text-align: left;
+            width: 95px;
+            margin: 0;
+            margin-left: 13px;
+            font-size: 13px;
+        }
+
+    }
+</style>
+
+<body>
+    <div class="container">
+
+        <div class="app-wrapper">
+            <div class="app-content pt-3 p-md-3 p-lg-4">
+                <div class="container-xl">
+                    <div class="mt-5">
+                        @yield('content')
+                    </div>
+
+                </div>
             </div>
+
+            <footer class="app-footer">
+                <div class="container text-center py-3">
+                </div>
+            </footer><!--//app-footer-->
         </div>
 
-        <footer class="app-footer">
-            <div class="container text-center py-3">
-            </div>
-        </footer><!--//app-footer-->
-    </div>
+        @include('sweetalert::alert')
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
 
-    @include('sweetalert::alert')
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
-
-    <script src="assets/js/yearpicker.js"></script>
+        <script src="assets/js/yearpicker.js"></script>
 
 
-    <script src="https://momentjs.com/downloads/moment.js"></script>
-    <script src="assets/plugins/popper.min.js"></script>
-    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+        <script src="https://momentjs.com/downloads/moment.js"></script>
+        <script src="assets/plugins/popper.min.js"></script>
+        <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 
-    <!-- Charts JS -->
-    <script src="assets/plugins/chart.js/chart.min.js"></script>
-    <script src="assets/js/index-charts.js"></script>
+        <!-- Charts JS -->
+        <script src="assets/plugins/chart.js/chart.min.js"></script>
+        <script src="assets/js/index-charts.js"></script>
 
-    <script src="assets/js/app.js"></script>
-    <script src="assets/js/MonthPicker.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    @stack('js')
+        <script src="assets/js/app.js"></script>
+        <script src="assets/js/MonthPicker.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        @stack('js')
 
 
 

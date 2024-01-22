@@ -179,9 +179,10 @@
 
 <div class="certificate">
     <!-- START OF HEADER -->
-    <img src="assets/images/isu-logo.png" alt="Logo" class="logo"> <!-- Added logo image -->
-    <img src="assets/images/isu-logo-med.png" alt="Logo" class="logos"> <!-- Added logo image -->
+
     <div class="header">
+        <img src="assets/images/isu-logo.png" alt="Logo" class="logo"> <!-- Added logo image -->
+        <img src="assets/images/isu-logo-med.png" alt="Logo" class="logos"> <!-- Added logo image -->
         <div class="paragraphs">Republic of The Philippines</div>
         <div class="paragraph">ISABELA STATE UNIVERSITY</div>
         <div class="paragraphs">Santiago Extension Unit</div>

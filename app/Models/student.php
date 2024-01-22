@@ -11,6 +11,9 @@ class student extends Model
 
     protected $table = 'students';
     protected $fillable = [
+        'fad_Allergy',
+        'fad_indicate',
+
         'student_id',
         'firstname',
         'middlename',
@@ -19,8 +22,12 @@ class student extends Model
         'year',
         'gender',
         'contact',
+        'citizenship',
         'civilStat',
         'dateOfBirth',
+        'placeOfBirth',
+        'course',
+        'year',
         'homeAddress',
 
         'parentName',
@@ -48,8 +55,6 @@ class student extends Model
         'schoolYear',
         'contact',
 
-        'fad_Allergy',
-        'fad_indicate',
 
 
     ];
