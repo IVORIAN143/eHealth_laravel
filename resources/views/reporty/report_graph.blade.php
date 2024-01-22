@@ -215,161 +215,137 @@
         .flex-container {
             display: flex;
             justify-content: center;
+        }
+
+        .flex-item {
+            /* flex: 1; */
+            margin: 10px;
+            display: flex;
+            justify-content: center;
             align-items: center;
-            /* background-color: #f1f1f1;    */
+        }
+
+        .card {
+            background: #fff;
             padding: 10px;
-            height: auto;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            max-width: 600px;
+            /* Set max width for better readability */
+        }
 
-            /* Set height to fill the viewport
-                        }
-
-                        */
-            .flex-item {
-                /* flex: 1; */
-                margin: 10px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .card {
-                background: #fff;
-                padding: 10px;
-                text-align: center;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                border-radius: 8px;
-                transition: all 0.3s ease;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                max-width: 600px;
-                /* Set max width for better readability */
-            }
-
-            /*
+        /*
                         .card:hover {
                             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
                         }
 
                         */
+        canvas {
+            width: 100%;
+            height: 180px;
+            display: block;
+            margin: 20px auto;
+            /* Adjust margin for better centering */
+        }
+
+        .card a {
+            text-decoration: none;
+            color: #333;
+            /* Set text color for readability */
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .card-link {
+            display: block;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .flex-container {
+                display: flex;
+                justify-content: center;
+            }
+
+            .flex-item {
+                margin: 10px 0;
+            }
+
+            .card {
+                max-width: 100%;
+                box-sizing: border-box;
+                /* Include padding and border in max-width */
+            }
+
             canvas {
                 width: 100%;
-                height: 180px;
-                display: block;
-                margin: 20px auto;
-                /* Adjust margin for better centering */
+                height: auto;
+                /* Allow the height to adjust proportionally */
             }
 
             .card a {
-                text-decoration: none;
+                font-size: 18px;
+                /* Adjust font size for smaller screens */
+            }
+
+            #notificationContainer {
+                top: 10px;
+                right: 10px;
+                max-width: 90%;
+            }
+
+            #notificationBox {
+                /* Add or modify styling for the notification box as needed */
+                border: 1px solid #ddd;
+                padding: 15px;
+                background-color: #f9f9f9;
+                border-radius: 5px;
+            }
+
+            #notificationIcon {
+                font-size: 24px;
+                margin-right: 8px;
+            }
+
+            #notificationMessage {
+                flex-grow: 1;
                 color: #333;
-                /* Set text color for readability */
-                font-size: 22px;
-                font-weight: bold;
             }
 
-            .card-link {
-                display: block;
-                padding: 20px;
+            .closeButton {
+                top: 5px;
+                right: 5px;
+                font-size: 16px;
+            }
+        }
+
+
+        @keyframes popUpEffect {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
             }
 
-            @media (max-width: 768px) {
-                .flex-container {
-                    flex-direction: column;
-                }
-
-                .flex-item {
-                    margin: 10px 0;
-                }
-
-                .card {
-                    max-width: 100%;
-                    /* Adjust width for smaller screens */
-                }
-
-                canvas {
-                    width: 90%;
-                    height: 200px;
-                    /* Adjust height for smaller screens */
-                }
-
-                .card a {
-                    font-size: 20px;
-                    /* Adjust font size for smaller screens */
-                }
-
-
-                #notificationContainer {
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    max-width: 300px;
-                    background-color: #fff;
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                    border-radius: 5px;
-                    padding: 10px;
-                    display: none;
-                    /* Initially hidden */
-                    z-index: 1000;
-                }
-
-                #notificationBox {
-                    /* Add styling for the notification box as needed */
-                    border: 1px solid #ddd;
-                    padding: 15px;
-                    background-color: #f9f9f9;
-                    border-radius: 5px;
-                }
-
-                #notificationContent {
-                    display: flex;
-                    align-items: center;
-                }
-
-                #notificationIcon {
-                    font-size: 30px;
-                    margin-right: 10px;
-                    color: #1877f2;
-                    /* Facebook blue */
-                }
-
-                #notificationMessage {
-                    flex-grow: 1;
-                    color: #333;
-                }
-
-                /* Close button styling */
-                .closeButton {
-                    cursor: pointer;
-                    position: absolute;
-                    top: 5px;
-                    right: 10px;
-                    font-size: 18px;
-                    color: #aaa;
-                }
+            50% {
+                transform: scale(1);
+                opacity: 1;
             }
 
-            @keyframes popUpEffect {
-                0% {
-                    transform: scale(0.8);
-                    opacity: 0;
-                }
-
-                50% {
-                    transform: scale(1);
-                    opacity: 1;
-                }
-
-                100% {
-                    transform: scale(1);
-                    opacity: 1;
-                }
+            100% {
+                transform: scale(1);
+                opacity: 1;
             }
+        }
 
-            h1 {
-                animation: popUpEffect 1.5s ease-out;
-                /* 1.5s duration with ease-out timing function */
-            }
+        h1 {
+            animation: popUpEffect 1.5s ease-out;
+            /* 1.5s duration with ease-out timing function */
+        }
     </style>
 
     <center>
@@ -398,8 +374,6 @@
 
 
         <div class="flex-container">
-
-
             <div class="flex-item">
                 <div class="card">
                     <a href="{{ route('report') }}">Monthly Consumption
@@ -414,36 +388,35 @@
                     </a>
                 </div>
             </div>
-            {{-- </div> --}}
+        </div>
 
-            <div class="flex-container">
-                <div class="flex-item">
-                    <div class="card">
-                        <a href="{{ route('students') }}"><small>Total Student</small> <small id="studentsLabelCount">
-                            </small>
-                            <canvas id="myDonutChart"></canvas>
-                        </a>
-                    </div>
+        <div class="flex-container">
+            <div class="flex-item">
+                <div class="card">
+                    <a href="{{ route('students') }}"><small>Total Student</small> <small id="studentsLabelCount">
+                        </small>
+                        <canvas id="myDonutChart"></canvas>
+                    </a>
                 </div>
+            </div>
 
 
-                <div class="flex-item">
-                    <div class="card">
-                        <a href="{{ route('consultation') }}">
-                            <h3>Diagnosed Consultations</h3>
-                            <canvas id="diagnosedCountChart"></canvas>
-                        </a>
-                    </div>
+            <div class="flex-item">
+                <div class="card">
+                    <a href="{{ route('consultation') }}">
+                        <h3>Diagnosed Consultations</h3>
+                        <canvas id="diagnosedCountChart"></canvas>
+                    </a>
                 </div>
-
-
             </div>
         </div>
 
-        <footer class="app-footer">
-            <div class="container text-center py-3">
-            </div>
-        </footer><!--//app-footer-->
+    </div>
+
+    <footer class="app-footer">
+        <div class="container text-center py-3">
+        </div>
+    </footer><!--//app-footer-->
     </div>
 
     @include('sweetalert::alert')
