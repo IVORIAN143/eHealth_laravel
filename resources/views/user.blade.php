@@ -172,12 +172,13 @@
                         </div>
                         <div class="form-group">
                             <label for="Edit_email">Email</label>
-                            <input id="Edit_email" value="{{ old('email') === 'email' ?: '' }}" type="text"
-                                name="email" class="form-control" style="text-align: left;">
+                            <input id="Edit_email" value="{{ old('email') }}" type="text" name="email"
+                                class="form-control" style="text-align: left;">
                             @error('email')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
                         </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
