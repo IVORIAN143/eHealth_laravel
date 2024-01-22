@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Consultation;
-use App\Models\Equipment;
-use App\Models\Medicine;
-use App\Models\Student;
-use App\Models\User;
+use App\Models\consultation;
+use App\Models\equipment;
+use App\Models\eedicine;
+use App\Models\student;
+use App\Models\user;
 use Illuminate\Http\Request;
 
 class ReportGraphController extends Controller
