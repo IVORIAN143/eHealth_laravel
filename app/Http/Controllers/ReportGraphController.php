@@ -36,8 +36,8 @@ class ReportGraphController extends Controller
         }
 
         // The rest of your code remains unchanged
-        $equipment = equipment::count();
-        $medicine = medicine::count();
+        $equipments = equipment::count();
+        $medicines = medicine::count();
         $users = user::count();
         $pendingCount = consultation::where('status', 0)->count();
         $approvedCount = consultation::where('status', 1)->count();
