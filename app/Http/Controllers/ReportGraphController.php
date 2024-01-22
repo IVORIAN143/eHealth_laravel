@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\consultation;
 use App\Models\equipment;
-use App\Models\eedicine;
+use App\Models\medicine;
 use App\Models\student;
 use App\Models\user;
 use Illuminate\Http\Request;
@@ -36,8 +36,8 @@ class ReportGraphController extends Controller
         }
 
         // The rest of your code remains unchanged
-        $equipments = equipment::count();
-        $medicines = medicine::count();
+        $equipment = equipment::count();
+        $medicine = medicine::count();
         $users = user::count();
         $pendingCount = consultation::where('status', 0)->count();
         $approvedCount = consultation::where('status', 1)->count();
