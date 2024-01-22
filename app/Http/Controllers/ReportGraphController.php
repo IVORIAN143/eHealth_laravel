@@ -36,14 +36,14 @@ class ReportGraphController extends Controller
         }
 
         // The rest of your code remains unchanged
-        $equipment = Equipment::count();
-        $medicine = Medicine::count();
-        $users = User::count();
-        $pendingCount = Consultation::where('status', 0)->count();
-        $approvedCount = Consultation::where('status', 1)->count();
-        $declinedCount = Consultation::where('status', 2)->count();
-        $nurseCount = User::where('role', 'nurse')->count();
-        $doctorCount = User::where('role', 'doctor')->count();
+        $equipment = equipment::count();
+        $medicine = medicine::count();
+        $users = user::count();
+        $pendingCount = consultation::where('status', 0)->count();
+        $approvedCount = consultation::where('status', 1)->count();
+        $declinedCount = consultation::where('status', 2)->count();
+        $nurseCount = user::where('role', 'nurse')->count();
+        $doctorCount = user::where('role', 'doctor')->count();
 
         return view('reporty.report_graph', compact('nurseCount', 'doctorCount', 'equipment', 'medicine', 'users', 'pendingCount', 'approvedCount', 'declinedCount'));
     }
