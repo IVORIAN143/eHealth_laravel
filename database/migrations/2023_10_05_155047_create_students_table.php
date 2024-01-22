@@ -21,8 +21,10 @@ return new class extends Migration
             $table->string('firstname')->nullable();
             $table->string('middlename')->nullable();
             $table->string('gender')->nullable();
+            $table->string('citizenship')->nullable();
             $table->string('civilStat')->nullable();
             $table->string('dateOfBirth')->nullable();
+            $table->string('placeOfBirth')->nullable();
             $table->enum('course', ['bsit', 'bsa'])->nullable();
             $table->integer('year')->nullable();
             $table->string('homeAddress')->nullable();

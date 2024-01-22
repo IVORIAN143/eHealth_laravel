@@ -206,6 +206,14 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="citizenship">Citizenship</label>
+                        <input value="{{ old('citizenship') }}" type="text" name="citizenship" class="form-control">
+                        @error('citizenship')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
                         <label for="civilStat">Civil Status</label>
                         <select name="civilStat" class="form-control">
                             <option value="" hidden></option>
@@ -225,6 +233,15 @@
                         <input value="{{ old('dateOfBirth') ?? $student->dateOfBirth->format('Y-m-d') }}" type="date"
                             name="dateOfBirth" class="form-control">
                         @error('dateOfBirth')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="placeOfBirth">Place of Birth</label>
+                        <input value="{{ old('placeOfBirth') }}" type="text" name="placeOfBirth"
+                            class="form-control">
+                        @error('placeOfBirth')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
@@ -310,7 +327,8 @@
                     <div class="form-group">
                         <label for="height">Height</label>
                         <input id="height" value="{{ old('height') ?? $student->height }}" type="text"
-                            name="height" class="form-control" placeholder="Kilogram not pound">
+                            name="height" class="form-control" placeholder="Centimeter not feet" maxlength="3"
+                            pattern="[0-9]+">
                         @error('height')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -319,7 +337,8 @@
                     <div class="form-group">
                         <label for="weight">Weight</label>
                         <input id="weight" value="{{ old('weight') ?? $student->weight }}" type="text"
-                            name="weight" class="form-control" placeholder="Centimeter not feet">
+                            name="weight" class="form-control" placeholder="Kilogram not pound" maxlength="3"
+                            pattern="[0-9]+">
                         @error('weight')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -447,8 +466,7 @@
             // parentNumber
             $("#parentNumber").inputmask("99999999999");
 
-            $("#height").inputmask("999"); // Apply specific mask to the student_id input field
-            $("#weight").inputmask("999"); // Apply specific mask to the student_id input field
+
         });
 
         $(document).ready(function() {

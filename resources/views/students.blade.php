@@ -223,6 +223,16 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="citizenship">Citizenship</label>
+                            <input value="{{ old('citizenship') }}" type="text" name="citizenship"
+                                class="form-control">
+                            @error('citizenship')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+
+                        <div class="form-group">
                             <label for="civilStat">Civil Status</label>
                             <select name="civilStat" class="form-control">
                                 <option value="" hidden></option>
@@ -231,6 +241,15 @@
                                 <option value="Widowed ">widowed</option>
                             </select>
                             @error('civilStat')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="placeOfBirth">Place Of Birth</label>
+                            <input value="{{ old('placeOfBirth') }}" type="text" name="placeOfBirth"
+                                class="form-control">
+                            @error('placeOfBirth')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -506,6 +525,15 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="citizanship">Citizenship</label>
+                            <input value="{{ old('citizanship') }}" type="text" name="citizanship"
+                                class="form-control">
+                            @error('citizanship')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label for="civilStat">Civil Status</label>
                             <select name="civilStat" class="form-control">
                                 <option value="" hidden></option>
@@ -514,6 +542,15 @@
                                 <option value="Widowed ">widowed</option>
                             </select>
                             @error('civilStat')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="placeOfBirth">Place of Birth</label>
+                            <input value="{{ old('placeOfBirth') }}" type="text" name="placeOfBirth"
+                                class="form-control">
+                            @error('placeOfBirth')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
