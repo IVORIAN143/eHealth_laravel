@@ -5,9 +5,9 @@
     <style>
         .student-info {
             background-color: #fff;
-            border: 1px solid #ddd;
+            /* border: 1px solid #ddd; */
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
             max-width: 100%;
             height: 100%;
             width: 100%;
@@ -135,7 +135,7 @@
                     <p>Sex: {{ $student->gender }} </p>
                 </div>
                 <div class="info-section">
-                    <p>Date of Birth: {{ $student->dateOfBirth->format('Y-m-d') }}</p>
+                    <p>Date of Birth: {{ $student->dateOfBirth->format('m-d-Y') }}</p>
                     <p>Citizenship: {{ $student->citizenship }}</p>
                     <p>Civil Status: {{ $student->civilStat }}</p>
                 </div>
@@ -211,7 +211,7 @@
                                         @foreach ($student->consultation as $consultation)
                                             <tr>
                                                 {{-- Add the necessary columns based on your table structure --}}
-                                                <td>{{ $consultation->updated_at }}</td>
+                                                <td>{{ $consultation->updated_at->format('m - d - Y') }}</td>
                                                 <td>{{ $consultation->complaints }}</td>
                                                 <td>{{ $consultation->diagnosis }}</td>
                                                 <td>{{ $consultation->instruction }}</td>
