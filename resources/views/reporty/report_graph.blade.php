@@ -342,10 +342,12 @@
             }
         }
 
-        h1 {
+        /* h1 {
             animation: popUpEffect 1.5s ease-out;
             /* 1.5s duration with ease-out timing function */
         }
+
+        */
     </style>
 
     <center>

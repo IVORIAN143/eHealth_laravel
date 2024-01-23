@@ -275,7 +275,7 @@
                     printWindow.onafterprint = function() {
                         printWindow.close();
                     };
-                }, 6000); // 5000 milliseconds = 5 seconds
+                }, 3000);
             };
         }
 
