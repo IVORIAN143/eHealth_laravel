@@ -239,12 +239,6 @@
             /* Set max width for better readability */
         }
 
-        /*
-                        .card:hover {
-                            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-                        }
-
-                        */
         canvas {
             width: 100%;
             height: 180px;
@@ -341,13 +335,6 @@
                 opacity: 1;
             }
         }
-
-        /* h1 {
-            animation: popUpEffect 1.5s ease-out;
-            /* 1.5s duration with ease-out timing function */
-        }
-
-        */
     </style>
 
     <center>

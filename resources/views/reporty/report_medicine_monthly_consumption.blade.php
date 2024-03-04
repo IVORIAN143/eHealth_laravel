@@ -51,6 +51,18 @@
             max-height: 80px;
         }
 
+        img.logo {
+            margin-left: -13px;
+            margin-bottom: -95px;
+            background-image: none;
+            float: initial;
+        }
+
+        img.logos {
+            margin-left: 230px;
+            margin-bottom: -95px;
+        }
+
         .certificate img {
             max-width: 100%;
             height: auto;
@@ -127,6 +139,7 @@
             <img src="assets/images/isu-logo-med.png" alt="Logo" class="logo"> <!-- Added logo image -->
             <img src="assets/images/isu-logo.png" alt="Logo" class="logos"> <!-- Added logo image -->
             <div class="header">
+
                 <div class="paragraphs">Republic of The Philippines</div>
                 <div class="paragraph">ISABELA STATE UNIVERSITY</div>
                 <div class="paragraphs">Santiago Extension Unit</div>
@@ -134,7 +147,9 @@
                 <div class="hs"><i>Health Services
                         <br> MEDICINE CONSUMPTION REPORT
                     </i></div>
+
             </div>
+
         </div>
 
         <div class="tg-wrap">
